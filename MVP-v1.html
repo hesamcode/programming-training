@@ -1,0 +1,1760 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>آشنایی با برنامه‌نویسی و وب</title>
+    <style>
+      :root {
+        --bg-page: #f8fafc;
+        --bg-card: #ffffff;
+        --bg-code: #f1f5f9;
+        --border: #e2e8f0;
+        --text-main: #0f172a;
+        --text-light: #475569;
+        --primary: #3b82f6;
+        --secondary: #10b981;
+        --accent: #8b5cf6;
+        --html: #ea580c;
+        --css: #2563eb;
+        --js: #d97706;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --error: #ef4444;
+        --progress-start: #3b82f6;
+        --progress-end: #8b5cf6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      button {
+        border: none;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        background-color: #cbd5e1;
+        color: var(--text-light);
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      html {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      body {
+        width: 100%;
+        max-width: 700px;
+        height: auto;
+        background-color: var(--bg-page);
+        color: var(--text-main);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .container {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .card {
+        width: 100%;
+        height: auto;
+        background-color: var(--bg-card);
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .card h2 {
+        color: var(--primary);
+        font-size: 20px;
+      }
+
+      .card p {
+        color: var(--text-main);
+        font-size: 15px;
+      }
+
+      .course {
+        width: 100%;
+        background-color: var(--bg-card);
+        border-radius: 10px;
+        border: 1px solid var(--accent);
+        padding: 15px;
+      }
+
+      .course-html {
+        border-color: var(--html);
+      }
+
+      .course-css {
+        border-color: var(--css);
+      }
+
+      .course-js {
+        border-color: var(--js);
+      }
+
+      .course-title {
+        color: var(--accent);
+        font-size: 20px;
+      }
+
+      .course-title-html {
+        color: var(--html);
+      }
+
+      .course-title-css {
+        color: var(--css);
+      }
+
+      .course-title-js {
+        color: var(--js);
+      }
+
+      .course-description {
+        color: var(--text-main);
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .start-course-btn {
+        width: 100%;
+        height: 40px;
+        background-color: var(--accent);
+        color: #ffffff;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .start-course-btn-html {
+        background-color: var(--html);
+      }
+
+      .start-course-btn-css {
+        background-color: var(--css);
+      }
+
+      .start-course-btn-js {
+        background-color: var(--js);
+      }
+
+      .lesson-container {
+        width: 100%;
+        height: auto;
+        background-color: var(--bg-page);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+      }
+
+      .lesson-box {
+        width: 100%;
+        max-width: 700px;
+        height: auto;
+        background-color: var(--bg-page);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: fixed;
+        bottom: 0;
+      }
+
+      .lesson-header {
+        width: 100%;
+        height: 60px;
+        padding: 10px;
+        background-color: var(--bg-card);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .lesson-header-box {
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .lesson-title {
+        font-size: 15px;
+        font-weight: bold;
+        color: var(--text-main);
+      }
+
+      .return-btn,
+      .lesson-menu {
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        color: var(--text-main);
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .progress-wrapper {
+        width: 100%;
+        height: auto;
+        background-color: var(--bg-code);
+        overflow: hidden;
+        position: sticky;
+        top: 60px;
+        z-index: 9;
+      }
+
+      .progress-bar {
+        width: 0%;
+        height: 20px;
+        background: linear-gradient(
+          90deg,
+          var(--progress-start),
+          var(--progress-end)
+        );
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        width: 100%;
+        background-color: transparent;
+        font-size: 10px;
+        color: var(--text-main);
+        text-align: center;
+        position: absolute;
+        top: 0;
+        line-height: 20px;
+      }
+
+      .lessons {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        background-color: var(--bg-page);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 10px;
+        overflow-y: auto;
+        margin-bottom: 360px;
+      }
+
+      .lesson-btn {
+        width: 100%;
+        height: 40px;
+        background-color: var(--bg-card);
+        color: var(--text-main);
+        border-radius: 10px;
+        font-size: 15px;
+        display: flex;
+        flex-shrink: 0;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid var(--border);
+      }
+
+      .lesson-btn-active {
+        background-color: var(--primary);
+        color: #ffffff;
+        border: 1px solid var(--primary);
+        font-weight: bold;
+      }
+
+      .lesson {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        background-color: var(--bg-page);
+        font-family: "Vazirmatn", sans-serif;
+        text-align: right;
+        white-space: pre-wrap;
+        word-break: break-word;
+        direction: rtl;
+        overflow-y: auto;
+        margin-bottom: 360px;
+      }
+
+      .lesson-action {
+        width: 100%;
+        height: 60px;
+        padding: 10px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .prev-lesson-btn {
+        width: 50%;
+        height: 40px;
+        background-color: var(--secondary);
+        color: #ffffff;
+        border-radius: 10px;
+      }
+
+      .check-exercise-btn,
+      .next-lesson-btn {
+        width: 50%;
+        height: 40px;
+        background-color: var(--primary);
+        color: #ffffff;
+        border-radius: 10px;
+      }
+
+      .code-container {
+        width: 100%;
+        height: 300px;
+        background: var(--bg-page);
+        border-top: 1px solid var(--border);
+        overflow: hidden;
+      }
+
+      .code-header {
+        width: 100%;
+        height: 60px;
+        background-color: var(--bg-card);
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .header-buttons {
+        width: auto;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+      }
+
+      .copy-code,
+      .run-code,
+      .view-code {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+
+      .copy-code {
+        background-color: var(--secondary);
+      }
+
+      .run-code {
+        background-color: var(--primary);
+      }
+
+      .view-code {
+        background-color: var(--accent);
+      }
+
+      .code-language,
+      .output-title {
+        width: auto;
+        max-width: 70%;
+        height: 40px;
+        background-color: var(--bg-code);
+        color: var(--text-main);
+        padding: 0 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        font-size: 15px;
+        font-weight: bold;
+        font-family: monospace, Consolas, Monaco, "Andale Mono";
+        display: flex;
+        align-items: center;
+        text-align: center;
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+
+      .code-editor,
+      .code-output {
+        width: 100%;
+        height: calc(100% - 60px);
+      }
+
+      .editor {
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-code);
+        color: var(--text-main);
+        border: none;
+        padding: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: monospace, Consolas, Monaco, "Andale Mono";
+        text-align: left;
+        direction: ltr;
+        line-height: 1.6;
+        letter-spacing: 1.6;
+        word-spacing: 1.6;
+        white-space: pre;
+        resize: none;
+        overflow: auto;
+      }
+
+      .editor:focus {
+        outline: none;
+      }
+
+      .output {
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff;
+        border: none;
+      }
+
+      .code-box {
+        min-width: 150px;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        background: var(--bg-card);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        font-family: sans-serif;
+        text-align: left;
+        direction: rtl;
+        position: relative;
+        margin: 10px auto;
+        overflow: hidden;
+      }
+
+      .copy-code-button {
+        width: 30px;
+        height: 30px;
+        background-color: var(--secondary);
+        color: #ffffff;
+        padding: 5px;
+        border-radius: 5px;
+        border: none;
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 10px 10px 0 0;
+      }
+
+      .language {
+        width: auto;
+        height: 30px;
+        background-color: var(--bg-code);
+        color: var(--text-main);
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid var(--border);
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+
+      .code {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        background-color: var(--bg-code) !important;
+        color: var(--text-main);
+        padding: 10px !important;
+        border-radius: 0 0 9px 9px !important;
+        margin: 0;
+        margin-top: 10px;
+        font-size: 15px !important;
+        font-weight: 600;
+        font-family: Consolas, Monaco, "Andale Mono", monospace !important;
+        text-align: left;
+        direction: ltr;
+        line-height: 1.6;
+        letter-spacing: 1.6;
+        word-spacing: 1.6;
+        white-space: pre !important;
+        overflow-x: auto !important;
+        resize: none;
+      }
+
+      strong {
+        font-weight: bold;
+        color: var(--text-main);
+      }
+
+      .little-code {
+        width: auto !important;
+        max-width: 100%;
+        height: auto;
+        padding: 3px;
+        background-color: var(--bg-code);
+        color: var(--text-main);
+        border-radius: 5px;
+        border: 1px solid var(--border);
+        font-size: 12px;
+        font-weight: 600;
+        font-family: Consolas, Monaco, "Andale Mono", monospace !important;
+        display: inline-block;
+        text-align: left;
+        direction: ltr;
+      }
+
+      em {
+        font-style: italic;
+        color: var(--text-light);
+      }
+
+      del {
+        text-decoration: line-through;
+        color: var(--error);
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        color: var(--accent);
+        border-bottom-color: var(--primary);
+      }
+
+      .blockquote {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        background-color: var(--bg-card);
+        border-radius: 10px;
+        font-style: italic;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .blockquote-border {
+        width: 5px;
+        background-color: var(--secondary);
+        border-radius: 5px;
+        align-self: stretch;
+      }
+
+      .exercise-box {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        background-color: var(--bg-card);
+        border-radius: 10px;
+        border: 1px solid var(--warning);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: right;
+      }
+
+      .exercise-title {
+        color: var(--warning);
+      }
+
+      @media (min-width: 700px) {
+        body {
+          border-right: 1px solid var(--border);
+          border-left: 1px solid var(--border);
+        }
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>دنیای برنامه‌نویسی</h1>
+      <!-- کارت 1: برنامه‌نویسی -->
+      <div class="card">
+        <h2>💻 برنامه‌نویسی:</h2>
+        <p>
+          برنامه‌نویسی فرآیند نوشتن دستورالعمل هایی است که به کامپیوترها می‌گوید
+          چگونه وظایف خاصی را انجام دهند. این کار با استفاده از زبان‌های
+          برنامه‌نویسی مختلف انجام می‌شود و هدف آن حل مسائل، خودکارسازی فرآیندها
+          و ایجاد نرم‌افزارها و برنامه‌های کاربردی است.
+        </p>
+      </div>
+
+      <h2>به دنیای برنامه نویسی خوش آمدید!</h2>
+
+      <h3>🡫 دوره های آموزشی 🡫</h3>
+
+      <div class="card courses"></div>
+    </div>
+
+    <div class="lesson-container hidden">
+      <div class="lesson-header">
+        <div class="lesson-header-box">
+          <button class="return-btn">🡪</button>
+          <div class="lesson-title"></div>
+        </div>
+        <button class="lesson-menu">☰</button>
+      </div>
+      <div class="progress-wrapper">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-text" id="progressText"></div>
+      </div>
+      <div class="lessons"></div>
+      <div class="lesson hidden"></div>
+
+      <div class="lesson-box">
+        <div class="code-container">
+          <div class="code-header">
+            <div class="header-buttons">
+              <button class="copy-code">کپی</button>
+              <button class="run-code">اجرا</button>
+              <button class="view-code hidden">کد</button>
+            </div>
+            <div class="code-language">HTML CSS JS</div>
+            <div class="output-title hidden">WebPage</div>
+          </div>
+          <div class="code-editor">
+            <textarea
+              class="editor"
+              placeholder="write your code here..."
+              spellcheck="false"
+            ></textarea>
+          </div>
+          <div class="code-output hidden">
+            <iframe class="output"></iframe>
+          </div>
+        </div>
+        <div class="lesson-action">
+          <button class="check-exercise-btn">بررسی تمرین</button>
+          <button class="next-lesson-btn hidden">درس بعدی</button>
+          <button class="prev-lesson-btn">درس قبلی</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // درس‌های کامل برای آموزش مقدماتی وب
+      const courses = [
+        {
+          id: "html",
+          published: true,
+          title: "دوره HTML",
+          description:
+            "در این دوره از صفر تا صد HTML رو یاد می‌گیری. از تگ‌های پایه تا ساختارهای پیشرفته، همه چیز رو با مثال عملی تمرین می‌کنی.",
+          lessons: [
+            {
+              id: "1",
+              title: "درس اول: ساختار پایه یک سند HTML",
+              content:
+                '# 🌟 به دنیای HTML خوش آمدید\n\nHTML مخفف "HyperText Markup Language" است.\nاین زبان به مرورگر می‌گوید که هر قسمت از صفحه چه چیزی است.\n\n## 🏗️ ساختار اصلی هر صفحه HTML\n\nهر صفحه HTML از یک قالب ثابت پیروی می‌کند. در این درس با این قالب آشنا می‌شوید.\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset="UTF-8">\n    <title>عنوان صفحه</title>\n</head>\n<body>\n    <!-- محتوای صفحه اینجا قرار می‌گیرد -->\n</body>\n</html>```\n\n## 📖 توضیح خط به خط\n\n``<!DOCTYPE html>`` : به مرورگر می‌گوید این صفحه از نوع HTML5 است.\n\n``<html>`` : ریشه یا والد تمام تگ‌های دیگر.\n\n``<head>`` : اطلاعات پشت صحنه (عنوان صفحه، تنظیمات کاراکترها).\n\n``<meta charset="UTF-8">`` : برای نمایش درست حروف فارسی.\n\n``<title>`` : متنی که در سربرگ مرورگر نمایش داده می‌شود.\n\n``<body>`` : تمام چیزهایی که کاربر می‌بیند اینجا قرار می‌گیرد.\n\n,, تگ ``<meta charset="UTF-8">`` برای نوشتن متن فارسی ضروری است.\n\n^^ در کد داده شده، مقدار تگ ``<title>`` را به "صفحه اول من" تغییر دهید.\n(خروجی این کد یک صفحه خالی است)^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه وب</title>\n</head>\n<body>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه اول من</title>\n</head>\n<body>\n    <!-- محتوای اصلی اینجا قرار می‌گیرد -->\n</body>\n</html>',
+              read: false,
+              unlocked: true,
+            },
+            {
+              id: "2",
+              title: "درس دوم: آشنایی با تگ‌های پایه HTML",
+              content:
+                '# آشنایی با تگ و کامنت 👇\n\nحالا که با ساختار اصلی آشنا شدیم بیا ببینیم تگ و کامنت چیست...\n\n## 📖 تگ چیست؟\n\nهر تگ از یک **تگ باز** و یک **تگ بسته** تشکیل شده است.\n\n``<h1>`` : تگ باز\n\n``</h1>`` : تگ بسته\n\nمثال : ``<h1>این یک عنوان است</h1>``\n\n## 📝 تگ‌های مهم\n\nتگ ``<title>`` : عنوان صفحه در برگه مرورگر نمایش داده می‌شود.\n\nتگ ``<h1>`` : بزرگترین عنوان صفحه.\n\nتگ ``<p>`` : برای نوشتن متن و پاراگراف.\n\n,, تمام محتوایی که کاربر می‌بیند باید داخل ``<body>`` نوشته شود.\n\n## 💬 کامنت (Comment)\n\nکامنت نوشته‌ای است که در صفحه نمایش داده نمی‌شود و فقط برای راهنمایی برنامه‌نویس است.\n\n```html\n<!-- این یک کامنت است و در صفحه دیده نمی‌شود -->```\n\n^^ در کد داده شده، تگ ``<title>`` را به "صفحه اول من" تغییر دهید. سپس داخل ``<body>`` یک تگ ``<h1>`` با متن "سلام دنیا" و یک تگ ``<p>`` با متن "دارم HTML یاد می‌گیرم" بنویسید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه وب</title>\n</head>\n<body>\n    <!-- عنوان و پاراگراف را اینجا بنویسید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه اول من</title>\n</head>\n<body>\n    <h1>سلام دنیا</h1>\n    <p>دارم HTML یاد می‌گیرم</p>\n</body>\n</html>',
+              read: false,
+              unlocked: true,
+            },
+            {
+              id: "3",
+              title: "درس سوم: عناوین، پاراگراف و لیست‌ها",
+              content:
+                '# 📝 ساختاردهی محتوا با عناوین و پاراگراف‌ها\n\nپس از آشنایی با ساختار پایه، اکنون با تگ‌های پرکاربرد برای نمایش محتوا آشنا می‌شوید.\n\n## 🔤 تگ‌های عنوان (Heading)\n\nتگ‌های ``<h1>`` تا ``<h6>`` برای ایجاد عنوان استفاده می‌شوند.\n\n```html\n<h1>عنوان اصلی</h1>\n<h2>عنوان فرعی</h2>\n<h3>عنوان سطح سه</h3>\n```\n\n## 📄 تگ پاراگراف\n\nاز تگ ``<p>`` برای نوشتن متن و پاراگراف استفاده می‌شود.\n\n```html\n<p>این یک پاراگراف است. متن شما در اینجا قرار می‌گیرد.</p>\n```\n\n## 📋 تگ‌های لیست\n\nلیست‌ها دو نوع هستند : نامرتب (``<ul>``) و مرتب (``<ol>``).\n\n```html\n<ul>\n    <li>آیتم اول</li>\n    <li>آیتم دوم</li>\n</ul>\n\n<ol>\n    <li>مرحله اول</li>\n    <li>مرحله دوم</li>\n</ol>\n```\n\n,, تگ ``<li>`` نشان‌دهنده هر آیتم درون لیست است.\n\n^^ یک تگ ``<h1>`` با متن "خوش آمدید" بسازید. زیر آن یک تگ ``<p>`` با متن "این صفحه تمرین HTML من است" بنویسید. سپس یک لیست نامرتب (``<ul>``) شامل سه سرگرمی مورد علاقه خود ایجاد کنید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین عناوین و لیست</title>\n</head>\n<body>\n    <!-- عنوان، پاراگراف و لیست را اینجا بنویسید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه تمرین من</title>\n</head>\n<body>\n    <h1>خوش آمدید</h1>\n    <p>این صفحه تمرین HTML من است</p>\n    <ul>\n        <li>مطالعه کتاب</li>\n        <li>برنامه‌نویسی</li>\n        <li>ورزش</li>\n    </ul>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "4",
+              title: "درس چهارم: تصاویر و لینک‌ها",
+              content:
+                '# 🖼️ اضافه کردن تصاویر به صفحه\n\nتصاویر به صفحه جذابیت و ارتباط بصری می‌بخشند.\n\n## 🖌️ تگ تصویر\n\nتگ ``<img>`` یک تگ خودبسته است و تگ پایانی ندارد.\n\n```html\n<img src="address.jpg" alt="توضیح تصویر">\n```\n\n## 📖 ویژگی‌های تگ تصویر\n\nویژگی ``src`` : آدرس فایل تصویر را مشخص می‌کند.\n\nویژگی ``alt`` : متن جایگزین تصویر است. اگر تصویر بارگذاری نشود، این متن نمایش داده می‌شود.\n\n## 🔗 تگ لینک\n\nاز تگ ``<a>`` برای ایجاد لینک به صفحات دیگر استفاده می‌شود.\n\n```html\n<a href="https://google.com">متن لینک</a>\n```\n\n,, تگ ``<a>`` بدون ویژگی ``href`` کار نمی‌کند.\n\n^^ یک تگ ``<img>`` با آدرس "https://placehold.co/200" و متن جایگزین "تصویر نمونه" به صفحه اضافه کنید. زیر آن یک لینک با تگ ``<a>`` بسازید که به آدرس "https://google.com" اشاره داشته باشد و متن آن "رفتن به گوگل" باشد. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین تصویر و لینک</title>\n</head>\n<body>\n    <!-- تصویر و لینک را اینجا بنویسید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تصویر و لینک</title>\n</head>\n<body>\n    <img src="https://placehold.co/200" alt="تصویر نمونه">\n    <br>\n    <a href="https://google.com">رفتن به گوگل</a>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "5",
+              title: "درس پنجم: جداول در HTML",
+              content:
+                '# 📊 ساخت جدول برای نمایش داده‌ها\n\nجداول برای نمایش منظم اطلاعات در قالب سطر و ستون استفاده می‌شوند.\n\n## 🧱 ساختار جدول\n\n```html\n<table border="1">\n    <tr>\n        <th>نام</th>\n        <th>سن</th>\n    </tr>\n    <tr>\n        <td>احمد</td>\n        <td>۲۵</td>\n    </tr>\n</table>\n```\n\n## 📖 توضیح تگ‌ها\n\nتگ ``<table>`` : شروع و پایان جدول.\n\nتگ ``<tr>`` : یک سطر در جدول.\n\nتگ ``<th>`` : سلول عنوان (سرستون) - متن پررنگ نمایش داده می‌شود.\n\nتگ ``<td>`` : سلول داده معمولی.\n\nویژگی ``border="1"`` : به جدول حاشیه اضافه می‌کند.\n\n,, تعداد تگ‌های ``<td>`` در هر سطر، تعداد ستون‌های آن سطر را مشخص می‌کند.\n\n^^ یک جدول با ۳ سطر و ۳ ستون بسازید. سطر اول سرستون‌ها با عنوان‌های "نام"، "شغل"، "شهر" باشد. دو سطر بعد اطلاعات دلخواه (می‌تواند فرضی) بنویسید. به جدول ویژگی ``border="1"`` را اضافه کنید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین جدول</title>\n</head>\n<body>\n    <!-- جدول را اینجا بسازید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین جدول</title>\n</head>\n<body>\n    <table border="1">\n        <tr>\n            <th>نام</th>\n            <th>شغل</th>\n            <th>شهر</th>\n        </tr>\n        <tr>\n            <td>احمد</td>\n            <td>برنامه‌نویس</td>\n            <td>تهران</td>\n        </tr>\n        <tr>\n            <td>سارا</td>\n            <td>طراح</td>\n            <td>اصفهان</td>\n        </tr>\n    </table>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "6",
+              title: "درس ششم: فرم‌ها و فیلدهای ورودی",
+              content:
+                '# 📝 گرفتن اطلاعات از کاربر با فرم\n\nفرم‌ها راه ارتباط بین کاربر و وب‌سایت هستند.\n\n## 🧩 ساختار یک فرم ساده\n\n```html\n<form>\n    <label>نام :</label>\n    <input type="text" placeholder="نام خود را وارد کنید">\n    \n    <input type="submit" value="ارسال">\n</form>\n```\n\n## 📖 توضیح تگ‌ها\n\nتگ ``<form>`` : محفظه تمام فیلدهای فرم.\n\nتگ ``<label>`` : برچسب کنار هر فیلد.\n\nتگ ``<input>`` : فیلد ورودی اطلاعات.\n\nویژگی ``type`` : نوع ورودی را مشخص می‌کند (text, email, password, submit).\n\nویژگی ``placeholder`` : متن راهنما درون فیلد خالی.\n\n,, دکمه ارسال با ``type="submit"`` ساخته می‌شود.\n\n^^ یک فرم بسازید که سه فیلد داشته باشد : "نام" (type=text)، "ایمیل" (type=email)، "سن" (type=number). برای هر فیلد یک ``<label>`` مناسب و یک ``placeholder`` قرار دهید. در انتها یک دکمه ارسال با متن "ثبت اطلاعات" اضافه کنید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین فرم</title>\n</head>\n<body>\n    <!-- فرم را اینجا بسازید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین فرم</title>\n</head>\n<body>\n    <form>\n        <label>نام :</label>\n        <input type="text" placeholder="نام خود را وارد کنید"><br><br>\n        \n        <label>ایمیل :</label>\n        <input type="email" placeholder="example@site.com"><br><br>\n        \n        <label>سن :</label>\n        <input type="number" placeholder="سن خود را وارد کنید"><br><br>\n        \n        <input type="submit" value="ثبت اطلاعات">\n    </form>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "7",
+              title: "درس هفتم: دکمه‌های رادیویی و چک‌باکس",
+              content:
+                '# 🔘 انتخاب بین گزینه‌ها\n\nبرای سوالاتی که کاربر باید یکی یا چند گزینه را انتخاب کند، از رادیو و چک‌باکس استفاده می‌شود.\n\n## ⭕ دکمه رادیویی (انتخاب یکی)\n\n```html\n<p>جنسیت :</p>\n<input type="radio" name="gender" value="male"> مرد\n<input type="radio" name="gender" value="female"> زن\n```\n\n,, دقت کنید ``name`` رادیوها یکسان باشد تا فقط یکی انتخاب شود.\n\n## ✅ چک‌باکس (انتخاب چندتا)\n\n```html\n<p>علاقه‌مندی‌ها :</p>\n<input type="checkbox" value="book"> کتاب\n<input type="checkbox" value="music"> موسیقی\n<input type="checkbox" value="sport"> ورزش\n```\n\n^^ یک فرم بسازید که شامل یک گروه رادیویی برای "جنسیت" (گزینه‌های مرد و زن) و یک گروه چک‌باکس برای "علاقه‌مندی‌ها" (گزینه‌های کتاب، فیلم، ورزش) باشد. در انتها یک دکمه ارسال اضافه کنید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین رادیو و چک‌باکس</title>\n</head>\n<body>\n    <!-- فرم را اینجا بسازید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین رادیو و چک‌باکس</title>\n</head>\n<body>\n    <form>\n        <p>جنسیت :</p>\n        <input type="radio" name="gender" value="male"> مرد\n        <input type="radio" name="gender" value="female"> زن\n        \n        <p>علاقه‌مندی‌ها :</p>\n        <input type="checkbox" value="book"> کتاب\n        <input type="checkbox" value="movie"> فیلم\n        <input type="checkbox" value="sport"> ورزش\n        \n        <br><br>\n        <input type="submit" value="ثبت اطلاعات">\n    </form>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "8",
+              title: "درس هشتم: منوی کشویی (Select)",
+              content:
+                '# 📋 ساخت منوی کشویی با select\n\nزمانی که تعداد گزینه‌ها زیاد است، از منوی کشویی استفاده می‌کنیم.\n\n## 🧩 ساختار select\n\n```html\n<label>شهر :</label>\n<select name="city">\n    <option value="tehran">تهران</option>\n    <option value="isfahan">اصفهان</option>\n    <option value="shiraz">شیراز</option>\n</select>\n```\n\n## 📖 توضیح تگ‌ها\n\nتگ ``<select>`` : محفظه منوی کشویی.\n\nتگ ``<option>`` : هر گزینه داخل منو.\n\nویژگی ``value`` : مقداری که به سرور ارسال می‌شود.\n\n,, متنی که بین ``<option>`` و ``</option>`` نوشته می‌شود، همان متنی است که کاربر در منو می‌بیند.\n\n^^ یک فرم بسازید که شامل دو منوی کشویی باشد : یکی برای انتخاب "روز هفته" (شنبه تا پنج‌شنبه) و دیگری برای انتخاب "ماه سال" (فروردین تا اسفند). برای هر منو یک ``<label>`` مناسب قرار دهید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین select</title>\n</head>\n<body>\n    <!-- منوهای کشویی را اینجا بسازید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین select</title>\n</head>\n<body>\n    <form>\n        <label>روز هفته :</label>\n        <select name="day">\n            <option value="shanbe">شنبه</option>\n            <option value="1shanbe">یکشنبه</option>\n            <option value="2shanbe">دوشنبه</option>\n            <option value="3shanbe">سه‌شنبه</option>\n            <option value="4shanbe">چهارشنبه</option>\n            <option value="5shanbe">پنج‌شنبه</option>\n        </select>\n        \n        <br><br>\n        \n        <label>ماه سال :</label>\n        <select name="month">\n            <option value="farvardin">فروردین</option>\n            <option value="ordibehesht">اردیبهشت</option>\n            <option value="khordad">خرداد</option>\n            <option value="tir">تیر</option>\n            <option value="mordad">مرداد</option>\n            <option value="shahrivar">شهریور</option>\n            <option value="mehr">مهر</option>\n            <option value="aban">آبان</option>\n            <option value="azar">آذر</option>\n            <option value="dey">دی</option>\n            <option value="bahman">بهمن</option>\n            <option value="esfand">اسفند</option>\n        </select>\n    </form>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "9",
+              title: "درس نهم: تگ‌های معنایی HTML5",
+              content:
+                '# 🏗️ ساختار حرفه‌ای با تگ‌های معنایی\n\nHTML5 تگ‌های جدیدی دارد که معنی هر بخش از صفحه را مشخص می‌کنند.\n\n## 🧱 تگ‌های معنایی مهم\n\nتگ ``<header>`` : سرصفحه (منو، لوگو، عنوان).\n\nتگ ``<nav>`` : منوی ناوبری.\n\nتگ ``<main>`` : محتوای اصلی صفحه.\n\nتگ ``<section>`` : بخش‌بندی محتوا.\n\nتگ ``<article>`` : مطلب مستقل (مثل مقاله).\n\nتگ ``<footer>`` : پاصفحه (کپی‌رایت، تماس).\n\n## 🎨 مثال عملی\n\n```html\n<header>\n    <h1>سایت من</h1>\n    <nav>\n        <a href="#">خانه</a>\n        <a href="#">درباره</a>\n    </nav>\n</header>\n<main>\n    <section>\n        <h2>بخش اول</h2>\n        <p>متن بخش اول</p>\n    </section>\n</main>\n<footer>\n    <p>کپی‌رایت ۱۴۰۴</p>\n</footer>\n```\n\n,, استفاده از این تگ‌ها به سئو (بهبود دیده شدن در گوگل) کمک می‌کند.\n\n^^ یک صفحه با تگ‌های معنایی بسازید : ``<header>`` با یک عنوان و یک ``<nav>`` شامل سه لینک فرضی، ``<main>`` با دو ``<section>`` (هر کدام یک عنوان ``<h2>`` و یک پاراگراف)، و ``<footer>`` با یک متن کپی‌رایت. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین تگ‌های معنایی</title>\n</head>\n<body>\n    <!-- صفحه را با تگ‌های معنایی بسازید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه معنایی</title>\n</head>\n<body>\n    <header>\n        <h1>وبسایت من</h1>\n        <nav>\n            <a href="#">خانه</a>\n            <a href="#">درباره</a>\n            <a href="#">تماس</a>\n        </nav>\n    </header>\n    \n    <main>\n        <section>\n            <h2>بخش اول</h2>\n            <p>این محتوای بخش اول است.</p>\n        </section>\n        \n        <section>\n            <h2>بخش دوم</h2>\n            <p>این محتوای بخش دوم است.</p>\n        </section>\n    </main>\n    \n    <footer>\n        <p>کپی‌رایت © ۱۴۰۴</p>\n    </footer>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "10",
+              title: "درس دهم: پروژه عملی - صفحه معرفی شخصی",
+              content:
+                "# 🎯 پروژه : صفحه معرفی شخصی\n\nحالا که با تگ‌های مهم HTML آشنا شده‌اید، یک پروژه کوچک می‌سازیم.\n\n## 📝 باید چه کار کنید؟\n\nیک صفحه وب برای معرفی خودتان بسازید.\n\n## ✅ مواردی که باید در صفحه باشد\n\n1. ``<header>`` با نام و یک عنوان کوتاه\n\n2. ``<nav>`` با لینک‌های فرضی (خانه، درباره، تماس)\n\n3. ``<main>`` با بخش‌های زیر :\n   - یک ``<section>`` برای معرفی کوتاه (عنوان ``<h2>`` و پاراگراف)\n   - یک ``<section>`` برای لیست مهارت‌ها (با ``<ul>``)\n   - یک ``<section>`` برای جدول اطلاعات (سن، شهر، شغل)\n\n4. ``<footer>`` با کپی‌رایت\n\n,, از تگ‌های ``<h1>``, ``<h2>``, ``<p>``, ``<ul>``, ``<li>``, ``<table>`` استفاده کنید.\n\n^^ صفحه معرفی شخصی خود را با تمام موارد بالا بسازید. می‌توانید اطلاعات واقعی یا فرضی بنویسید. ^^",
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه معرفی من</title>\n</head>\n<body>\n    <!-- صفحه معرفی شخصی خود را اینجا بسازید -->\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه معرفی من</title>\n</head>\n<body>\n    <header>\n        <h1>احمد رضایی</h1>\n        <p>برنامه‌نویس وب</p>\n    </header>\n    \n    <nav>\n        <a href="#">خانه</a>\n        <a href="#">درباره</a>\n        <a href="#">تماس</a>\n    </nav>\n    \n    <main>\n        <section>\n            <h2>درباره من</h2>\n            <p>سلام! من احمد هستم و دارم HTML یاد می‌گیرم.</p>\n        </section>\n        \n        <section>\n            <h2>مهارت‌های من</h2>\n            <ul>\n                <li>HTML</li>\n                <li>CSS</li>\n                <li>جاوااسکریپت</li>\n            </ul>\n        </section>\n        \n        <section>\n            <h2>اطلاعات شخصی</h2>\n            <table border="1">\n                <tr>\n                    <th>سن</th>\n                    <th>شهر</th>\n                    <th>شغل</th>\n                </tr>\n                <tr>\n                    <td>۲۵</td>\n                    <td>تهران</td>\n                    <td>برنامه‌نویس</td>\n                </tr>\n            </table>\n        </section>\n    </main>\n    \n    <footer>\n        <p>کپی‌رایت © ۱۴۰۴ - احمد رضایی</p>\n    </footer>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+          ],
+        },
+        {
+          id: "css",
+          published: true,
+          title: "دوره CSS",
+          description:
+            "به صفحه‌هات رنگ و زندگی بده! تو این دوره با CSS آشنا می‌شی و یاد می‌گیری چطور صفحات زیبا و جذاب طراحی کنی. از رنگ‌ها و فونت‌ها گرفته تا چیدمان‌های حرفه‌ای با Flexbox و Grid.",
+          lessons: [
+            {
+              id: "1",
+              title: "درس اول: آشنایی با CSS و نحوه استفاده از آن",
+              content:
+                '# 🎨 CSS چیست و چه کاربردی دارد؟\n\nCSS مخفف "Cascading Style Sheets" به معنای "برگه‌های سبک آبشاری" است. این زبان برای زیباسازی و طراحی صفحات وب استفاده می‌شود.\n\n## 📖 تفاوت HTML و CSS\n\nHTML اسکلت ساختمان را می‌سازد، اما CSS رنگ، دکوراسیون و زیبایی آن را مشخص می‌کند.\n\n## 🛠️ سه روش نوشتن CSS\n\n**روش اول : استفاده از ویژگی style درون تگ (Inline)**\n\n```html\n<h1 style="color: red;">عنوان قرمز</h1>\n```\n\n**روش دوم : استفاده از تگ ``<style>`` درون ``<head>`` (Internal)**\n\n```html\n<style>\n    h1 {\n        color: red;\n    }\n</style>\n```\n\n**روش سوم : استفاده از فایل جداگانه CSS (External)**\n\n```html\n<link rel="stylesheet" href="style.css">\n```\n\n## 💬 کامنت در CSS\n\nبرای نوشتن توضیح یا غیرفعال کردن موقت کد از کامنت استفاده می‌شود.\n\n```css\n/* این یک کامنت است و در صفحه دیده نمی‌شود */\n\nh1 {\n    color: red; /* کامنت کنار کد */\n}\n```\n\n,, روش دوم (استفاده از تگ ``<style>``) برای یادگیری ساده‌تر است و در این دوره از آن استفاده می‌کنیم.\n\n^^ یک تگ ``<h1>`` با متن "سلام دنیا" بسازید. سپس با استفاده از تگ ``<style>`` در ``<head>``، رنگ آن را آبی و اندازه قلم آن را 32px قرار دهید. همچنین یک کامنت بالای استایل بنویسید با متن "این استایل من است". ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین CSS</title>\n    <style>\n        /* استایل‌های خود را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <h1>سلام دنیا</h1>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین CSS</title>\n    <style>\n        /* این استایل من است */\n        h1 {\n            color: blue;\n            font-size: 32px;\n        }\n    </style>\n</head>\n<body>\n    <h1>سلام دنیا</h1>\n</body>\n</html>',
+              read: false,
+              unlocked: true,
+            },
+            {
+              id: "2",
+              title: "درس دوم: رنگ‌ها و رنگ پس‌زمینه در CSS",
+              content:
+                "# 🎨 کار با رنگ‌ها در CSS\n\nرنگ‌ها نقش مهمی در زیبایی و جذابیت صفحات وب دارند. در این درس با روش‌های مختلف تغییر رنگ متن و پس‌زمینه آشنا می‌شوید.\n\n## 🖌️ تغییر رنگ متن\n\nاز خاصیت ``color`` برای تغییر رنگ متن استفاده می‌شود.\n\n```html\n<style>\n    h1 {\n        color: blue;\n    }\n    p {\n        color: green;\n    }\n</style>\n```\n\n## 🎨 تغییر رنگ پس‌زمینه\n\nاز خاصیت ``background-color`` برای تغییر رنگ پس‌زمینه استفاده می‌شود.\n\n```html\n<style>\n    body {\n        background-color: lightgray;\n    }\n    div {\n        background-color: yellow;\n    }\n</style>\n```\n\n## 🎯 نام رنگ‌های استاندارد\n\nبرخی از نام رنگ‌های استاندارد در CSS :\n\n``red``, ``blue``, ``green``, ``yellow``, ``black``, ``white``, ``gray``, ``purple``, ``orange``, ``pink``\n\n,, خاصیت ``color`` رنگ متن را تغییر می‌دهد و ``background-color`` رنگ پس‌زمینه را.\n\n^^ یک ``<div>`` بسازید که داخل آن یک متن دلخواه نوشته شده باشد. به ``<div>`` رنگ پس‌زمینه ``lightblue`` و به متن داخل آن رنگ ``darkblue`` بدهید. ^^",
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین رنگ</title>\n    <style>\n        /* استایل‌های خود را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <div>این یک متن نمونه است</div>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین رنگ</title>\n    <style>\n        div {\n            background-color: lightblue;\n            color: darkblue;\n        }\n    </style>\n</head>\n<body>\n    <div>این یک متن نمونه است</div>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "3",
+              title: "درس سوم: فاصله‌ها در CSS (Padding و Margin)",
+              content:
+                '# 📏 آشنایی با فاصله‌ها در CSS\n\nدر CSS دو نوع فاصله مهم وجود دارد : فاصله از داخل (Padding) و فاصله از بیرون (Margin).\n\n## 📦 Padding (فاصله از داخل)\n\n``padding`` فاصله بین محتوا و حاشیه المان را مشخص می‌کند.\n\n```html\n<style>\n    .box {\n        background-color: orange;\n        padding: 20px;\n    }\n</style>\n```\n\n## 📦 Margin (فاصله از بیرون)\n\n``margin`` فاصله بین این المان و المان‌های دیگر را مشخص می‌کند.\n\n```html\n<style>\n    .box {\n        background-color: orange;\n        margin: 20px;\n    }\n</style>\n```\n\n## 🎯 نوشتن مقادیر مختلف\n\n```css\n/* همه طرف‌ها یکسان */\npadding: 15px;\n\n/* بالا و پایین | چپ و راست */\nmargin: 10px 20px;\n\n/* بالا | راست | پایین | چپ */\npadding: 5px 10px 15px 20px;\n```\n\n,, ``padding`` فضای درون جعبه را بزرگتر می‌کند اما ``margin`` فضای بیرون جعبه را.\n\n^^ یک ``<div>`` بسازید که داخل آن متن "جعبه من" نوشته شده باشد. به آن ``padding: 20px``، ``margin: 15px`` و ``background-color: lightgreen`` بدهید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین فاصله</title>\n    <style>\n        /* استایل‌های خود را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <div>جعبه من</div>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین فاصله</title>\n    <style>\n        div {\n            padding: 20px;\n            margin: 15px;\n            background-color: lightgreen;\n        }\n    </style>\n</body>\n<body>\n    <div>جعبه من</div>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "4",
+              title: "درس چهارم: حاشیه و گوشه‌های گرد",
+              content:
+                "# 🔲 حاشیه (Border) و گوشه‌های گرد (Border-Radius)\n\nدر این درس با نحوه اضافه کردن حاشیه به المان‌ها و گرد کردن گوشه‌ها آشنا می‌شوید.\n\n## 📦 خاصیت Border\n\n```html\n<style>\n    .box1 {\n        border: 2px solid black;\n    }\n    .box2 {\n        border: 3px dashed red;\n    }\n    .box3 {\n        border: 1px dotted blue;\n    }\n</style>\n```\n\n## 🔵 گوشه‌های گرد (Border-Radius)\n\n```html\n<style>\n    .rounded {\n        border: 2px solid black;\n        border-radius: 10px;\n        padding: 10px;\n    }\n    .circle {\n        width: 100px;\n        height: 100px;\n        background-color: red;\n        border-radius: 50%;\n    }\n</style>\n```\n\n## 📖 انواع حاشیه\n\n``solid`` : خط ممتد\n\n``dashed`` : خط چین\n\n``dotted`` : خط نقطه‌چین\n\n,, با ``border-radius: 50%`` می‌توانید یک مربع را به دایره تبدیل کنید.\n\n^^ یک ``<div>`` با عرض 200px و ارتفاع 100px و پس‌زمینه آبی بسازید. به آن حاشیه 3px مشکی از نوع solid و گوشه‌های گرد 15px بدهید. ^^",
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین حاشیه</title>\n    <style>\n        /* استایل‌های خود را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <div></div>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین حاشیه</title>\n    <style>\n        div {\n            width: 200px;\n            height: 100px;\n            background-color: blue;\n            border: 3px solid black;\n            border-radius: 15px;\n        }\n    </style>\n</head>\n<body>\n    <div></div>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "5",
+              title: "درس پنجم: فونت و استایل متن",
+              content:
+                '# ✍️ زیبا کردن متن با CSS\n\nدر این درس با خاصیت‌های مربوط به فونت و استایل متن آشنا می‌شوید.\n\n## 🖋️ خاصیت‌های مهم متن\n\n```html\n<style>\n    p {\n        font-family: Vazir, Arial, sans-serif;\n        font-size: 18px;\n        font-weight: bold;\n        text-align: center;\n        line-height: 2;\n    }\n</style>\n```\n\n## 📖 توضیح خاصیت‌ها\n\n``font-family`` : نوع قلم (چند نام می‌دهید تا اگر اولی نبود دومی استفاده شود)\n\n``font-size`` : اندازه قلم (به پیکسل، em، rem)\n\n``font-weight`` : ضخامت قلم (normal, bold, یا اعداد 100 تا 900)\n\n``text-align`` : تراز متن (left, center, right, justify)\n\n``line-height`` : فاصله بین خطوط\n\n,, همیشه آخرین فونت را ``sans-serif`` یا ``serif`` قرار دهید تا در همه دستگاه‌ها کار کند.\n\n^^ یک پاراگراف با متن "CSS زبان زیباسازی وب است" بسازید. اندازه قلم را 24px، تراز را وسط، رنگ را بنفش و ضخامت قلم را bold قرار دهید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین فونت</title>\n    <style>\n        /* استایل‌های خود را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <p>CSS زبان زیباسازی وب است</p>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین فونت</title>\n    <style>\n        p {\n            font-size: 24px;\n            text-align: center;\n            color: purple;\n            font-weight: bold;\n        }\n    </style>\n</head>\n<body>\n    <p>CSS زبان زیباسازی وب است</p>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "6",
+              title: "درس ششم: مدل جعبه (Box Model)",
+              content:
+                '# 📦 درک مدل جعبه در CSS\n\nدر CSS هر المان یک جعبه است. درک این مدل برای طراحی حرفه‌ای بسیار مهم است.\n\n## 🧩 اجزای هر جعبه (از بیرون به داخل)\n\n1. **Margin** : فاصله از بیرون (بین این المان و المان‌های دیگر)\n2. **Border** : حاشیه\n3. **Padding** : فاصله از داخل (بین محتوا و حاشیه)\n4. **Content** : خود محتوا (متن یا تصویر)\n\n## 🎨 نمایش تصویری\n\n```html\n<style>\n    .box {\n        width: 200px;\n        padding: 20px;\n        border: 5px solid black;\n        margin: 30px;\n        background-color: lightblue;\n    }\n</style>\n```\n\n## 📐 محاسبه عرض واقعی جعبه\n\nعرض واقعی جعبه = ``width`` + ``padding-left`` + ``padding-right`` + ``border-left`` + ``border-right``\n\n,, اگر ``width: 200px``، ``padding: 20px`` و ``border: 5px`` داشته باشید، عرض واقعی 250px خواهد شد.\n\n^^ یک ``<div>`` با عرض 250px، padding 15px، border 2px قرمز (solid) و margin 20px بسازید. background-color زرد بدهید و داخل آن متن "مدل جعبه" بنویسید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین Box Model</title>\n    <style>\n        /* استایل‌های خود را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <div>مدل جعبه</div>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین Box Model</title>\n    <style>\n        div {\n            width: 250px;\n            padding: 15px;\n            border: 2px solid red;\n            margin: 20px;\n            background-color: yellow;\n        }\n    </style>\n</head>\n<body>\n    <div>مدل جعبه</div>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "7",
+              title: "درس هفتم: آشنایی با Flexbox (قسمت اول)",
+              content:
+                '# 🧭 چیدمان مدرن با Flexbox\n\nFlexbox یک ابزار قدرتمند برای چیدن المان‌ها در کنار هم یا روی هم است.\n\n## 🎯 فعال کردن Flexbox\n\n```html\n<style>\n    .container {\n        display: flex;\n    }\n    .item {\n        width: 100px;\n        height: 100px;\n        background-color: orange;\n    }\n</style>\n```\n\n## 📏 جهت چیدمان (flex-direction)\n\n```html\n<style>\n    .row {\n        display: flex;\n        flex-direction: row; /* کنار هم (پیش‌فرض) */\n    }\n    .column {\n        display: flex;\n        flex-direction: column; /* روی هم */\n    }\n</style>\n```\n\n## 📖 توضیح\n\n``display: flex`` : به والد می‌گوید که فرزندان خود را با قوانین فلکس بچیند.\n\n``flex-direction`` : جهت چیدمان را مشخص می‌کند.\n\n,, با ``display: flex`` بچه‌ها به طور پیش‌فرض در یک سطر کنار هم قرار می‌گیرند.\n\n^^ سه ``<div>`` با عرض 80px، ارتفاع 80px و رنگ‌های متفاوت (قرمز، سبز، آبی) بسازید. همه را داخل یک ``<div>`` با کلاس "container" قرار دهید. به container خاصیت ``display: flex`` بدهید تا جعبه‌ها کنار هم قرار بگیرند. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین Flexbox</title>\n    <style>\n        /* استایل‌های خود را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <div class="container">\n        <div class="item"></div>\n        <div class="item"></div>\n        <div class="item"></div>\n    </div>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین Flexbox</title>\n    <style>\n        .container {\n            display: flex;\n        }\n        .item {\n            width: 80px;\n            height: 80px;\n        }\n        .item:nth-child(1) { background-color: red; }\n        .item:nth-child(2) { background-color: green; }\n        .item:nth-child(3) { background-color: blue; }\n    </style>\n</head>\n<body>\n    <div class="container">\n        <div class="item"></div>\n        <div class="item"></div>\n        <div class="item"></div>\n    </div>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "8",
+              title: "درس هشتم: تراز و فاصله در Flexbox",
+              content:
+                "# 📐 تراز کردن آیتم‌ها با Flexbox\n\nدر این درس با نحوه تراز افقی، تراز عمودی و تنظیم فاصله بین آیتم‌ها در Flexbox آشنا می‌شوید.\n\n## 🎯 تراز افقی (justify-content)\n\n```html\n<style>\n    .container {\n        display: flex;\n        justify-content: center; /* وسط‌چین */\n        /* گزینه‌ها : flex-start, center, flex-end, space-between, space-around */\n    }\n</style>\n```\n\n## 🎯 تراز عمودی (align-items)\n\n```html\n<style>\n    .container {\n        display: flex;\n        align-items: center; /* وسط‌چین عمودی */\n        /* گزینه‌ها : flex-start, center, flex-end, stretch */\n        height: 200px;\n    }\n</style>\n```\n\n## 📏 فاصله بین آیتم‌ها (gap)\n\n```html\n<style>\n    .container {\n        display: flex;\n        gap: 20px; /* فاصله بین هر آیتم */\n    }\n</style>\n```\n\n,, ``justify-content`` برای تراز افقی و ``align-items`` برای تراز عمودی استفاده می‌شود.\n\n^^ سه جعبه رنگی (قرمز، سبز، آبی) با عرض و ارتفاع 80px بسازید. container را ``display: flex`` دهید. سپس ``justify-content: center``، ``align-items: center`` و ``gap: 15px`` را اضافه کنید. به container ``height: 200px`` و ``border: 1px solid black`` بدهید تا نتیجه را بهتر ببینید. ^^",
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین تراز Flexbox</title>\n    <style>\n        /* استایل‌های خود را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <div class="container">\n        <div class="item"></div>\n        <div class="item"></div>\n        <div class="item"></div>\n    </div>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین تراز Flexbox</title>\n    <style>\n        .container {\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            gap: 15px;\n            height: 200px;\n            border: 1px solid black;\n        }\n        .item {\n            width: 80px;\n            height: 80px;\n        }\n        .item:nth-child(1) { background-color: red; }\n        .item:nth-child(2) { background-color: green; }\n        .item:nth-child(3) { background-color: blue; }\n    </style>\n</head>\n<body>\n    <div class="container">\n        <div class="item"></div>\n        <div class="item"></div>\n        <div class="item"></div>\n    </div>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "9",
+              title: "درس نهم: طراحی کارت با Flexbox",
+              content:
+                "# 🃏 ساخت کارت‌های زیبا با Flexbox\n\nدر این درس با ترکیب Flexbox و خاصیت‌های CSS مانند سایه و گوشه‌های گرد، کارت‌های حرفه‌ای طراحی می‌کنیم.\n\n## 🎨 ساختار کارت\n\n```html\n<style>\n    .card-container {\n        display: flex;\n        justify-content: center;\n        gap: 20px;\n    }\n    .card {\n        width: 200px;\n        padding: 20px;\n        border-radius: 15px;\n        background-color: #f8f9fa;\n        text-align: center;\n        box-shadow: 0 4px 8px rgba(0,0,0,0.1);\n    }\n    .card h3 {\n        margin: 10px 0;\n    }\n    .card p {\n        color: #666;\n    }\n</style>\n```\n\n## ✨ سایه (box-shadow)\n\n```css\nbox-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);\n/* مقادیر : افقی عمودی تاری پخش رنگ */\n```\n\n,, ``box-shadow`` به کارت‌ها عمق و زیبایی می‌بخشد.\n\n^^ سه کارت بسازید. هر کارت شامل یک ایموجی (📘، 🎨، ⚡) به عنوان آیکون، یک عنوان و یک متن کوتاه باشد. از Flexbox برای چیدن کارت‌ها در کنار هم استفاده کنید. به کارت‌ها padding، border-radius و box-shadow بدهید. ^^",
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین کارت</title>\n    <style>\n        /* استایل کارت‌ها را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <div class="card-container">\n        <div class="card">\n            <div class="icon">📘</div>\n            <h3>عنوان</h3>\n            <p>متن توضیحی</p>\n        </div>\n    </div>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین کارت</title>\n    <style>\n        .card-container {\n            display: flex;\n            justify-content: center;\n            gap: 20px;\n            padding: 20px;\n        }\n        .card {\n            width: 200px;\n            padding: 20px;\n            border-radius: 15px;\n            background-color: #f8f9fa;\n            text-align: center;\n            box-shadow: 0 4px 8px rgba(0,0,0,0.1);\n        }\n        .icon {\n            font-size: 50px;\n        }\n        h3 {\n            margin: 10px 0;\n        }\n        p {\n            color: #666;\n        }\n    </style>\n</head>\n<body>\n    <div class="card-container">\n        <div class="card">\n            <div class="icon">📘</div>\n            <h3>آموزش HTML</h3>\n            <p>یادگیری ساختار صفحات وب</p>\n        </div>\n        <div class="card">\n            <div class="icon">🎨</div>\n            <h3>طراحی با CSS</h3>\n            <p>زیباسازی و چیدمان حرفه‌ای</p>\n        </div>\n        <div class="card">\n            <div class="icon">⚡</div>\n            <h3>جاوااسکریپت</h3>\n            <p>پویاسازی و تعامل با کاربر</p>\n        </div>\n    </div>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "10",
+              title: "درس دهم: پروژه نهایی - طراحی صفحه معرفی شخصی با CSS",
+              content:
+                "# 🏆 پروژه نهایی : طراحی صفحه معرفی شخصی با CSS\n\nتبریک! به آخرین درس CSS رسیدید. در دوره HTML یک صفحه معرفی شخصی ساختید. اکنون زمان آن است که همان صفحه را با CSS زیبا و حرفه‌ای طراحی کنید.\n\n## 🎯 هدف پروژه\n\nصفحه HTML که در دوره قبل (درس نهم HTML) ساخته‌اید را با استفاده از CSS استایل‌دهی کنید.\n\n## ✅ مواردی که باید استایل دهید\n\n**1. هدر (header)**\n- نام و عنوان شغلی\n- پس‌زمینه رنگی یا گرادینت\n\n**2. ناوبری (nav)**\n- لینک‌ها با Flexbox در کنار هم\n- حذف زیرخط لینک‌ها (text-decoration: none)\n- تغییر رنگ لینک‌ها با hover\n\n**3. بخش درباره (about)**\n- چیدمان دو ستونی با Flexbox\n- تصویر پروفایل با border-radius: 50%\n\n**4. بخش مهارت‌ها (skills)**\n- نوار پیشرفت فرضی با درصد\n- background-color و height برای نوار\n\n**5. بخش پروژه‌ها (projects)**\n- سه کارت با Flexbox\n- padding، border-radius، box-shadow\n\n**6. بخش تماس (contact)**\n- استایل ورودی‌ها (padding، border-radius، border)\n- استایل دکمه ارسال (background-color، color، border-radius)\n\n**7. فوتر (footer)**\n- پس‌زمینه تیره\n- لینک‌های اجتماعی با رنگ سفید\n\n## 💡 نکات مهم\n\n- از رنگ‌بندی هماهنگ استفاده کنید\n- حتماً از Flexbox برای چیدمان‌ها استفاده کنید\n- از padding و margin برای فاصله‌گذاری استفاده کنید\n- با خاصیت ``:hover`` افکت‌های جذاب ایجاد کنید\n\n,, صفحه HTML خود را از دوره قبل دارید. فقط کافی است استایل‌های CSS را به آن اضافه کنید.\n\n^^ صفحه معرفی شخصی که در دوره HTML ساخته‌اید را پیدا کنید. سپس تمام استایل‌های لازم (هدر، ناوبری، بخش درباره، مهارت‌ها، پروژه‌ها، فرم تماس و فوتر) را به آن اضافه کنید و نتیجه را در مرورگر ببینید. ^^",
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه معرفی من</title>\n    <style>\n        /* استایل صفحه معرفی شخصی را اینجا بنویسید */\n    </style>\n</head>\n<body>\n    <header>\n        <h1>نام و نام خانوادگی</h1>\n        <p>عنوان شغلی</p>\n    </header>\n    \n    <nav>\n        <a href="#">خانه</a>\n        <a href="#">درباره</a>\n        <a href="#">مهارت‌ها</a>\n        <a href="#">پروژه‌ها</a>\n        <a href="#">تماس</a>\n    </nav>\n    \n    <main>\n        <section class="about">\n            <h2>درباره من</h2>\n            <div class="about-content">\n                <img src="https://placehold.co/150" alt="پروفایل">\n                <p>متن معرفی خود را اینجا بنویسید</p>\n            </div>\n        </section>\n        \n        <section class="skills">\n            <h2>مهارت‌های من</h2>\n            <div class="skill">HTML</div>\n            <div class="skill-bar"><div class="progress" style="width: 90%;"></div></div>\n            <div class="skill">CSS</div>\n            <div class="skill-bar"><div class="progress" style="width: 85%;"></div></div>\n            <div class="skill">JS</div>\n            <div class="skill-bar"><div class="progress" style="width: 70%;"></div></div>\n        </section>\n        \n        <section class="projects">\n            <h2>پروژه‌های من</h2>\n            <div class="projects-container">\n                <div class="project-card">پروژه اول</div>\n                <div class="project-card">پروژه دوم</div>\n                <div class="project-card">پروژه سوم</div>\n            </div>\n        </section>\n        \n        <section class="contact">\n            <h2>تماس با من</h2>\n            <form class="contact-form">\n                <input type="text" placeholder="نام شما">\n                <input type="email" placeholder="ایمیل شما">\n                <textarea rows="4" placeholder="پیام شما"></textarea>\n                <button type="submit">ارسال پیام</button>\n            </form>\n        </section>\n    </main>\n    \n    <footer>\n        <p>کپی‌رایت © ۱۴۰۴</p>\n    </footer>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه معرفی من | طراحی شده با CSS</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n        body {\n            font-family: Arial, sans-serif;\n            line-height: 1.6;\n            color: #333;\n        }\n        header {\n            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);\n            color: white;\n            text-align: center;\n            padding: 60px 20px;\n        }\n        header h1 {\n            font-size: 48px;\n            margin-bottom: 10px;\n        }\n        nav {\n            display: flex;\n            justify-content: center;\n            gap: 30px;\n            padding: 20px;\n            background-color: #2c3e50;\n        }\n        nav a {\n            color: white;\n            text-decoration: none;\n            transition: color 0.3s;\n        }\n        nav a:hover {\n            color: #667eea;\n        }\n        section {\n            padding: 60px 20px;\n            max-width: 1000px;\n            margin: auto;\n        }\n        h2 {\n            text-align: center;\n            margin-bottom: 40px;\n            font-size: 32px;\n        }\n        .about-content {\n            display: flex;\n            gap: 40px;\n            align-items: center;\n        }\n        .about-content img {\n            width: 150px;\n            height: 150px;\n            border-radius: 50%;\n            object-fit: cover;\n        }\n        .skill {\n            font-weight: bold;\n            margin-top: 15px;\n            margin-bottom: 5px;\n        }\n        .skill-bar {\n            height: 10px;\n            background-color: #ddd;\n            border-radius: 5px;\n        }\n        .progress {\n            height: 10px;\n            background-color: #667eea;\n            border-radius: 5px;\n        }\n        .projects-container {\n            display: flex;\n            justify-content: center;\n            gap: 30px;\n        }\n        .project-card {\n            background-color: #f8f9fa;\n            padding: 30px;\n            border-radius: 15px;\n            width: 250px;\n            text-align: center;\n            box-shadow: 0 4px 8px rgba(0,0,0,0.1);\n            transition: transform 0.3s;\n        }\n        .project-card:hover {\n            transform: translateY(-5px);\n        }\n        .contact-form {\n            display: flex;\n            flex-direction: column;\n            gap: 15px;\n            max-width: 500px;\n            margin: auto;\n        }\n        .contact-form input, .contact-form textarea {\n            padding: 12px;\n            border: 1px solid #ddd;\n            border-radius: 8px;\n            font-family: inherit;\n        }\n        .contact-form button {\n            padding: 12px;\n            background-color: #667eea;\n            color: white;\n            border: none;\n            border-radius: 8px;\n            cursor: pointer;\n            transition: background-color 0.3s;\n        }\n        .contact-form button:hover {\n            background-color: #5a67d8;\n        }\n        footer {\n            text-align: center;\n            padding: 30px;\n            background-color: #2c3e50;\n            color: white;\n        }\n    </style>\n</head>\n<body>\n    <header>\n        <h1>احمد رضایی</h1>\n        <p>برنامه‌نویس فرانت‌اند</p>\n    </header>\n    \n    <nav>\n        <a href="#">خانه</a>\n        <a href="#">درباره</a>\n        <a href="#">مهارت‌ها</a>\n        <a href="#">پروژه‌ها</a>\n        <a href="#">تماس</a>\n    </nav>\n    \n    <main>\n        <section class="about">\n            <h2>درباره من</h2>\n            <div class="about-content">\n                <img src="https://placehold.co/150" alt="پروفایل">\n                <p>سلام! من احمد هستم. به دنیای طراحی وب علاقه دارم و از یادگیری CSS لذت می‌برم. این صفحه را با HTML و CSS طراحی کرده‌ام.</p>\n            </div>\n        </section>\n        \n        <section class="skills">\n            <h2>مهارت‌های من</h2>\n            <div class="skill">HTML</div>\n            <div class="skill-bar"><div class="progress" style="width: 90%;"></div></div>\n            <div class="skill">CSS</div>\n            <div class="skill-bar"><div class="progress" style="width: 85%;"></div></div>\n            <div class="skill">جاوااسکریپت</div>\n            <div class="skill-bar"><div class="progress" style="width: 70%;"></div></div>\n        </section>\n        \n        <section class="projects">\n            <h2>پروژه‌های من</h2>\n            <div class="projects-container">\n                <div class="project-card">\n                    <h3>پروژه اول</h3>\n                    <p>وب‌سایت فروشگاهی</p>\n                </div>\n                <div class="project-card">\n                    <h3>پروژه دوم</h3>\n                    <p>اپلیکیشن Todo List</p>\n                </div>\n                <div class="project-card">\n                    <h3>پروژه سوم</h3>\n                    <p>صفحه فرود مدرن</p>\n                </div>\n            </div>\n        </section>\n        \n        <section class="contact">\n            <h2>تماس با من</h2>\n            <form class="contact-form">\n                <input type="text" placeholder="نام شما">\n                <input type="email" placeholder="ایمیل شما">\n                <textarea rows="4" placeholder="پیام شما"></textarea>\n                <button type="submit">ارسال پیام</button>\n            </form>\n        </section>\n    </main>\n    \n    <footer>\n        <p>کپی‌رایت © ۱۴۰۴ - احمد رضایی</p>\n    </footer>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+          ],
+        },
+        {
+          id: "js",
+          published: true,
+          title: "دوره JavaScript",
+          description:
+            "با جاوااسکریپت به صفحه‌هات جان بده! تو این دوره یاد می‌گیری چطور صفحات تعاملی و پویا بسازی. از متغیرها و شرط‌ها گرفته تا کار با DOM و رویدادها، همه چیز رو قدم به قدم تمرین می‌کنی.",
+          lessons: [
+            {
+              id: "1",
+              title: "درس اول: جاوااسکریپت چیست و اولین کد",
+              content:
+                '# ⚡ جاوااسکریپت چیست؟\n\nجاوااسکریپت یک زبان برنامه‌نویسی است که به صفحات وب **تعامل و پویایی** می‌بخشد.\n\nHTML اسکلت صفحه را می‌سازد، CSS آن را زیبا می‌کند و جاوااسکریپت به آن **جان** می‌دهد.\n\n## 📦 متغیرها در جاوااسکریپت\n\nمتغیر محلی برای ذخیره اطلاعات است. برای ساخت متغیر از کلمه ``let`` استفاده می‌کنیم.\n\n```javascript\nlet name = "احمد";\nlet age = 25;\n```\n\n## 💬 اولین کد جاوااسکریپت\n\n```html\n<button onclick="sayHello()">کلیک کن</button>\n\n<script>\n    function sayHello() {\n        alert("سلام دنیا!");\n    }\n<\/script>\n```\n\n## 📖 توضیح خط به خط\n\n``onclick="sayHello()"`` : وقتی دکمه کلیک شد، تابع sayHello اجرا شود.\n\n``function sayHello() { ... }`` : تعریف یک تابع به نام sayHello.\n\n``alert("...")`` : یک پنجره پیام به کاربر نمایش می‌دهد.\n\n## 💬 کامنت در جاوااسکریپت\n\nکامنت نوشته‌ای است که اجرا نمی‌شود و فقط برای توضیح کد است.\n\n```javascript\n// این یک کامنت تک خطی است\n\n/*\n   این یک کامنت چند خطی است\n   برای توضیحات بلندتر\n*/\n```\n\n,, تابع ``alert()`` یک پنجره پیام ساده با یک دکمه OK به کاربر نمایش می‌دهد.\n\n^^ یک دکمه بسازید که با کلیک روی آن، پیام "به دنیای جاوااسکریپت خوش آمدید" را با ``alert()`` نمایش دهد. همچنین قبل از تابع، یک کامنت تک خطی با متن "اولین برنامه من" بنویسید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین جاوااسکریپت</title>\n</head>\n<body>\n    <!-- دکمه را اینجا بسازید -->\n    \n    <script>\n        // کد خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین جاوااسکریپت</title>\n</head>\n<body>\n    <button onclick="showMessage()">کلیک کن</button>\n    \n    <script>\n        // اولین برنامه من\n        function showMessage() {\n            alert("به دنیای جاوااسکریپت خوش آمدید");\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: true,
+            },
+            {
+              id: "2",
+              title: "درس دوم: متغیرها و دریافت ورودی از کاربر",
+              content:
+                '# 📦 آشنایی کامل با متغیرها\n\nمتغیرها مانند جعبه‌هایی هستند که اطلاعات را در خود نگه می‌دارند.\n\n## 🧪 انواع متغیرها\n\n```javascript\nlet name = "احمد";     // رشته (متن)\nlet age = 25;          // عدد\nlet isStudent = true;  // بولین (درست/غلط)\n```\n\n## 📥 دریافت اطلاعات از کاربر\n\n```html\n<input type="text" id="userName" placeholder="نام خود را وارد کن">\n<button onclick="showName()">نمایش</button>\n<p id="result"></p>\n\n<script>\n    function showName() {\n        let name = document.getElementById("userName").value;\n        document.getElementById("result").innerHTML = "سلام " + name;\n    }\n<\/script>\n```\n\n## 📖 توضیح دستورات\n\n``document.getElementById("id")`` : المانی که id مشخصی دارد را پیدا می‌کند.\n\n``.value`` : مقداری که کاربر در input نوشته است را برمی‌گرداند.\n\n``.innerHTML`` : محتوای داخل آن المان را تغییر می‌دهد.\n\n,, از علامت ``+`` برای چسباندن متن‌ها به یکدیگر استفاده می‌شود.\n\n^^ یک فیلد ورودی برای گرفتن نام کاربر و یک دکمه بسازید.当 کاربر نام خود را وارد کرد و دکمه را زد، پیام "خوش آمدید [نام کاربر]" در یک ``<p>`` نمایش داده شود. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین متغیرها</title>\n</head>\n<body>\n    <input type="text" id="nameInput" placeholder="نام خود را وارد کن">\n    <button onclick="showGreeting()">ورود</button>\n    <p id="output"></p>\n    \n    <script>\n        // کد خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین متغیرها</title>\n</head>\n<body>\n    <input type="text" id="userName" placeholder="نام خود را وارد کن">\n    <button onclick="showGreeting()">ورود</button>\n    <p id="greeting"></p>\n    \n    <script>\n        function showGreeting() {\n            let name = document.getElementById("userName").value;\n            document.getElementById("greeting").innerHTML = "خوش آمدید " + name;\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "3",
+              title: "درس سوم: ساختار شرطی if و else",
+              content:
+                '# 🔀 تصمیم‌گیری در برنامه‌نویسی\n\nدر برنامه‌نویسی گاهی نیاز است بر اساس شرایط مختلف، کارهای متفاوتی انجام شود.\n\n## 🧠 ساختار if و else\n\n```javascript\nif (شرط) {\n    // اگر شرط درست بود این کد اجرا می‌شود\n} else {\n    // اگر شرط غلط بود این کد اجرا می‌شود\n}\n```\n\n## 🎯 مثال عملی\n\n```html\n<input type="number" id="age" placeholder="سن خود را وارد کن">\n<button onclick="checkAge()">بررسی</button>\n<p id="status"></p>\n\n<script>\n    function checkAge() {\n        let age = Number(document.getElementById("age").value);\n        if (age >= 18) {\n            document.getElementById("status").innerHTML = "شما بزرگسال هستید";\n        } else {\n            document.getElementById("status").innerHTML = "شما کودک یا نوجوان هستید";\n        }\n    }\n<\/script>\n```\n\n## 📖 عملگرهای مقایسه\n\n``==`` : برابر بودن\n\n``===`` : برابر بودن از نظر مقدار و نوع\n\n``>`` : بزرگتر\n\n``<`` : کوچکتر\n\n``>=`` : بزرگتر یا مساوی\n\n``<=`` : کوچکتر یا مساوی\n\n``!=`` : نابرابر\n\n,, تابع ``Number()`` متن داخل input را به عدد تبدیل می‌کند تا بتوانیم مقایسه انجام دهیم.\n\n^^ یک فیلد ورودی برای دریافت نمره کاربر (عدد بین 0 تا 100) بسازید. اگر نمره 50 یا بیشتر بود پیام "قبول شدی" و اگر کمتر از 50 بود پیام "مردود شدی" نمایش داده شود. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین شرط</title>\n</head>\n<body>\n    <input type="number" id="scoreInput" placeholder="نمره خود را وارد کن">\n    <button onclick="checkScore()">بررسی</button>\n    <p id="result"></p>\n    \n    <script>\n        // کد خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین شرط</title>\n</head>\n<body>\n    <input type="number" id="score" placeholder="نمره خود را وارد کن">\n    <button onclick="checkScore()">بررسی</button>\n    <p id="message"></p>\n    \n    <script>\n        function checkScore() {\n            let score = Number(document.getElementById("score").value);\n            if (score >= 50) {\n                document.getElementById("message").innerHTML = "قبول شدی";\n            } else {\n                document.getElementById("message").innerHTML = "مردود شدی";\n            }\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "4",
+              title: "درس چهارم: شرط‌های چندگانه با else if",
+              content:
+                '# 🧠 تصمیم‌گیری پیشرفته\n\nزمانی که بیش از دو حالت داریم، از ``else if`` استفاده می‌کنیم.\n\n## 🎯 ساختار else if\n\n```javascript\nif (شرط اول) {\n    // کار اول\n} else if (شرط دوم) {\n    // کار دوم\n} else if (شرط سوم) {\n    // کار سوم\n} else {\n    // اگر هیچ شرطی درست نبود\n}\n```\n\n## 🎯 مثال عملی\n\n```html\n<input type="number" id="score" placeholder="نمره 0 تا 100">\n<button onclick="getGrade()">دریافت نمره</button>\n<p id="grade"></p>\n\n<script>\n    function getGrade() {\n        let score = Number(document.getElementById("score").value);\n        let result = "";\n        \n        if (score >= 90) {\n            result = "عالی";\n        } else if (score >= 70) {\n            result = "خوب";\n        } else if (score >= 50) {\n            result = "قابل قبول";\n        } else {\n            result = "نیاز به تلاش بیشتر";\n        }\n        \n        document.getElementById("grade").innerHTML = result;\n    }\n<\/script>\n```\n\n,, ترتیب شرط‌ها مهم است. همیشه از بزرگترین مقدار به کوچکترین مقدار بنویسید.\n\n^^ یک فیلد ورودی برای دریافت سن کاربر بسازید. بر اساس سن، پیام مناسب نمایش دهید: زیر 13 سال "کودک"، 13 تا 17 سال "نوجوان"، 18 تا 60 سال "بزرگسال"، بالای 60 سال "سالمند". ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین else if</title>\n</head>\n<body>\n    <input type="number" id="ageInput" placeholder="سن خود را وارد کن">\n    <button onclick="checkAgeGroup()">بررسی</button>\n    <p id="result"></p>\n    \n    <script>\n        // کد خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین else if</title>\n</head>\n<body>\n    <input type="number" id="age" placeholder="سن خود را وارد کن">\n    <button onclick="checkAgeGroup()">بررسی</button>\n    <p id="group"></p>\n    \n    <script>\n        function checkAgeGroup() {\n            let age = Number(document.getElementById("age").value);\n            let message = "";\n            \n            if (age < 13) {\n                message = "کودک";\n            } else if (age <= 17) {\n                message = "نوجوان";\n            } else if (age <= 60) {\n                message = "بزرگسال";\n            } else {\n                message = "سالمند";\n            }\n            \n            document.getElementById("group").innerHTML = message;\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "5",
+              title: "درس پنجم: حلقه for برای تکرار",
+              content:
+                '# 🔁 تکرار کارها با حلقه for\n\nحلقه برای انجام کارهای تکراری بدون نوشتن کد تکراری استفاده می‌شود.\n\n## 🔄 ساختار حلقه for\n\n```javascript\nfor (شروع; شرط; افزایش) {\n    // کدی که تکرار می‌شود\n}\n```\n\n## 🎯 مثال عملی\n\n```html\n<button onclick="showNumbers()">نمایش اعداد</button>\n<ul id="numberList"></ul>\n\n<script>\n    function showNumbers() {\n        let ul = document.getElementById("numberList");\n        ul.innerHTML = "";\n        \n        for (let i = 1; i <= 5; i++) {\n            ul.innerHTML += "<li>شماره " + i + "</li>";\n        }\n    }\n<\/script>\n```\n\n## 📖 توضیح اجزای حلقه\n\n``let i = 1`` : مقدار اولیه (از کجا شروع شود)\n\n``i <= 5`` : شرط ادامه (تا کجا ادامه یابد)\n\n``i++`` : مرحله (هر بار چقدر افزایش یابد)\n\n## 🎯 کاربردهای حلقه\n\n- نمایش لیست اعداد\n- نمایش آیتم‌های یک آرایه\n- ساخت جدول\n- تکرار یک کار مشخص\n\n,, ``i++`` معادل ``i = i + 1`` است. حلقه تا زمانی که شرط درست باشد ادامه می‌یابد.\n\n^^ یک دکمه بسازید که با کلیک روی آن، اعداد 1 تا 10 را به صورت لیست در صفحه نمایش دهد. از حلقه for استفاده کنید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین حلقه for</title>\n</head>\n<body>\n    <button onclick="showNumbers()">نمایش اعداد</button>\n    <ul id="numbersList"></ul>\n    \n    <script>\n        // کد خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین حلقه for</title>\n</head>\n<body>\n    <button onclick="showNumbers()">نمایش اعداد</button>\n    <ul id="numbers"></ul>\n    \n    <script>\n        function showNumbers() {\n            let list = document.getElementById("numbers");\n            list.innerHTML = "";\n            \n            for (let i = 1; i <= 10; i++) {\n                list.innerHTML += "<li>عدد " + i + "</li>";\n            }\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "6",
+              title: "درس ششم: آرایه‌ها (لیست‌ها) در جاوااسکریپت",
+              content:
+                '# 📋 کار با آرایه‌ها\n\nآرایه یک ساختار داده برای ذخیره چند مقدار در یک متغیر است.\n\n## 🧺 تعریف آرایه\n\n```javascript\nlet fruits = ["سیب", "موز", "پرتقال"];\nlet numbers = [10, 20, 30, 40];\nlet mix = ["احمد", 25, true];\n```\n\n## 🎯 دسترسی به عناصر آرایه\n\n```javascript\nlet fruits = ["سیب", "موز", "پرتقال"];\nconsole.log(fruits[0]); // خروجی: سیب\nconsole.log(fruits[1]); // خروجی: موز\nconsole.log(fruits[2]); // خروجی: پرتقال\n```\n\n## 🎯 حلقه روی آرایه\n\n```html\n<button onclick="showFruits()">نمایش میوه‌ها</button>\n<ul id="fruitList"></ul>\n\n<script>\n    function showFruits() {\n        let fruits = ["سیب", "موز", "پرتقال", "انگور"];\n        let ul = document.getElementById("fruitList");\n        ul.innerHTML = "";\n        \n        for (let i = 0; i < fruits.length; i++) {\n            ul.innerHTML += "<li>" + fruits[i] + "</li>";\n        }\n    }\n<\/script>\n```\n\n## 📖 توضیح دستورات\n\n``fruits.length`` : تعداد آیتم‌های آرایه را برمی‌گرداند.\n\n``fruits[i]`` : دسترسی به آیتم در جایگاه i (شاخص از 0 شروع می‌شود).\n\n,, شاخص (index) آرایه همیشه از 0 شروع می‌شود. یعنی اولین عنصر در جایگاه 0 قرار دارد.\n\n^^ یک آرایه شامل سه نام از دوستان خود بسازید. یک دکمه بسازید که با کلیک روی آن، نام‌ها را به صورت لیست در صفحه نمایش دهد. از حلقه for استفاده کنید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین آرایه</title>\n</head>\n<body>\n    <button onclick="showFriends()">نمایش دوستان</button>\n    <ul id="friendsList"></ul>\n    \n    <script>\n        // کد خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین آرایه</title>\n</head>\n<body>\n    <button onclick="showFriends()">نمایش دوستان</button>\n    <ul id="friends"></ul>\n    \n    <script>\n        function showFriends() {\n            let friends = ["احمد", "سارا", "رضا"];\n            let ul = document.getElementById("friends");\n            ul.innerHTML = "";\n            \n            for (let i = 0; i < friends.length; i++) {\n                ul.innerHTML += "<li>" + friends[i] + "</li>";\n            }\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "7",
+              title: "درس هفتم: رویدادهای ماوس (Mouse Events)",
+              content:
+                '# 🖱️ کار با رویدادهای ماوس\n\nرویدادها کارهایی هستند که کاربر انجام می‌دهد. جاوااسکریپت می‌تواند به این رویدادها واکنش نشان دهد.\n\n## 🎯 رویدادهای پرکاربرد ماوس\n\n``onclick`` : زمانی که کاربر روی المان کلیک می‌کند.\n\n``ondblclick`` : زمانی که کاربر دابل کلیک می‌کند.\n\n``onmouseover`` : زمانی که نشانگر ماوس روی المان می‌رود.\n\n``onmouseout`` : زمانی که نشانگر ماوس از روی المان خارج می‌شود.\n\n## 🎨 مثال عملی\n\n```html\n<style>\n    .box {\n        width: 200px;\n        height: 200px;\n        background-color: blue;\n    }\n</style>\n\n<div class="box" onmouseover="changeToRed()" onmouseout="changeToBlue()"></div>\n\n<script>\n    function changeToRed() {\n        document.querySelector(".box").style.backgroundColor = "red";\n    }\n    \n    function changeToBlue() {\n        document.querySelector(".box").style.backgroundColor = "blue";\n    }\n<\/script>\n```\n\n## 📖 توضیح دستورات\n\n``document.querySelector(".class")`` : اولین المان را با استفاده از انتخابگر CSS پیدا می‌کند.\n\n``.style.backgroundColor`` : رنگ پس‌زمینه المان را تغییر می‌دهد.\n\n,, ``onmouseover`` و ``onmouseout`` معمولاً برای ایجاد افکت‌های بصری مانند تغییر رنگ، نمایش Tooltip و انیمیشن استفاده می‌شوند.\n\n^^ یک ``<div>`` با عرض 150px، ارتفاع 150px و رنگ سبز بسازید. وقتی ماوس روی آن می‌رود، رنگ آن به زرد تغییر کند. وقتی ماوس خارج می‌شود، دوباره به سبز برگردد. ^^\n',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین رویدادها</title>\n    <style>\n        .box {\n            width: 150px;\n            height: 150px;\n            background-color: green;\n        }\n    </style>\n</head>\n<body>\n    <div class="box"></div>\n    \n    <script>\n        // کد خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین رویدادها</title>\n    <style>\n        .box {\n            width: 150px;\n            height: 150px;\n            background-color: green;\n        }\n    </style>\n</head>\n<body>\n    <div class="box" onmouseover="turnYellow()" onmouseout="turnGreen()"></div>\n    \n    <script>\n        function turnYellow() {\n            document.querySelector(".box").style.backgroundColor = "yellow";\n        }\n        \n        function turnGreen() {\n            document.querySelector(".box").style.backgroundColor = "green";\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "8",
+              title: "درس هشتم: دستکاری DOM و تغییر محتوا",
+              content:
+                '# 🎯 دستکاری DOM در جاوااسکریپت\n\nDOM مخفف "Document Object Model" است و ساختار درختی صفحه را نشان می‌دهد. با جاوااسکریپت می‌توانیم این ساختار را تغییر دهیم.\n\n## 🛠️ روش‌های دستکاری DOM\n\n```javascript\n// تغییر محتوا\ndocument.getElementById("id").innerHTML = "متن جدید";\n\n// تغییر استایل\ndocument.getElementById("id").style.color = "red";\ndocument.getElementById("id").style.backgroundColor = "yellow";\ndocument.getElementById("id").style.fontSize = "24px";\n\n// تغییر ویژگی\ndocument.getElementById("id").setAttribute("src", "new-image.jpg");\n\n// مخفی کردن المان\ndocument.getElementById("id").style.display = "none";\n\n// نمایش دوباره المان\ndocument.getElementById("id").style.display = "block";\n```\n\n## 🎨 مثال عملی\n\n```html\n<p id="text">متن اصلی</p>\n<button onclick="changeText()">تغییر متن</button>\n\n<script>\n    function changeText() {\n        document.getElementById("text").innerHTML = "متن تغییر کرد!";\n        document.getElementById("text").style.color = "blue";\n        document.getElementById("text").style.fontSize = "24px";\n    }\n<\/script>\n```\n\n## 📖 خاصیت‌های پرکاربرد style\n\n``color`` : رنگ متن\n\n``backgroundColor`` : رنگ پس‌زمینه\n\n``fontSize`` : اندازه قلم\n\n``display`` : نمایش یا مخفی کردن (none, block)\n\n,, با استفاده از ``.style`` می‌توانید هر خاصیت CSS را به صورت مستقیم تغییر دهید. نام خاصیت‌ها به صورت camelCase نوشته می‌شود (مثلاً backgroundColor).\n\n^^ یک پاراگراف با متن "سلام دنیا" و یک دکمه بسازید. با کلیک روی دکمه، متن پاراگراف به "جاوااسکریپت فوق العاده است" تغییر کند، رنگ آن به قرمز و اندازه قلم آن به 28px تبدیل شود. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین DOM</title>\n</head>\n<body>\n    <p id="myText">سلام دنیا</p>\n    <button onclick="changeContent()">تغییر</button>\n    \n    <script>\n        // کد خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین DOM</title>\n</head>\n<body>\n    <p id="text">سلام دنیا</p>\n    <button onclick="changeText()">تغییر</button>\n    \n    <script>\n        function changeText() {\n            document.getElementById("text").innerHTML = "جاوااسکریپت فوق العاده است";\n            document.getElementById("text").style.color = "red";\n            document.getElementById("text").style.fontSize = "28px";\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "9",
+              title: "درس نهم: اعتبارسنجی فرم‌ها (Form Validation)",
+              content:
+                '# ✅ اعتبارسنجی فرم‌ها با جاوااسکریپت\n\nاعتبارسنجی یعنی بررسی کنیم که کاربر اطلاعات را به درستی وارد کرده باشد.\n\n## 🎯 مثال عملی\n\n```html\n<style>\n    .error {\n        color: red;\n        font-size: 14px;\n    }\n</style>\n\n<form onsubmit="return validateForm()">\n    <input type="text" id="name" placeholder="نام">\n    <span id="nameError" class="error"></span>\n    \n    <input type="text" id="email" placeholder="ایمیل">\n    <span id="emailError" class="error"></span>\n    \n    <button type="submit">ارسال</button>\n</form>\n\n<script>\n    function validateForm() {\n        let isValid = true;\n        let name = document.getElementById("name").value;\n        let email = document.getElementById("email").value;\n        \n        // بررسی نام\n        if (name === "") {\n            document.getElementById("nameError").innerHTML = "نام نمی‌تواند خالی باشد";\n            isValid = false;\n        } else {\n            document.getElementById("nameError").innerHTML = "";\n        }\n        \n        // بررسی ایمیل\n        if (email === "") {\n            document.getElementById("emailError").innerHTML = "ایمیل نمی‌تواند خالی باشد";\n            isValid = false;\n        } else if (!email.includes("@")) {\n            document.getElementById("emailError").innerHTML = "ایمیل باید شامل @ باشد";\n            isValid = false;\n        } else {\n            document.getElementById("emailError").innerHTML = "";\n        }\n        \n        if (isValid) {\n            alert("فرم با موفقیت ارسال شد");\n        }\n        \n        return isValid;\n    }\n<\/script>\n```\n\n## 📖 قوانین اعتبارسنجی\n\n- نام : نباید خالی باشد\n- ایمیل : باید شامل @ باشد\n- رمز عبور : حداقل 5 کاراکتر\n- شماره تماس : باید فقط عدد باشد\n\n,, ``onsubmit="return validateForm()"`` : اگر تابع false برگرداند، فرم ارسال نمی‌شود.\n\n^^ یک فرم بسازید که دو فیلد "نام" و "ایمیل" داشته باشد. با اعتبارسنجی چک کنید که نام خالی نباشد و ایمیل شامل @ باشد. خطاها را زیر هر فیلد نمایش دهید. اگر فرم صحیح بود، پیام "ارسال موفق" با alert نمایش داده شود. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین اعتبارسنجی</title>\n    <style>\n        .error {\n            color: red;\n            font-size: 14px;\n        }\n        input {\n            display: block;\n            margin: 10px 0;\n            padding: 8px;\n        }\n        button {\n            padding: 8px 16px;\n        }\n    </style>\n</head>\n<body>\n    <form onsubmit="return validateForm()">\n        <input type="text" id="name" placeholder="نام">\n        <span id="nameError" class="error"></span>\n        \n        <input type="text" id="email" placeholder="ایمیل">\n        <span id="emailError" class="error"></span>\n        \n        <button type="submit">ارسال</button>\n    </form>\n    \n    <script>\n        // کد اعتبارسنجی خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>تمرین اعتبارسنجی</title>\n    <style>\n        .error {\n            color: red;\n            font-size: 14px;\n        }\n        input {\n            display: block;\n            margin: 10px 0;\n            padding: 8px;\n        }\n        button {\n            padding: 8px 16px;\n        }\n    </style>\n</head>\n<body>\n    <form onsubmit="return validateForm()">\n        <input type="text" id="name" placeholder="نام">\n        <span id="nameError" class="error"></span>\n        \n        <input type="text" id="email" placeholder="ایمیل">\n        <span id="emailError" class="error"></span>\n        \n        <button type="submit">ارسال</button>\n    </form>\n    \n    <script>\n        function validateForm() {\n            let isValid = true;\n            let name = document.getElementById("name").value;\n            let email = document.getElementById("email").value;\n            \n            if (name === "") {\n                document.getElementById("nameError").innerHTML = "نام نمی‌تواند خالی باشد";\n                isValid = false;\n            } else {\n                document.getElementById("nameError").innerHTML = "";\n            }\n            \n            if (email === "") {\n                document.getElementById("emailError").innerHTML = "ایمیل نمی‌تواند خالی باشد";\n                isValid = false;\n            } else if (!email.includes("@")) {\n                document.getElementById("emailError").innerHTML = "ایمیل باید شامل @ باشد";\n                isValid = false;\n            } else {\n                document.getElementById("emailError").innerHTML = "";\n            }\n            \n            if (isValid) {\n                alert("فرم با موفقیت ارسال شد");\n            }\n            \n            return isValid;\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "10",
+              title:
+                "درس دهم: پروژه نهایی - اضافه کردن تعامل به صفحه معرفی شخصی",
+              content:
+                '# 🏆 پروژه نهایی: تعامل با جاوااسکریپت\n\nتبریک! به آخرین درس جاوااسکریپت رسیدید. اکنون زمان آن است که تمام آموخته‌های خود را در قالب یک پروژه کامل به کار بگیرید.\n\n## 🎯 هدف پروژه\n\nبه صفحه معرفی شخصی که در دوره HTML ساختید و در دوره CSS زیبا کردید، **قابلیت‌های تعاملی** با جاوااسکریپت اضافه کنید.\n\n## ✅ قابلیت‌های لازم\n\n### 1. دکمه تغییر تم (Dark Mode / Light Mode)\n\nبا کلیک روی دکمه، رنگ پس‌زمینه صفحه و رنگ متن‌ها عوض شود.\n\n```javascript\nfunction toggleTheme() {\n    document.body.classList.toggle("dark-mode");\n}\n```\n\n### 2. دکمه خوش‌آمدگویی\n\nیک دکمه در هدر صفحه اضافه کنید که با کلیک روی آن، یک ``alert`` با متن "به صفحه من خوش آمدید" نمایش دهد.\n\n### 3. تغییر رنگ تصویر پروفایل با hover\n\nوقتی ماوس روی تصویر پروفایل می‌رود، حاشیه‌ای به رنگ طلایی به آن اضافه شود.\n\n```javascript\nfunction addBorder() {\n    document.querySelector(".profile-img").style.border = "3px solid gold";\n}\n```\n\n### 4. اعتبارسنجی فرم تماس\n\n- فیلد نام : نباید خالی باشد\n- فیلد ایمیل : باید شامل @ باشد\n- فیلد پیام : نباید خالی باشد\n- در صورت وجود خطا، پیام خطا زیر هر فیلد نمایش داده شود\n- در صورت صحیح بودن، پیام "پیام شما با موفقیت ارسال شد" با alert نمایش داده شود\n\n## 📝 نکات مهم\n\n- از ``document.getElementById`` برای دسترسی به المان‌ها استفاده کنید\n- از ``if`` و ``else`` برای اعتبارسنجی استفاده کنید\n- از ``.classList.toggle`` برای تغییر تم استفاده کنید\n- از ``onmouseover`` و ``onmouseout`` برای افکت تصویر استفاده کنید\n- صفحه HTML و CSS خود را از دوره‌های قبلی دارید\n\n,, این پروژه تمام مهارت‌های جاوااسکریپت شما را می‌سنجد: متغیرها، شرط‌ها، توابع، رویدادها، دستکاری DOM و اعتبارسنجی.\n\n^^ صفحه معرفی شخصی خود (HTML + CSS) را پیدا کنید. سپس تمام قابلیت‌های بالا (تغییر تم، دکمه خوش‌آمدگویی، تغییر حاشیه تصویر با hover، اعتبارسنجی فرم) را با جاوااسکریپت به آن اضافه کنید. ^^',
+              code: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه معرفی من</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n        body {\n            font-family: Arial, sans-serif;\n            line-height: 1.6;\n            padding: 20px;\n            transition: background-color 0.3s, color 0.3s;\n        }\n        body.dark-mode {\n            background-color: #1a1a2e;\n            color: #eee;\n        }\n        header {\n            text-align: center;\n            padding: 40px;\n            background-color: #2c3e50;\n            color: white;\n            border-radius: 10px;\n        }\n        nav {\n            display: flex;\n            justify-content: center;\n            gap: 20px;\n            margin: 20px 0;\n        }\n        nav a {\n            text-decoration: none;\n            color: #2c3e50;\n        }\n        body.dark-mode nav a {\n            color: #eee;\n        }\n        .about-content {\n            display: flex;\n            gap: 30px;\n            align-items: center;\n            margin: 40px 0;\n        }\n        .profile-img {\n            width: 150px;\n            height: 150px;\n            border-radius: 50%;\n            transition: border 0.3s;\n        }\n        .skills-bar {\n            background-color: #ddd;\n            height: 10px;\n            border-radius: 5px;\n            margin: 10px 0;\n        }\n        .skills-progress {\n            background-color: #2c3e50;\n            height: 10px;\n            border-radius: 5px;\n            width: 0%;\n        }\n        .projects-container {\n            display: flex;\n            gap: 20px;\n            margin: 40px 0;\n        }\n        .project-card {\n            padding: 20px;\n            background-color: #f4f4f4;\n            border-radius: 10px;\n            flex: 1;\n        }\n        body.dark-mode .project-card {\n            background-color: #2c3e50;\n        }\n        .contact-form input, .contact-form textarea {\n            width: 100%;\n            padding: 10px;\n            margin: 10px 0;\n            border: 1px solid #ddd;\n            border-radius: 5px;\n        }\n        .error {\n            color: red;\n            font-size: 14px;\n            display: block;\n        }\n        button {\n            padding: 10px 20px;\n            background-color: #2c3e50;\n            color: white;\n            border: none;\n            border-radius: 5px;\n            cursor: pointer;\n        }\n        footer {\n            text-align: center;\n            padding: 20px;\n            background-color: #2c3e50;\n            color: white;\n            border-radius: 10px;\n            margin-top: 40px;\n        }\n        .theme-btn {\n            position: fixed;\n            top: 20px;\n            right: 20px;\n        }\n    </style>\n</head>\n<body>\n    <button class="theme-btn" onclick="toggleTheme()">🌙 حالت شب</button>\n    \n    <header>\n        <h1>احمد رضایی</h1>\n        <p>برنامه‌نویس فرانت‌اند</p>\n        <button onclick="welcomeMessage()">🎉 خوش‌آمدگویی</button>\n    </header>\n    \n    <nav>\n        <a href="#">خانه</a>\n        <a href="#">درباره</a>\n        <a href="#">مهارت‌ها</a>\n        <a href="#">پروژه‌ها</a>\n        <a href="#">تماس</a>\n    </nav>\n    \n    <main>\n        <section class="about">\n            <h2>درباره من</h2>\n            <div class="about-content">\n                <img class="profile-img" src="https://placehold.co/150" alt="پروفایل" onmouseover="addBorder()" onmouseout="removeBorder()">\n                <p>سلام! من احمد هستم. به دنیای برنامه‌نویسی علاقه دارم و این صفحه را با HTML، CSS و جاوااسکریپت ساخته‌ام.</p>\n            </div>\n        </section>\n        \n        <section class="skills">\n            <h2>مهارت‌های من</h2>\n            <div>HTML</div>\n            <div class="skills-bar"><div class="skills-progress" style="width: 90%;"></div></div>\n            <div>CSS</div>\n            <div class="skills-bar"><div class="skills-progress" style="width: 85%;"></div></div>\n            <div>جاوااسکریپت</div>\n            <div class="skills-bar"><div class="skills-progress" style="width: 70%;"></div></div>\n        </section>\n        \n        <section class="projects">\n            <h2>پروژه‌های من</h2>\n            <div class="projects-container">\n                <div class="project-card">\n                    <h3>پروژه اول</h3>\n                    <p>وب‌سایت فروشگاهی با HTML و CSS</p>\n                </div>\n                <div class="project-card">\n                    <h3>پروژه دوم</h3>\n                    <p>اپلیکیشن Todo List با جاوااسکریپت</p>\n                </div>\n                <div class="project-card">\n                    <h3>پروژه سوم</h3>\n                    <p>صفحه فرود مدرن با Flexbox</p>\n                </div>\n            </div>\n        </section>\n        \n        <section class="contact">\n            <h2>تماس با من</h2>\n            <form class="contact-form" onsubmit="return validateForm()">\n                <input type="text" id="name" placeholder="نام شما">\n                <span id="nameError" class="error"></span>\n                \n                <input type="text" id="email" placeholder="ایمیل شما">\n                <span id="emailError" class="error"></span>\n                \n                <textarea id="message" rows="4" placeholder="پیام شما"></textarea>\n                <span id="messageError" class="error"></span>\n                \n                <button type="submit">ارسال پیام</button>\n            </form>\n        </section>\n    </main>\n    \n    <footer>\n        <p>کپی‌رایت © ۱۴۰۴ - احمد رضایی</p>\n    </footer>\n    \n    <script>\n        // کد پروژه نهایی خود را اینجا بنویسید\n    <\/script>\n</body>\n</html>',
+              exercise:
+                '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>صفحه معرفی من | نسخه تعاملی</title>\n    <style>\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n        body {\n            font-family: Arial, sans-serif;\n            line-height: 1.6;\n            padding: 20px;\n            transition: background-color 0.3s, color 0.3s;\n        }\n        body.dark-mode {\n            background-color: #1a1a2e;\n            color: #eee;\n        }\n        header {\n            text-align: center;\n            padding: 40px;\n            background-color: #2c3e50;\n            color: white;\n            border-radius: 10px;\n        }\n        nav {\n            display: flex;\n            justify-content: center;\n            gap: 20px;\n            margin: 20px 0;\n        }\n        nav a {\n            text-decoration: none;\n            color: #2c3e50;\n        }\n        body.dark-mode nav a {\n            color: #eee;\n        }\n        .about-content {\n            display: flex;\n            gap: 30px;\n            align-items: center;\n            margin: 40px 0;\n        }\n        .profile-img {\n            width: 150px;\n            height: 150px;\n            border-radius: 50%;\n            transition: border 0.3s;\n        }\n        .skills-bar {\n            background-color: #ddd;\n            height: 10px;\n            border-radius: 5px;\n            margin: 10px 0;\n        }\n        .skills-progress {\n            background-color: #2c3e50;\n            height: 10px;\n            border-radius: 5px;\n            width: 0%;\n        }\n        .projects-container {\n            display: flex;\n            gap: 20px;\n            margin: 40px 0;\n        }\n        .project-card {\n            padding: 20px;\n            background-color: #f4f4f4;\n            border-radius: 10px;\n            flex: 1;\n        }\n        body.dark-mode .project-card {\n            background-color: #2c3e50;\n        }\n        .contact-form input, .contact-form textarea {\n            width: 100%;\n            padding: 10px;\n            margin: 10px 0;\n            border: 1px solid #ddd;\n            border-radius: 5px;\n        }\n        .error {\n            color: red;\n            font-size: 14px;\n            display: block;\n        }\n        button {\n            padding: 10px 20px;\n            background-color: #2c3e50;\n            color: white;\n            border: none;\n            border-radius: 5px;\n            cursor: pointer;\n        }\n        footer {\n            text-align: center;\n            padding: 20px;\n            background-color: #2c3e50;\n            color: white;\n            border-radius: 10px;\n            margin-top: 40px;\n        }\n        .theme-btn {\n            position: fixed;\n            top: 20px;\n            right: 20px;\n        }\n    </style>\n</head>\n<body>\n    <button class="theme-btn" onclick="toggleTheme()">🌙 حالت شب</button>\n    \n    <header>\n        <h1>احمد رضایی</h1>\n        <p>برنامه‌نویس فرانت‌اند</p>\n        <button onclick="welcomeMessage()">🎉 خوش‌آمدگویی</button>\n    </header>\n    \n    <nav>\n        <a href="#">خانه</a>\n        <a href="#">درباره</a>\n        <a href="#">مهارت‌ها</a>\n        <a href="#">پروژه‌ها</a>\n        <a href="#">تماس</a>\n    </nav>\n    \n    <main>\n        <section class="about">\n            <h2>درباره من</h2>\n            <div class="about-content">\n                <img class="profile-img" src="https://placehold.co/150" alt="پروفایل" onmouseover="addBorder()" onmouseout="removeBorder()">\n                <p>سلام! من احمد هستم. به دنیای برنامه‌نویسی علاقه دارم و این صفحه را با HTML، CSS و جاوااسکریپت ساخته‌ام.</p>\n            </div>\n        </section>\n        \n        <section class="skills">\n            <h2>مهارت‌های من</h2>\n            <div>HTML</div>\n            <div class="skills-bar"><div class="skills-progress" style="width: 90%;"></div></div>\n            <div>CSS</div>\n            <div class="skills-bar"><div class="skills-progress" style="width: 85%;"></div></div>\n            <div>جاوااسکریپت</div>\n            <div class="skills-bar"><div class="skills-progress" style="width: 70%;"></div></div>\n        </section>\n        \n        <section class="projects">\n            <h2>پروژه‌های من</h2>\n            <div class="projects-container">\n                <div class="project-card">\n                    <h3>پروژه اول</h3>\n                    <p>وب‌سایت فروشگاهی با HTML و CSS</p>\n                </div>\n                <div class="project-card">\n                    <h3>پروژه دوم</h3>\n                    <p>اپلیکیشن Todo List با جاوااسکریپت</p>\n                </div>\n                <div class="project-card">\n                    <h3>پروژه سوم</h3>\n                    <p>صفحه فرود مدرن با Flexbox</p>\n                </div>\n            </div>\n        </section>\n        \n        <section class="contact">\n            <h2>تماس با من</h2>\n            <form class="contact-form" onsubmit="return validateForm()">\n                <input type="text" id="name" placeholder="نام شما">\n                <span id="nameError" class="error"></span>\n                \n                <input type="text" id="email" placeholder="ایمیل شما">\n                <span id="emailError" class="error"></span>\n                \n                <textarea id="message" rows="4" placeholder="پیام شما"></textarea>\n                <span id="messageError" class="error"></span>\n                \n                <button type="submit">ارسال پیام</button>\n            </form>\n        </section>\n    </main>\n    \n    <footer>\n        <p>کپی‌رایت © ۱۴۰۴ - احمد رضایی</p>\n    </footer>\n    \n    <script>\n        // تابع تغییر تم (حالت شب/روز)\n        function toggleTheme() {\n            document.body.classList.toggle("dark-mode");\n            let btn = document.querySelector(".theme-btn");\n            if (document.body.classList.contains("dark-mode")) {\n                btn.innerHTML = "☀️ حالت روز";\n            } else {\n                btn.innerHTML = "🌙 حالت شب";\n            }\n        }\n        \n        // تابع نمایش پیام خوش‌آمدگویی\n        function welcomeMessage() {\n            alert("به صفحه من خوش آمدید 🎉");\n        }\n        \n        // توابع تغییر حاشیه تصویر پروفایل\n        function addBorder() {\n            document.querySelector(".profile-img").style.border = "3px solid gold";\n        }\n        \n        function removeBorder() {\n            document.querySelector(".profile-img").style.border = "none";\n        }\n        \n        // تابع اعتبارسنجی فرم تماس\n        function validateForm() {\n            let isValid = true;\n            \n            let name = document.getElementById("name").value;\n            let email = document.getElementById("email").value;\n            let message = document.getElementById("message").value;\n            \n            // اعتبارسنجی نام\n            if (name === "") {\n                document.getElementById("nameError").innerHTML = "لطفاً نام خود را وارد کنید";\n                isValid = false;\n            } else {\n                document.getElementById("nameError").innerHTML = "";\n            }\n            \n            // اعتبارسنجی ایمیل\n            if (email === "") {\n                document.getElementById("emailError").innerHTML = "لطفاً ایمیل خود را وارد کنید";\n                isValid = false;\n            } else if (!email.includes("@")) {\n                document.getElementById("emailError").innerHTML = "ایمیل باید شامل @ باشد";\n                isValid = false;\n            } else {\n                document.getElementById("emailError").innerHTML = "";\n            }\n            \n            // اعتبارسنجی پیام\n            if (message === "") {\n                document.getElementById("messageError").innerHTML = "لطفاً پیام خود را وارد کنید";\n                isValid = false;\n            } else {\n                document.getElementById("messageError").innerHTML = "";\n            }\n            \n            if (isValid) {\n                alert("پیام شما با موفقیت ارسال شد ✅");\n            }\n            \n            return isValid;\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+          ],
+        },
+        {
+          id: "py",
+          published: false,
+          title: "دوره Python",
+          description:
+            " توی این دوره از پایه‌ترین مفاهیم مثل شرط و حلقه تا پروژه‌های حرفه‌ای پیش میریم، بدون اینکه نیاز به دانش قبلی داشته باشی.",
+          lessons: [],
+        },
+      ];
+
+      // ========== مدیریت پیشرفت کاربر ==========
+      let userProgress = {};
+
+      let currentCourseIndex = 0;
+      let currentLessonIndex = 0;
+
+      const container = document.querySelector(".container");
+      const lessonContainer = document.querySelector(".lesson-container");
+
+      const coursesDiv = document.querySelector(".courses");
+
+      const lessonMenu = document.querySelector(".lesson-menu");
+      const returnBtn = document.querySelector(".return-btn");
+      const lessonTitle = document.querySelector(".lesson-title");
+      const lessonsDiv = document.querySelector(".lessons");
+      const lessonDiv = document.querySelector(".lesson");
+      const prevLessonBtn = document.querySelector(".prev-lesson-btn");
+      const checkExerciseBtn = document.querySelector(".check-exercise-btn");
+      const nextLessonBtn = document.querySelector(".next-lesson-btn");
+
+      const editor = document.querySelector(".editor");
+      const runCodeButton = document.querySelector(".run-code");
+      const copyCodeButton = document.querySelector(".copy-code");
+      const viewCodeButton = document.querySelector(".view-code");
+      const codeOutputDiv = document.querySelector(".code-output");
+      const outputIframe = document.querySelector(".output");
+      const outputTitle = document.querySelector(".output-title");
+      const codeLanguage = document.querySelector(".code-language");
+      const codeEditorDiv = document.querySelector(".code-editor");
+
+      // بارگیری از localStorage
+      function loadProgress() {
+        const saved = localStorage.getItem("webDevProgress");
+        if (saved) {
+          userProgress = JSON.parse(saved);
+        }
+      }
+
+      // ذخیره در localStorage
+      function saveProgress() {
+        localStorage.setItem("webDevProgress", JSON.stringify(userProgress));
+      }
+
+      // شروع یک دوره جدید
+      function initCourseProgress(courseId, lessons) {
+        if (userProgress[courseId]) return; // قبلاً شروع شده
+
+        const progress = {};
+        lessons.forEach((lesson, index) => {
+          progress[lesson.id] = {
+            read: false,
+            unlocked: index === 0, // فقط درس اول آنلاک
+          };
+        });
+        userProgress[courseId] = progress;
+        saveProgress();
+      }
+
+      // وضعیت دوره (not_started / in_progress / completed)
+      function getCourseStatus(courseId, lessons) {
+        if (!userProgress[courseId]) return "not_started";
+
+        const allRead = lessons.every(
+          (lesson) => userProgress[courseId][lesson.id]?.read === true,
+        );
+        return allRead ? "completed" : "in_progress";
+      }
+
+      // پیدا کردن درس بعدی (اولین درس unlocked و read=false)
+      function findNextLesson(courseId, lessons) {
+        const progress = userProgress[courseId];
+        if (!progress) return null;
+
+        for (let i = 0; i < lessons.length; i++) {
+          const lesson = lessons[i];
+          const status = progress[lesson.id];
+          if (status?.unlocked && !status?.read) {
+            return { lessonIndex: i, lesson };
+          }
+        }
+        return null; // دوره کامل شده
+      }
+
+      // آپدیت وضعیت درس بعد از تکمیل
+      function completeLesson(courseId, lessonId, lessonIndex, lessons) {
+        // علامت گذاری درس فعلی به عنوان خوانده شده
+        userProgress[courseId][lessonId].read = true;
+
+        // آنلاک کردن درس بعدی اگر وجود داشته باشد
+        const nextLesson = lessons[lessonIndex + 1];
+        if (nextLesson) {
+          if (!userProgress[courseId][nextLesson.id]) {
+            userProgress[courseId][nextLesson.id] = {
+              read: false,
+              unlocked: false,
+            };
+          }
+          userProgress[courseId][nextLesson.id].unlocked = true;
+        }
+
+        saveProgress();
+      }
+
+      returnBtn.addEventListener("click", () => {
+        lessonContainer.classList.add("hidden");
+        container.classList.remove("hidden");
+
+        // رندر مجدد دوره‌ها (برای ریست شدن UI)
+        renderCourses();
+      });
+
+      lessonMenu.addEventListener("click", () => {
+        lessonDiv.classList.toggle("hidden");
+        lessonsDiv.classList.toggle("hidden");
+      });
+
+      function renderCourses() {
+        coursesDiv.innerHTML = "";
+
+        courses.forEach((course, index) => {
+          const courseCard = document.createElement("div");
+          courseCard.className = `course course-${course.id}`;
+
+          const status = getCourseStatus(course.id, course.lessons);
+          let buttonText = "";
+          if (status === "not_started") buttonText = "شروع دوره 🚀";
+          else if (status === "in_progress") buttonText = "ادامه یادگیری 📖";
+          else buttonText = "مرور دوره 🔄";
+
+          courseCard.innerHTML = `<h3 class="course-title course-title-${course.id}">📚 ${course.title}</h3><p class="course-description">${course.description}</p><button class="start-course-btn start-course-btn-${course.id}" data-course-index="${index}" ${course.published ? "" : "disabled"}>${course.published ? buttonText : "به زودی ⏳"}</button>`;
+          coursesDiv.appendChild(courseCard);
+        });
+
+        // اضافه کردن event listener به دکمه‌های شروع دوره
+        document.querySelectorAll(".start-course-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const courseIndex = parseInt(e.target.dataset.courseIndex);
+            handleCourseAction(courseIndex);
+          });
+        });
+      }
+
+      function handleCourseAction(courseIndex) {
+        const course = courses[courseIndex];
+        const status = getCourseStatus(course.id, course.lessons);
+
+        if (status === "not_started") {
+          // شروع دوره جدید
+          initCourseProgress(course.id, course.lessons);
+        }
+
+        // پیدا کردن درس برای نمایش
+        let targetLessonIndex;
+
+        if (status === "completed") {
+          // دوره کامل شده بود => از درس اول شروع کن
+          alert(
+            `دوره "${course.title}" رو قبلاً کامل کردی! در حال نمایش درس اول برای مرور...`,
+          );
+          targetLessonIndex = 0;
+        } else {
+          // دوره ناقص => برو به اولین درس نخونده
+          const next = findNextLesson(course.id, course.lessons);
+          targetLessonIndex = next?.lessonIndex ?? 0;
+        }
+
+        currentCourseIndex = courseIndex;
+        currentLessonIndex = targetLessonIndex;
+        container.classList.add("hidden");
+        lessonContainer.classList.remove("hidden");
+        renderLesson();
+      }
+
+      function escapeHtml(text) {
+        if (!text) return "";
+        return text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function formatMessage(text) {
+        if (!text) return "";
+
+        let message = escapeHtml(text);
+
+        message = message.replace(
+          /```(\w+)?\n([\s\S]*?)```\n?/g,
+          (match, lang = "text", code) => {
+            return `<div class="code-box"><div class="language">${lang}</div><button class="copy-code-button">کپی</button><pre class="code language-${lang}"><code>${code}</code></pre></div>`;
+          },
+        );
+
+        message = message.replace(/``([^`]+)``/g, (match, content) => {
+          return `<code class="little-code">${content}</code>`;
+        });
+
+        message = message.replace(/\*\*(.*?)\*\*/g, (match, content) => {
+          return `<strong>${content}</strong>`;
+        });
+
+        message = message.replace(/~~(.*?)~~/g, (match, content) => {
+          return `<del>${content}</del>`;
+        });
+
+        message = message.replace(
+          /^(#{1,3})\s+(.+)$/gm,
+          (match, hashes, content) => {
+            const level = hashes.length;
+            return `<h${level}>${content}</h${level}>`;
+          },
+        );
+
+        message = message.replace(
+          /\[([^\]]+)\]\(([^)]+)\)/g,
+          (match, text, url) => {
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer">${text}</a>`;
+          },
+        );
+
+        message = message.replace(/^,,\s+(.+)$/gm, (match, content) => {
+          return `<div class="blockquote"><div class="blockquote-border"></div><p>${content}</p></div>`;
+        });
+
+        message = message.replace(/\^\^([\s\S]*?)\^\^/g, (match, content) => {
+          return `<div class="exercise-box"><strong class="exercise-title">تمرین:</strong><p class="exercise-p">${content}</p></div>`;
+        });
+
+        return message;
+      }
+
+      // Render lesson
+      function renderLesson() {
+        // دریافت درس جاری از دوره فعلی
+        const currentCourse = courses[currentCourseIndex];
+        const currentLesson = currentCourse.lessons[currentLessonIndex];
+
+        // دریافت وضعیت از userProgress
+        const progress = userProgress[currentCourse.id];
+        const lessonStatus = progress?.[currentLesson.id];
+
+        // به‌روزرسانی عنوان درس در هدر
+        if (lessonStatus?.read) {
+          lessonTitle.textContent = `${currentLesson.title} ✅`;
+        } else if (lessonStatus?.unlocked) {
+          lessonTitle.textContent = `${currentLesson.title} ⏳`;
+        } else {
+          lessonTitle.textContent = `${currentLesson.title} 🔒`;
+        }
+
+        // اگر درس آنلاک است، محتوا و ادیتور را نمایش بده
+        if (lessonStatus?.unlocked) {
+          // نمایش محتوای درس با فرمت‌دهی
+          lessonDiv.innerHTML = formatMessage(currentLesson.content);
+
+          // تنظیم ادیتور با کد تمرین
+          editor.value = currentLesson.code;
+
+          // نمایش بخش ادیتور و دکمه‌ها
+          document.querySelector(".code-container").classList.remove("hidden");
+          document.querySelector(".lesson-action").classList.remove("hidden");
+
+          // اگر درس قبلاً خوندن شده، دکمه بررسی را مخفی و دکمه بعدی را نمایش بده
+          if (lessonStatus.read) {
+            checkExerciseBtn.classList.add("hidden");
+            nextLessonBtn.classList.remove("hidden");
+          } else {
+            checkExerciseBtn.classList.remove("hidden");
+            nextLessonBtn.classList.add("hidden");
+          }
+
+          window.scrollTo(0, 0);
+          editor.scrollTo(0, 0);
+        } else {
+          alert("🔒 این درس قفل است. ابتدا درس‌های قبلی را تکمیل کنید.");
+          // اگر درس قفل بود، ادیتور و دکمه‌ها رو مخفی کن
+          document.querySelector(".code-container").classList.add("hidden");
+          document.querySelector(".lesson-action").classList.add("hidden");
+          lessonDiv.innerHTML =
+            "<p style='color: #ef4444; text-align: center; padding: 50px;'>🔒 این درس قفل است. ابتدا درس‌های قبلی را کامل کنید.</p>";
+        }
+
+        // به‌روزرسانی وضعیت دکمه قبلی
+        prevLessonBtn.disabled = currentLessonIndex === 0;
+
+        // به‌روزرسانی دکمه بعدی
+        if (
+          currentLessonIndex === currentCourse.lessons.length - 1 &&
+          lessonStatus?.read
+        ) {
+          nextLessonBtn.textContent = "🎉 تکمیل دوره!";
+          nextLessonBtn.disabled = true;
+        } else {
+          nextLessonBtn.textContent = "درس بعدی";
+          nextLessonBtn.disabled = false;
+        }
+
+        // به‌روزرسانی نوار پیشرفت و منوی درس‌ها
+        updateProgress();
+        updateLessonButtons();
+
+        // نمایش محتوای درس و مخفی کردن منوی درس‌ها
+        lessonsDiv.classList.add("hidden");
+        lessonDiv.classList.remove("hidden");
+
+        // ریست کردن view به حالت ادیتور (نه خروجی)
+        viewCode();
+      }
+
+      // Update lesson buttons in menu
+      function updateLessonButtons() {
+        lessonsDiv.innerHTML = "";
+        const currentCourse = courses[currentCourseIndex];
+        const courseProgress = userProgress[currentCourse.id] || {};
+
+        currentCourse.lessons.forEach((lesson, index) => {
+          const btn = document.createElement("button");
+          const lessonStatus = courseProgress[lesson.id];
+          const isUnlocked = lessonStatus?.unlocked || false;
+          const isRead = lessonStatus?.read || false;
+
+          // تعیین کلاس‌های دکمه
+          let btnClass = "lesson-btn";
+          if (!isUnlocked) btnClass += " locked";
+          if (index === currentLessonIndex) btnClass += " lesson-btn-active";
+
+          btn.className = btnClass;
+
+          // تعیین متن دکمه
+          let statusIcon = "";
+          if (isRead) statusIcon = " ✅";
+          else if (!isUnlocked) statusIcon = " 🔒";
+
+          btn.textContent = `${lesson.title}${statusIcon}`;
+
+          btn.addEventListener("click", () => {
+            if (isUnlocked) {
+              currentLessonIndex = index;
+              renderLesson();
+            } else {
+              alert("🔒 این درس قفل است. ابتدا درس‌های قبلی را تکمیل کنید.");
+            }
+          });
+
+          lessonsDiv.appendChild(btn);
+        });
+      }
+
+      function updateProgress() {
+        const currentCourse = courses[currentCourseIndex];
+        const courseProgress = userProgress[currentCourse.id] || {};
+
+        // محاسبه تعداد درس‌های خوانده شده
+        let completed = 0;
+        currentCourse.lessons.forEach((lesson) => {
+          if (courseProgress[lesson.id]?.read === true) {
+            completed++;
+          }
+        });
+
+        const total = currentCourse.lessons.length;
+        const percent = total > 0 ? (completed / total) * 100 : 0;
+
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+
+        if (progressBar) {
+          progressBar.style.width = `${percent}%`;
+        }
+        if (progressText) {
+          progressText.textContent = `${completed} درس از ${total} درس تکمیل شد`;
+        }
+
+        // همچنین می‌توانید درصد را در کنسول لاگ کنید (اختیاری)
+        // console.log(`پیشرفت دوره ${currentCourse.title}: ${Math.round(percent)}%`);
+      }
+
+      function checkExercise() {
+        const currentCourse = courses[currentCourseIndex];
+        const currentLesson = currentCourse.lessons[currentLessonIndex];
+        const courseProgress = userProgress[currentCourse.id];
+        const lessonStatus = courseProgress?.[currentLesson.id];
+
+        const userCode = editor.value;
+        const targetCode = currentLesson.exercise;
+
+        // اگر درس قبلاً خوندن شده
+        if (lessonStatus?.read) {
+          alert("📚 این درس قبلاً تکمیل شده است.");
+          return false;
+        }
+
+        // پارس کردن کدها
+        let userDoc, targetDoc;
+        try {
+          userDoc = new DOMParser().parseFromString(userCode, "text/html");
+          targetDoc = new DOMParser().parseFromString(targetCode, "text/html");
+        } catch (e) {
+          alert("❌ کد HTML معتبر نیست!");
+          return false;
+        }
+
+        // بررسی خطای پارس
+        if (userDoc.querySelector("parsererror")) {
+          alert("❌ کد HTML شما مشکل ساختاری دارد. تگ‌ها را بررسی کن.");
+          return false;
+        }
+
+        let totalScore = 0;
+        let maxScore = 0;
+        const weakSections = [];
+
+        // ========== 1. بررسی تگ‌های body ==========
+        const userBodyTags = [...userDoc.body.querySelectorAll("*")].map((el) =>
+          el.tagName.toLowerCase(),
+        );
+        const targetBodyTags = [...targetDoc.body.querySelectorAll("*")].map(
+          (el) => el.tagName.toLowerCase(),
+        );
+
+        if (targetBodyTags.length > 0) {
+          maxScore += 30;
+
+          let matchCount = 0;
+          let userIndex = 0;
+
+          for (const targetTag of targetBodyTags) {
+            const foundIndex = userBodyTags.indexOf(targetTag, userIndex);
+            if (foundIndex !== -1 && foundIndex >= userIndex) {
+              matchCount++;
+              userIndex = foundIndex + 1;
+            }
+          }
+
+          const bodyScore = (matchCount / targetBodyTags.length) * 30;
+          totalScore += bodyScore;
+
+          if (bodyScore < 20) weakSections.push("🖹 ساختار HTML");
+        }
+
+        // ========== 2. بررسی CSS ==========
+        const userStyle = userDoc.querySelector("style");
+        const targetStyle = targetDoc.querySelector("style");
+
+        if (targetStyle) {
+          maxScore += 35;
+          const userStyleContent = userStyle?.innerHTML || "";
+          const targetStyleContent = targetStyle.innerHTML;
+
+          const targetSelectors = [
+            ...targetStyleContent.matchAll(/([^{]+)\{/g),
+          ].map((m) => m[1].trim());
+          const userSelectors = [
+            ...userStyleContent.matchAll(/([^{]+)\{/g),
+          ].map((m) => m[1].trim());
+          const targetProps = [
+            ...targetStyleContent.matchAll(/([a-z-]+)\s*:/g),
+          ].map((m) => m[1]);
+          const userProps = [
+            ...userStyleContent.matchAll(/([a-z-]+)\s*:/g),
+          ].map((m) => m[1]);
+
+          let selectorMatch = 0;
+          for (const sel of targetSelectors) {
+            if (
+              userSelectors.some(
+                (uSel) => uSel.includes(sel) || sel.includes(uSel),
+              )
+            ) {
+              selectorMatch++;
+            }
+          }
+          const selectorScore = (selectorMatch / targetSelectors.length) * 15;
+
+          let propMatch = 0;
+          for (const prop of targetProps) {
+            if (userProps.includes(prop)) propMatch++;
+          }
+          const propScore = (propMatch / targetProps.length) * 20;
+
+          const cssScore = selectorScore + propScore;
+          totalScore += cssScore;
+
+          if (cssScore < 25) weakSections.push("🎨 استایل CSS");
+        }
+
+        // ========== 3. بررسی JavaScript ==========
+        const userScript = userDoc.querySelector("script");
+        const targetScript = targetDoc.querySelector("script");
+
+        if (targetScript) {
+          maxScore += 35;
+          const userScriptContent = userScript?.innerHTML || "";
+          const targetScriptContent = targetScript.innerHTML;
+
+          const targetFunctions = [
+            ...targetScriptContent.matchAll(/function\s+(\w+)/g),
+          ].map((m) => m[1]);
+          const targetKeywords = [
+            "alert",
+            "console.log",
+            "document.getElementById",
+            "innerHTML",
+            "style",
+            "addEventListener",
+          ];
+
+          let funcMatch = 0;
+          for (const func of targetFunctions) {
+            if (userScriptContent.includes(func)) funcMatch++;
+          }
+          const funcScore =
+            targetFunctions.length > 0
+              ? (funcMatch / targetFunctions.length) * 15
+              : 0;
+
+          let keywordMatch = 0;
+          const relevantKeywords = targetKeywords.filter((kw) =>
+            targetScriptContent.includes(kw),
+          );
+          for (const kw of relevantKeywords) {
+            if (userScriptContent.includes(kw)) keywordMatch++;
+          }
+          const kwScore =
+            relevantKeywords.length > 0
+              ? (keywordMatch / relevantKeywords.length) * 20
+              : 0;
+
+          const jsScore = funcScore + kwScore;
+          totalScore += jsScore;
+
+          if (jsScore < 25) weakSections.push("⚡ کد جاوااسکریپت");
+        }
+
+        // ========== 4. محاسبه نهایی ==========
+        const percent = maxScore > 0 ? (totalScore / maxScore) * 100 : 100;
+
+        // ========== 5. نتیجه ==========
+        if (percent >= 65) {
+          // علامت گذاری درس به عنوان کامل شده
+          if (!lessonStatus?.read) {
+            // آپدیت userProgress
+            completeLesson(
+              currentCourse.id,
+              currentLesson.id,
+              currentLessonIndex,
+              currentCourse.lessons,
+            );
+
+            // رندر مجدد درس
+            renderLesson();
+
+            alert(
+              `✅ عالی! درس "${currentLesson.title}" تکمیل شد. (امتیاز: ${Math.round(percent)}%)`,
+            );
+          }
+          return true;
+        } else {
+          // راهنمایی هوشمند
+          let guidance = "";
+          if (weakSections.length > 0) {
+            guidance = `\n\n🔍 مشکل در این بخش‌هاست:\n${weakSections.join("\n")}\n\n💡 دوباره تمرین را بخوان و کد را اصلاح کن.`;
+          } else {
+            guidance =
+              "\n\n💡 نکات تمرین را دقیق‌تر انجام بده. به ترتیب تگ‌ها و مقادیر دقت کن.";
+          }
+
+          alert(
+            `📝 نیاز به حداقل 65% امتیاز داری. (امتیاز تو: ${Math.round(percent)}%)${guidance}`,
+          );
+          return false;
+        }
+      }
+
+      prevLessonBtn.addEventListener("click", () => {
+        if (currentLessonIndex > 0) {
+          currentLessonIndex--;
+          renderLesson();
+        }
+      });
+
+      nextLessonBtn.addEventListener("click", () => {
+        const currentCourse = courses[currentCourseIndex];
+        const courseProgress = userProgress[currentCourse.id];
+        const currentLessonStatus =
+          courseProgress?.[currentCourse.lessons[currentLessonIndex].id];
+
+        // بررسی اینکه درس فعلی خوندن شده باشه
+        if (!currentLessonStatus?.read) {
+          alert("⚠️ ابتدا باید تمرین این درس رو با موفقیت پاس کنی.");
+          return;
+        }
+
+        // رفتن به درس بعدی اگر وجود داشته باشه
+        if (currentLessonIndex < currentCourse.lessons.length - 1) {
+          const nextLesson = currentCourse.lessons[currentLessonIndex + 1];
+          const nextLessonStatus = courseProgress?.[nextLesson.id];
+
+          if (nextLessonStatus?.unlocked) {
+            currentLessonIndex++;
+            renderLesson();
+          } else {
+            alert("🔒 درس بعدی هنوز قفل است.");
+          }
+        }
+
+        // اگر در آخرین درس هستیم و خوندن شده
+        else if (
+          currentLessonIndex === currentCourse.lessons.length - 1 &&
+          currentLessonStatus?.read
+        ) {
+          alert(
+            `🎉 تبریک! دوره "${currentCourse.title}" رو با موفقیت به پایان رسوندی!`,
+          );
+          returnBtn.click(); // بازگشت به صفحه اصلی
+        }
+      });
+
+      function copyCode(btn) {
+        const code = btn.parentElement.querySelector("code").textContent;
+        navigator.clipboard.writeText(code).then(() => {
+          btn.textContent = "✅";
+          setTimeout(() => {
+            btn.textContent = "کپی";
+          }, 1000);
+        });
+      }
+
+      lessonDiv.addEventListener("click", (e) => {
+        const btn = e.target.closest(".copy-code-button");
+        if (btn) copyCode(btn);
+      });
+
+      copyCodeButton.addEventListener("click", () => {
+        const codeContent = editor.value;
+        navigator.clipboard
+          .writeText(codeContent)
+          .then(() => {
+            copyCodeButton.textContent = "✅";
+            setTimeout(() => {
+              copyCodeButton.textContent = "کپی";
+            }, 1000);
+          })
+          .catch((err) => {
+            console.error("Failed to copy code: ", err);
+          });
+      });
+
+      editor.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" && editor.value.trim() === "doc") {
+          e.preventDefault(); // جلوگیری از رفتن به خط بعد
+          editor.value =
+            '<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n    <title>Document</title>\n  </head>\n  <body></body>\n</html>';
+        }
+      });
+
+      function runCode() {
+        const codeContent = editor.value;
+        const titleMatch = codeContent.match(/<title>(.*?)<\/title>/i);
+        outputTitle.textContent = titleMatch ? titleMatch[1] : "WebPage";
+        outputIframe.srcdoc = codeContent;
+
+        copyCodeButton.classList.add("hidden");
+        runCodeButton.classList.add("hidden");
+        codeLanguage.classList.add("hidden");
+        codeEditorDiv.classList.add("hidden");
+
+        viewCodeButton.classList.remove("hidden");
+        outputTitle.classList.remove("hidden");
+        codeOutputDiv.classList.remove("hidden");
+      }
+
+      function viewCode() {
+        viewCodeButton.classList.add("hidden");
+        outputTitle.classList.add("hidden");
+        codeOutputDiv.classList.add("hidden");
+
+        copyCodeButton.classList.remove("hidden");
+        runCodeButton.classList.remove("hidden");
+        codeLanguage.classList.remove("hidden");
+        codeEditorDiv.classList.remove("hidden");
+      }
+
+      runCodeButton.addEventListener("click", runCode);
+
+      viewCodeButton.addEventListener("click", viewCode);
+
+      checkExerciseBtn.addEventListener("click", checkExercise);
+
+      // لود اولیه
+      loadProgress();
+      renderCourses();
+    </script>
+  </body>
+</html>
