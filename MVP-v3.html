@@ -1,0 +1,2291 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>آموزش برنامه نویسی</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+
+    <style>
+      :root {
+        --bg-1: #ffffff;
+        --bg-2: #f4f4f4;
+
+        --border-1: #cbd5e1;
+        --border-2: #94a3b8;
+
+        --text-1: #0f172a;
+        --text-2: #475569;
+
+        --primary: #0bb;
+        --secondary: #b0b;
+
+        --html: #e34f26;
+        --css: #264de4;
+        --js: #ffb100;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      button {
+        border: none;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        background-color: var(--border-1);
+        color: var(--text-2);
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+
+      html {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      body {
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-2);
+        color: var(--text-1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .message,
+      .confirm-message {
+        width: calc(100% - 24px);
+        height: auto;
+        padding: 12px;
+        background-color: var(--bg-1);
+        border-radius: 12px;
+        border: 1px solid var(--border-2);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        position: fixed;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+      }
+
+      .confirm-message {
+        justify-content: space-between;
+      }
+
+      .confirm-message-box {
+        width: auto;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .message-icon {
+        width: 40px;
+        height: 40px;
+        background-color: var(--bg-2);
+        border-radius: 50%;
+        border: 2px solid transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .message-success-icon {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+      }
+
+      .message-warn-icon {
+        background-color: #fff3cd;
+        color: #856404;
+        border-color: #ffeeba;
+      }
+
+      .message-error-icon {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+      }
+
+      .message-info-icon {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border-color: #bee5eb;
+      }
+
+      .message-content {
+        width: auto;
+        height: auto;
+        max-height: 300px;
+        direction: rtl;
+        text-align: right;
+      }
+
+      .confirm-message-confirm-button,
+      .confirm-message-cancel-button {
+        width: auto;
+        height: 40px;
+        padding: 12px 16px;
+        background-color: var(--primary);
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 800;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .confirm-message-cancel-button {
+        background-color: #c00;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .section {
+        width: 100%;
+        height: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        text-align: center;
+        gap: 16px;
+        scroll-margin-top: 70px;
+      }
+
+      .section-box {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        text-align: center;
+        gap: 16px;
+      }
+
+      .section-box-action {
+        width: auto;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        gap: 12px;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .show-editor-button {
+        width: auto;
+        height: 40px;
+        padding: 0 12px;
+        background-color: var(--secondary);
+        color: var(--text-1);
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .card {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .course {
+        width: 100%;
+        height: auto;
+        background-color: var(--bg-1);
+        border-radius: 10px;
+        border: 2px solid var(--border-1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      .course-intro {
+        border-color: var(--primary);
+      }
+
+      .course-html {
+        border-color: var(--html);
+      }
+
+      .course-css {
+        border-color: var(--css);
+      }
+
+      .course-js {
+        border-color: var(--js);
+      }
+
+      .course-content {
+        width: 100%;
+        height: auto;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .course-title {
+        color: var(--text-1);
+        font-size: 18px;
+      }
+
+      .course-title-intro {
+        color: var(--primary);
+      }
+
+      .course-title-html {
+        color: var(--html);
+      }
+
+      .course-title-css {
+        color: var(--css);
+      }
+
+      .course-title-js {
+        color: var(--js);
+      }
+
+      .course-description {
+        color: var(--text-2);
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: right;
+      }
+
+      .course-actions {
+        width: 100%;
+        height: auto;
+        padding: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .start-course-btn {
+        width: calc(100% - 62px);
+        height: 40px;
+        background-color: transparent;
+        color: var(--text-1);
+        border-radius: 8px;
+        border: 1px solid var(--border-1);
+        font-size: 14px;
+        font-weight: bold;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .start-course-btn-intro {
+        border-color: var(--primary);
+      }
+
+      .start-course-btn-html {
+        border-color: var(--html);
+      }
+
+      .start-course-btn-css {
+        border-color: var(--css);
+      }
+
+      .start-course-btn-js {
+        border-color: var(--js);
+      }
+
+      .start-course-btn-background {
+        width: 0%;
+        height: 100%;
+        background-color: var(--bg-2);
+        transition: width 2s ease;
+      }
+
+      .start-course-btn-background-intro {
+        background-color: var(--primary);
+      }
+
+      .start-course-btn-background-html {
+        background-color: var(--html);
+      }
+
+      .start-course-btn-background-css {
+        background-color: var(--css);
+      }
+
+      .start-course-btn-background-js {
+        background-color: var(--js);
+      }
+
+      @keyframes fillingUp {
+        0% {
+          width: 0%;
+        }
+        50% {
+          width: 100%;
+        }
+        100% {
+          width: 0%;
+        }
+      }
+
+      .start-course-btn-text {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        font-size: 15px;
+        color: var(--text-1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+        position: absolute;
+        top: 0;
+      }
+
+      .reset-course-btn,
+      .reset-all-course-btn {
+        width: 40px;
+        height: 40px;
+        background-color: #fcc;
+        color: #c00;
+        border-radius: 12px;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .lesson-container {
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-2);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+      }
+
+      .lesson-header {
+        width: 100%;
+        height: 60px;
+        padding: 10px;
+        background-color: var(--bg-2);
+        border-bottom: 1px solid var(--border-2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        z-index: 10;
+      }
+
+      .lesson-header-box {
+        width: auto;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .lesson-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--text-1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .return-btn,
+      .lesson-menu,
+      .close-lesson-menu {
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        color: var(--text-2);
+        border-radius: 12px;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .lesson-menu {
+        background-color: var(--secondary);
+      }
+
+      .return-btn,
+      .close-lesson-menu {
+        background-color: var(--bg-1);
+        color: var(--text-1);
+      }
+
+      .progress-wrapper {
+        width: 100%;
+        height: 20px;
+        background-color: var(--bg-1);
+        border-bottom: 1px solid var(--border-2);
+        overflow: hidden;
+        position: relative;
+        z-index: 9;
+      }
+
+      .progress-bar {
+        width: 0%;
+        height: 100%;
+        background-color: var(--primary);
+        transition: width 0.3s ease;
+      }
+
+      .progress-bar-html {
+        background-color: var(--html);
+      }
+
+      .progress-bar-css {
+        background-color: var(--css);
+      }
+
+      .progress-bar-js {
+        background-color: var(--js);
+      }
+
+      .progress-text {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        font-size: 15px;
+        color: var(--text-1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: absolute;
+        top: 0;
+      }
+
+      .lessons {
+        width: 100%;
+        height: calc(100% - 80px);
+        padding: 10px;
+        background-color: var(--bg-1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 10px;
+        overflow-y: auto;
+        position: absolute;
+        top: 81px;
+        z-index: 10;
+      }
+
+      .lesson-btn {
+        width: 100%;
+        height: 40px;
+        padding: 0 12px;
+        background-color: var(--bg-2);
+        color: #721c24;
+        border-radius: 10px;
+        border: 1px solid var(--border-2);
+        font-size: 16px;
+        display: flex;
+        flex-shrink: 0;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .lesson-btn-un-locked {
+        color: #856404;
+      }
+
+      .lesson-btn-read {
+        color: #155724;
+      }
+
+      .lesson-btn-active {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        font-weight: bold;
+      }
+
+      .lesson {
+        width: 100%;
+        height: calc(100% - 140px);
+        padding: 10px;
+        background-color: var(--bg-1);
+        font-family: "Vazirmatn", sans-serif;
+        text-align: right;
+        white-space: pre-wrap;
+        word-break: break-word;
+        direction: rtl;
+        overflow-y: auto;
+      }
+
+      .lesson-exercise {
+        width: 100%;
+        height: calc(100% - 140px);
+        padding: 10px;
+        background-color: var(--bg-1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .lesson-exercise-content {
+        width: 100%;
+        height: auto;
+        font-family: "Vazirmatn", sans-serif;
+        text-align: right;
+        white-space: pre-wrap;
+        word-break: break-word;
+        direction: rtl;
+      }
+
+      .lesson-action {
+        width: 100%;
+        height: 60px;
+        padding: 10px;
+        background-color: var(--bg-2);
+        border-top: 1px solid var(--border-2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        position: fixed;
+        bottom: 0;
+      }
+
+      .lesson-action-box {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .prev-lesson-btn,
+      .return-lesson-btn {
+        width: 50%;
+        height: 40px;
+        background-color: var(--secondary);
+        color: var(--text-1);
+        border-radius: 10px;
+      }
+
+      .check-exercise-btn,
+      .next-lesson-btn,
+      .go-exercise-btn {
+        width: 50%;
+        height: 40px;
+        background-color: var(--primary);
+        color: var(--text-1);
+        border-radius: 10px;
+      }
+
+      .code-container {
+        width: 100%;
+        height: 400px;
+        background: var(--bg-1);
+        border-radius: 10px;
+        border: 1px solid var(--border-1);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .show-editor {
+        height: 100% !important;
+        border-radius: 0;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .code-header {
+        width: 100%;
+        height: 60px;
+        background-color: var(--bg-2);
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        border-bottom: 1px solid var(--border-1);
+      }
+
+      .code-header-box {
+        width: auto;
+        height: auto;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+      }
+
+      .header-buttons {
+        width: auto;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+      }
+
+      .copy-code,
+      .run-code,
+      .view-code {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+      }
+
+      .copy-code {
+        background-color: var(--secondary);
+      }
+
+      .run-code {
+        background-color: var(--primary);
+      }
+
+      .view-code {
+        background-color: var(--secondary);
+      }
+
+      .hide-editor-button {
+        width: 40px;
+        height: 40px;
+        background-color: var(--bg-1);
+        color: var(--text-1);
+        border-radius: 12px;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .code-language,
+      .output-title {
+        width: auto;
+        max-width: 200px;
+        height: 40px;
+        background-color: var(--bg-1);
+        color: var(--text-1);
+        padding: 0 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border-1);
+        font-size: 15px;
+        font-weight: bold;
+        font-family: monospace, Consolas, Monaco, "Andale Mono";
+        display: flex;
+        align-items: center;
+        text-align: left;
+        direction: ltr;
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+
+      .code-editor,
+      .code-output {
+        width: 100%;
+        height: calc(100% - 60px);
+      }
+
+      .CodeMirror {
+        width: 100%;
+        height: 100%;
+        border: none;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: monospace, Consolas, Monaco, "Andale Mono";
+        text-align: left;
+        direction: ltr;
+        line-height: 1.6;
+        letter-spacing: 1.6;
+        word-spacing: 1.6;
+        white-space: pre;
+        resize: none;
+      }
+
+      .editor {
+        width: 100%;
+        height: 100%;
+        background-color: #1e1e2e;
+        color: #cbd5e1;
+        border: none;
+        padding: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: monospace, Consolas, Monaco, "Andale Mono";
+        text-align: left;
+        direction: ltr;
+        line-height: 1.6;
+        letter-spacing: 1.6;
+        word-spacing: 1.6;
+        white-space: pre;
+        resize: none;
+        overflow: auto;
+      }
+
+      .output {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        border: none;
+      }
+
+      .code-box {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        background: var(--bg-2);
+        border-radius: 10px;
+        border: 1px solid var(--border-1);
+        font-family: sans-serif;
+        text-align: left;
+        direction: rtl;
+        position: relative;
+        margin: 10px auto;
+        overflow: hidden;
+      }
+
+      .copy-code-button {
+        width: 30px;
+        height: 30px;
+        background-color: var(--secondary);
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        border: none;
+        font-size: 10px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 10px 10px 10px 0;
+      }
+
+      .language {
+        width: auto;
+        height: 30px;
+        background-color: var(--bg-1);
+        color: var(--text-1);
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid var(--border-1);
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+
+      .code {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        padding: 10px !important;
+        background-color: #0f172a !important;
+        border-radius: 0 0 9px 9px !important;
+        border-top: 1px solid var(--border-1);
+        margin: 0 !important;
+        font-size: 15px !important;
+        font-family: Consolas, Monaco, "Andale Mono", monospace !important;
+        text-align: left;
+        text-shadow: none !important;
+        direction: ltr;
+        line-height: normal;
+        letter-spacing: normal;
+        word-spacing: normal;
+        white-space: pre !important;
+        overflow-x: auto !important;
+        resize: none;
+      }
+
+      strong {
+        font-weight: bold;
+        color: var(--text-1);
+      }
+
+      .little-code {
+        width: auto !important;
+        max-width: 100%;
+        height: auto;
+        padding: 3px;
+        background-color: var(--bg-2);
+        color: var(--text-1);
+        border-radius: 5px;
+        border: 1px solid var(--border-1);
+        font-size: 12px;
+        font-weight: 600;
+        font-family: Consolas, Monaco, "Andale Mono", monospace !important;
+        display: inline-block;
+        text-align: left;
+        direction: ltr;
+      }
+
+      .blockquote {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        background-color: var(--bg-2);
+        border-radius: 10px;
+        border: 1px solid var(--border-2);
+        font-style: italic;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .blockquote-border {
+        width: 5px;
+        background-color: var(--primary);
+        border-radius: 5px;
+        align-self: stretch;
+      }
+
+      .hide {
+        opacity: 0;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="message hidden">
+      <i class="message-icon"></i>
+      <div class="message-content"></div>
+    </div>
+
+    <div class="confirm-message hidden">
+      <div class="confirm-message-content"></div>
+      <div class="confirm-message-box">
+        <button class="confirm-message-confirm-button">بله</button>
+        <button class="confirm-message-cancel-button">خیر</button>
+      </div>
+    </div>
+
+    <div class="container hidden">
+      <div class="section">
+        <div class="section-box">
+          <h2 class="section-title">
+            <i class="fas fa-arrow-down"></i>
+            <span>دوره های آموزشی</span>
+            <i class="fas fa-arrow-down"></i>
+          </h2>
+          <div class="section-box-action">
+            <button class="reset-all-course-btn">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <button class="show-editor-button">ادیتور</button>
+          </div>
+        </div>
+
+        <div class="card courses"></div>
+      </div>
+    </div>
+
+    <div class="lesson-container hidden">
+      <div class="lesson-header">
+        <div class="lesson-header-box">
+          <button class="lesson-menu">
+            <i class="fas fa-bars"></i>
+          </button>
+          <button class="close-lesson-menu hidden">
+            <i class="fas fa-times"></i>
+          </button>
+          <div class="lesson-title"></div>
+        </div>
+        <div class="lesson-header-box">
+          <button class="reset-course-btn" data-course-id="">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <button class="return-btn">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+        </div>
+      </div>
+      <div class="progress-wrapper">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-text" id="progressText"></div>
+      </div>
+      <div class="lessons"></div>
+      <div class="lesson hidden"></div>
+
+      <div class="lesson-exercise hidden">
+        <div class="lesson-exercise-content"></div>
+        <div class="code-container">
+          <div class="code-header">
+            <div class="header-buttons">
+              <button class="copy-code">
+                <i class="fas fa-copy"></i>
+              </button>
+              <button class="run-code">
+                <i class="fas fa-play"></i>
+              </button>
+              <button class="view-code hidden">
+                <i class="fas fa-code"></i>
+              </button>
+            </div>
+            <div class="code-header-box">
+              <div class="code-language">HTML CSS JS</div>
+              <div class="output-title hidden">WebPage</div>
+              <button class="hide-editor-button hidden">
+                <i class="fas fa-arrow-left"></i>
+              </button>
+            </div>
+          </div>
+          <div class="code-editor">
+            <textarea
+              class="cm-editor"
+              placeholder="write your code here..."
+              spellcheck="false"
+            ></textarea>
+            <textarea
+              class="editor"
+              placeholder="write your code here..."
+              spellcheck="false"
+            ></textarea>
+          </div>
+          <div class="code-output hidden">
+            <iframe class="output"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="lesson-action">
+        <button class="go-exercise-btn">حل تمرین</button>
+        <button class="check-exercise-btn">بررسی تمرین</button>
+        <button class="next-lesson-btn hidden">درس بعدی</button>
+        <button class="prev-lesson-btn">درس قبلی</button>
+        <button class="return-lesson-btn">بازگشت به درس</button>
+      </div>
+    </div>
+
+    <script>
+      const courses = [
+        {
+          id: "intro",
+          published: true,
+          title: "دوره آشنایی با برنامه نویسی",
+          description:
+            "این دوره کمک می‌کنه بفهمی برنامه نویسی اصلاً چیز عجیبی نیست. فقط کافیه یه کم حوصله داشته باشی و قدم به قدم پیش بری.",
+          lessons: [
+            {
+              id: "1",
+              title: "برنامه نویسی یعنی چی؟",
+              content:
+                "# برنامه نویسی یعنی چی؟\n\nبیا از یه مثال ساده شروع کنیم.\n\nفرض کن به یه دوستت می‌گی: «لطفاً یه لیوان آب بهم بده». دوستت می‌فهمه، آب می‌گیره و بهت می‌ده.\n\nحالا اگه بخوای به کامپیوتر همین رو بگی، چی؟ کامپیوتر مثل دوست تو باهوش نیست. باید خیلی دقیق و قدم به قدم بهش بگی هر کاری رو چطور انجام بده.\n\nبه این دقیق و قدم به قدم گفتن به کامپیوتر، می‌گن **برنامه نویسی**.\n\n## یه مثال خیلی ساده\n\nفرض کن ازت بخوام چای درست کنم. اگه بگی «چای درست کن»، من ممکنه نفهمم از کجا شروع کنم. ولی اگه بگی:\n\n```text\n۱. برو تو آشپزخانه\n۲. قوری رو بردار\n۳. توش آب بریز\n۴. بذار روی اجاق\n۵. صبر کن تا آب بجوشه\n۶. چای رو توی قوری بریز\n```\n\nحالا من دقیقاً می‌دونم چیکار کنم. به این مجموعه دستورهای قدم به قدم، می‌گن **الگوریتم**.\n\n## برنامه نویسی چه کاربردی داره؟\n\nهمه چیزهایی که با گوشی یا کامپیوترت کار می‌کنی، حاصل برنامه نویسی‌اند:\n\n- **اینستاگرام** که باهاش عکس می‌بینی\n- **دیجی‌کالا** که ازش خرید می‌کنی\n- **بازی‌هایی** که باهاشون وقت می‌گذرونی\n\nخلاصه اینکه برنامه نویسی یعنی به کامپیوتر یاد بدی چطور کارهایی رو که تو می‌خوای انجام بده.\n\n,, نگران نباش. قرار نیست همین الان یه برنامه بزرگ بنویسی. همه چیز از خیلی ساده شروع می‌شه.",
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: true,
+            },
+            {
+              id: "2",
+              title: "الگوریتم چیه؟",
+              content:
+                "# الگوریتم چیه؟\n\nگفتیم الگوریتم یعنی یه سری قدم‌های ساده که اگه یکی دقیقاً دنبالشون کنه، به نتیجه می‌رسه.\n\n## الگوریتم توی زندگی روزمره\n\nهر کاری که هر روز انجام می‌دی، یه الگوریتم داره:\n\n**الگوریتم بیدار شدن صبح:**\n```text\n۱. چشمات رو باز کن\n۲. از رختخواب بلند شو\n۳. برو دستشویی\n۴. صورتت رو بشور\n۵. صبحانه بخور\n```\n\n**الگوریتم مسواک زدن:**\n```text\n۱. مسواک رو بردار\n۲. خمیردندان بزن\n۳. دندون‌هات رو مسواک بزن\n۴. دهانت رو آب بکش\n۵. مسواک رو بشور و بذار سر جاش\n```\n\n## الگوریتم توی برنامه نویسی\n\nبرنامه‌ها هم از همین الگوریتم‌ها ساخته می‌شن. مثلاً الگوریتم یه برنامه ساده که از کاربر اسمش رو می‌پرسه:\n\n```text\n۱. از کاربر بپرس «اسم تو چیه؟»\n۲. جواب کاربر رو توی یه جا ذخیره کن\n۳. بهش بگو «سلام [اسم کاربر] خوش اومدی»\n```\n\n## چرا الگوریتم مهمه؟\n\nقبل از اینکه هر برنامه‌ای رو بنویسی، باید اول الگوریتمش رو روی کاغذ بنویسی. این کار باعث می‌شه:\n\n- اشتباهاتت کمتر بشه\n- بهتر بفهمی چیکار می‌خوای بکنی\n- بتونی برنامه‌های بزرگ‌تر رو راحت‌تر بنویسی\n\n,, الگوریتم رو می‌تونی با کلمات ساده بنویسی، اصلاً نیازی به دانش فنی نداره.",
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "3",
+              title: "زبان برنامه نویسی یعنی چی؟",
+              content:
+                '# زبان برنامه نویسی چیه؟\n\nما با همدیگه با **زبان فارسی** حرف می‌زنیم. یه آدم انگلیسی با **زبان انگلیسی** حرف می‌زنه.\n\nکامپیوترها هم یه زبان خودشون رو دارن، بهش می‌گن **زبان ماشین**. مشکل اینجاست که زبان ماشین فقط از دو تا چیز ساخته شده: **صفر** و **یک**.\n\n```text\n۰۱۰۰۱۱۰۰ ۱۰۱۰۱۰۱۱ ۰۱۱۱۰۰۱۰\n```\n\nخیلی سخته، نه؟\n\n## زبان برنامه نویسی چطور کمک می‌کنه؟\n\n**زبان برنامه نویسی** یه زبان واسطه‌ست. شبیه به زبان خودمون هست، بعد یه برنامه به اسم **مفسر** اون رو به زبان ماشین تبدیل می‌کنه.\n\nمثلاً تو یه زبان برنامه نویسی می‌نویسی:\n\n```javascript\nlet name = "احمد";\n```\n\nو مفسر اون رو به یه سری صفر و یک تبدیل می‌کنه که کامپیوتر بفهمه.\n\n## چند تا زبان معروف\n\n- **HTML** : برای ساختن اسکلت وبسایت\n- **CSS** : برای رنگ و زیبایی وبسایت\n- **JavaScript** : برای حرکت و عکس‌العمل وبسایت\n\n## از کجا شروع کنم؟\n\nاین صفحه اصلی، دوره‌های مختلفی داره. می‌تونی از دوره **HTML** شروع کنی. HTML ساده‌ترین زبونه و نتیجه کار رو سریع می‌بینی.\n\nو نگران نباش، برای نوشتن کد نیازی نیست چیز خاصی نصب کنی. می‌تونی از همین ادیتوری که توی صفحه اصلی هست استفاده کنی و کدها رو اونجا بنویسی و نتیجه رو ببینی.\n\n,, لازم نیست همه زبان‌ها رو یاد بگیری. اول یکی رو خوب یاد بگیر، بعد سراغ بقیه برو.',
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "4",
+              title: "متغیر چیه؟",
+              content:
+                '# متغیر چیه؟\n\nخب، حالا که با کلیات آشنا شدی، بیا یه مفهوم خیلی مهم تو برنامه نویسی رو یاد بگیریم: **متغیر**.\n\n## متغیر یعنی چی؟\n\nمتغیر یعنی یه جای برای نگه‌داری یه مقدار. مثل یه جعبه که می‌تونی هر چی دوست داری توش بذاری.\n\n## مثال توی زندگی\n\nفرض کن می‌خوای سن یکی رو یادت بمونه. می‌نویسی:\n\n```text\nسن = ۲۵\n```\n\nحالا هر وقت گفتی «سن»، یادت میاد که منظورت ۲۵ هست.\n\nاین «سن» یه متغیره. ۲۵ هم مقداریه که توش گذاشتی.\n\n## متغیر توی برنامه نویسی\n\nتوی برنامه نویسی هم همینطوره. یه اسم انتخاب می‌کنی، یه مقدار توش می‌ذاری، بعداً هر وقت به اون اسم اشاره کنی، برنامه می‌دونه منظورت چه مقداری هست.\n\nمثلاً:\n\n```javascript\nlet name = "احمد"\nlet age = 25\n```\n\nحالا هر وقت بنویسم ``name``، برنامه می‌دونه منظورم «احمد» هست.\n\n## متغیر به چه دردی می‌خوره؟\n\nفرض کن می‌خوای برنامه‌ای بنویسی که اسم کاربر رو بگیره و بهش سلام بده.\n\nاول می‌ای یه متغیر درست می‌کنی به اسم ``userName``. بعد اسمی که کاربر تایپ کرده رو می‌ذاری توش. بعد بهش سلام می‌دی.\n\n```text\n۱. از کاربر بپرس اسمش چیه\n۲. جواب رو توی متغیر userName بذار\n۳. بهش بگو «سلام userName»\n```\n\n## چرا بهش می‌گن متغیر؟\n\nچون مقدارش می‌تونه **تغییر** کنه. مثلاً اول توی متغیر «سن» مقدار ۲۰ بود، بعد که کاربر سن جدیدی وارد کرد، مقدارش می‌شه ۲۱.\n\n,, متغیرها مثل جعبه‌های برچسب‌خورده هستن. هر چی توش بذاری، بعداً با همون برچسب می‌تونی پیداش کنی.',
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "5",
+              title: "شرط چیه؟",
+              content:
+                "# شرط چیه؟\n\nتو برنامه نویسی، خیلی وقت‌ها باید بگی «اگه این شد، اون کار رو بکن، وگرنه یه کار دیگه».\n\nبه این می‌گن **شرط**.\n\n## شرط توی زندگی\n\nهر روز کلی شرط توی زندگیت داری:\n\n- «اگه بارون بیاد، چتر بردار، وگرنه چتر رو نگیر»\n- «اگه گرسنه بودم، غذا بخور، وگرنه نه»\n- «اگه چراغ قرمز بود، بایست، وگرنه برو»\n\n## شرط توی برنامه نویسی\n\nبرنامه‌ها هم پر از این شرط‌ها هستن.\n\nمثلاً یه برنامه که نمره رو بررسی می‌کنه:\n\n```text\nاگه نمره >= 50 بود:\n    بگو «قبول شدی»\nوگرنه:\n    بگو «مردود شدی»\n```\n\n## یه مثال دیگه\n\nبرنامه ورود به سایت:\n\n```text\nاگه رمز عبور درست بود:\n    بگو «خوش اومدی»\nوگرنه:\n    بگو «رمز اشتباهه»\n```\n\n## چرا شرط مهمه؟\n\nبرنامه‌ها فقط یه سری دستور پشت سر هم نیستن. بیشتر برنامه‌ها باید بتونن **تصمیم** بگیرن. ببینن چه شرایطی هست و بر اساس اون کار متفاوت انجام بدن.\n\nبدون شرط، برنامه‌ها خیلی خنگ می‌شدن. همیشه یه کار تکراری رو انجام می‌دادن، مهم نبود شرایط چیه.\n\n,, شرط‌ها هستن که برنامه‌ها رو باهوش می‌کنن. به برنامه یاد می‌دن چطور تصمیم بگیره.",
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: false,
+            },
+          ],
+        },
+        {
+          id: "html",
+          published: true,
+          title: "دوره HTML",
+          description:
+            "توی این دوره قدم به قدم یاد می‌گیری چطور اسکلت یه وبسایت رو بسازی. از صفر شروع می‌کنیم، از اینکه HTML اصلاً چیه.",
+          lessons: [
+            {
+              id: "1",
+              title: "HTML چیه؟",
+              content:
+                "# HTML چیه؟\n\nخب، قبل از اینکه هر چیزی بنویسیم، بیا ببینیم اصلاً HTML چیه و به چه دردی می‌خوره.\n\n## HTML یعنی چی؟\n\n**HTML** مخفف سه کلمه‌ست:\n\n**H**yper **T**ext **M**arkup **L**anguage\n\nبه فارسی میشه: **زبان نشانه‌گذاری ابرمتن**\n\nخب، این اسم یه کم ترسناکه. بیا ساده‌ش کنم.\n\n## فرض کن خونه می‌سازی\n\nفرض کن می‌خوای یه خونه بسازی. اول چی کار می‌کنی؟\n\nاول باید **اسکلت** خونه رو درست کنی. یعنی مشخص کنی دیوارها کجان، در کجاست، پنجره کجاست، اتاق‌ها چطور چیده بشن.\n\n**HTML** دقیقاً همینه. اسکلت وبسایت رو می‌سازه.\n\n## HTML چه شکلیه؟\n\nHTML از چیزهایی به اسم **تگ** درست شده. تگ‌ها با علامت ``< >`` نوشته می‌شن.\n\nمثلاً این یه تگ هست:\n\n```html\n<h1>\n```\n\nو اینم تگ بسته‌ش:\n\n```html\n</h1>\n```\n\nبین این دو تا تگ، محتوا قرار می‌گیره:\n\n```html\n<h1>این یه عنوان هست</h1>\n```\n\n## یه مثال واقعی\n\nاگه بنویسی:\n\n```html\n<h1>سلام دنیا</h1>\n<p>این اولین صفحه منه.</p>\n```\n\nمرورگر می‌فهمه که «سلام دنیا» یه عنوان بزرگه و «این اولین صفحه منه» یه پاراگرافه.\n\n## HTML چه کاربردی داره؟\n\nهمه وبسایت‌هایی که تا حالا دیدی، با HTML ساخته شدن:\n\n- وقتی توی گوگل چیزی سرچ می‌کنی، نتیجه‌ها با HTML بهت نشون داده می‌شن\n- وقتی وارد اینستاگرام می‌شی، صفحه‌ای که می‌بینی با HTML ساخته شده\n\n## حرف آخر\n\nHTML زبون خیلی ساده‌ست. اصلاً شبیه زبان‌های برنامه نویسی پیچیده نیست. بیشتر شبیه نوشتن متن با یه سری علامت گذاری ساده.\n\nنگران نباش. از همون اول خیلی ساده و قدم به قدم پیش می‌ریم.\n\n,, HTML زبان برنامه نویسی نیست. یه **زبان نشانه‌گذاری** هست.",
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: true,
+            },
+            {
+              id: "2",
+              title: "ساختار هر صفحه HTML",
+              content:
+                "# ساختار هر صفحه HTML\n\nحالا که می‌دونیم HTML چیه، بیا ببینیم هر صفحه HTML چه شکلی نوشته می‌شه.\n\n## ساختار اصلی\n\nهر صفحه HTML از چند تا بخش اصلی درست شده:\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    \n</head>\n<body>\n\n</body>\n</html>\n```\n\nخب، بیا تک تک اینا رو ببینیم.\n\n## تگ DOCTYPE\n\n``<!DOCTYPE html>`` : این فقط به مرورگر می‌گه «این یه صفحه HTML هست و از نوع جدیدش». فقط همین.\n\n## تگ html\n\n``<html>`` : کل صفحه رو توی خودش گرفته. شروع صفحه اینجاست و پایانش اینجا.\n\n## تگ head\n\n``<head>`` : اطلاعات مخفی صفحه اینجاست. چیزهایی که کاربر نمی‌بینه ولی مرورگر باید بدونونه. مثلاً عنوان صفحه.\n\n## تگ body\n\n``<body>`` : این مهم‌ترین قسمته. هر چیزی که کاربر می‌بینه، توی ``<body>`` قرار می‌گیره.\n\n## یه صفحه کامل\n\nحالا بیا یه صفحه کامل بنویسیم:\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>اولین صفحه من</title>\n</head>\n<body>\n    <h1>خوش اومدی</h1>\n    <p>این اولین صفحه‌ای هست که ساختم.</p>\n</body>\n</html>\n```\n\nتوی این صفحه:\n- تگ ``<title>`` توی ``<head>`` گفته مرورگر تو برگه بنویس «اولین صفحه من»\n- تگ ``<h1>`` توی ``<body>`` یه عنوان بزرگ نشون می‌ده\n- تگ ``<p>`` توی ``<body>`` یه پاراگراف نشون می‌ده\n\n,, تگ ``<head>`` رو میشه مغز صفحه تصور کرد و تگ ``<body>`` رو بدن صفحه.",
+              is_exercise: true,
+              code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین اول</title>\n</head>\n<body>\n\n</body>\n</html>",
+              exercise_content:
+                "داخل ``<title>`` بنویس «صفحه من» و داخل ``<body>`` یه ``<h1>`` با متن «سلام» و یه ``<p>`` با متن «داشتم HTML یاد می‌گرفتم این صفحه رو ساختم» بنویس.",
+              exercise_code:
+                "<!DOCTYPE html>\n<html>\n<head>\n    <title>صفحه من</title>\n</head>\n<body>\n    <h1>سلام</h1>\n    <p>داشتم HTML یاد می‌گرفتم این صفحه رو ساختم</p>\n</body>\n</html>",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "3",
+              title: "عنوان‌ها و پاراگراف‌ها",
+              content:
+                "# عنوان‌ها و پاراگراف‌ها\n\nحالا که ساختار صفحه رو بلدی، بیا ببینیم چطور توی ``<body>`` محتوا بنویسیم.\n\n## تگ‌های عنوان\n\nتوی HTML می‌تونی ۶ تا اندازه مختلف برای عنوان داشته باشی:\n\n```html\n<h1>بزرگترین عنوان</h1>\n<h2>عنوان بزرگ</h2>\n<h3>عنوان متوسط</h3>\n<h4>عنوان کوچک</h4>\n<h5>عنوان خیلی کوچک</h5>\n<h6>ریزترین عنوان</h6>\n```\n\n``<h1>`` مهم‌ترین عنوان صفحه‌ست و معمولاً فقط یک بار استفاده می‌شه.\n\n## تگ پاراگراف\n\nبرای نوشتن متن معمولی از تگ ``<p>`` استفاده می‌کنیم:\n\n```html\n<p>این یه پاراگرافه. هر چی دلم می‌خواد می‌تونم اینجا بنویسم.</p>\n```\n\n## فرق عنوان و پاراگراف\n\n```html\n<h1>درباره من</h1>\n<p>سلام! اسم من احمد هست.</p>\n<p>به یادگیری HTML علاقه دارم.</p>\n```\n\n,, همیشه از ``<h1>`` فقط یک بار تو هر صفحه استفاده کن.",
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "4",
+              title: "لیست‌ها",
+              content:
+                "# لیست درست کردن\n\nخیلی وقت‌ها لازمه یه سری چیز رو به صورت لیست بنویسی.\n\n## لیست بدون شماره\n\nوقتی ترتیب مهم نیست، از ``<ul>`` استفاده می‌کنیم:\n\n```html\n<ul>\n    <li>نان</li>\n    <li>پنیر</li>\n    <li>سبزی</li>\n</ul>\n```\n\nتوی مرورگر جلوی هر کدوم یه نقطه می‌ذاره.\n\n## لیست شماره‌دار\n\nوقتی ترتیب مهمه، از ``<ol>`` استفاده می‌کنیم:\n\n```html\n<ol>\n    <li>برو تو آشپزخانه</li>\n    <li>قوری رو بردار</li>\n    <li>آب رو بجوشون</li>\n</ol>\n```\n\nتوی مرورگر به جای نقطه، اعداد ۱، ۲، ۳ می‌بینی.\n\n## li یعنی چی؟\n\n``li`` یعنی «آیتم لیست». هر چیزی که می‌خوای توی لیست بذاری، بین ``<li>`` و ``</li>`` قرار می‌دی.\n\n,, توی لیست‌ها فقط می‌تونی از ``<li>`` استفاده کنی.",
+              is_exercise: true,
+              code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>لیست‌ها</title>\n</head>\n<body>\n\n</body>\n</html>",
+              exercise_content:
+                "یه ``<h1>`` با متن «سه چیزی که امروز یاد گرفتم» و یه ``<ul>`` با سه آیتم بنویس.",
+              exercise_code:
+                "<!DOCTYPE html>\n<html>\n<head>\n    <title>لیست‌ها</title>\n</head>\n<body>\n    <h1>سه چیزی که امروز یاد گرفتم</h1>\n    <ul>\n        <li>تگ چیه</li>\n        <li>ساختار صفحه چطوریه</li>\n        <li>چطور لیست درست کنم</li>\n    </ul>\n</body>\n</html>",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "5",
+              title: "عکس و لینک",
+              content:
+                '# عکس و لینک\n\nحالا که متن و لیست رو بلدی، بیا ببینیم چطور عکس بذاریم و به صفحه‌های دیگه لینک بدیم.\n\n## عکس گذاشتن\n\nبرای عکس از تگ ``<img>`` استفاده می‌شه:\n\n```html\n<img src="address.jpg">\n```\n\nتگ ``<img>`` خودش به تنهایی بسته می‌شه و تگ پایانی نداره.\n\n``src`` آدرس عکس رو مشخص می‌کنه.\n\n## متن جایگزین\n\n``alt`` متن جایگزینه:\n\n```html\n<img src="https://placehold.co/400x200" alt="عکس نمونه">\n```\n\n## لینک دادن\n\nبرای لینک دادن از تگ ``<a>`` استفاده می‌شه:\n\n```html\n<a href="https://google.com">برو به گوگل</a>\n```\n\n``href`` آدرس مقصده.\n\n## یه مثال\n\n```html\n<h1>صفحه من</h1>\n\n<img src="https://placehold.co/300" alt="تصویر من">\n\n<p>برای دیدن یه سایت خوب روی لینک زیر کلیک کن:</p>\n\n<a href="https://w3schools.com">برو به w3schools</a>\n```\n\n,, تگ ``<a>`` بدون ``href`` کار نمی‌کنه.',
+              is_exercise: true,
+              code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>عکس و لینک</title>\n</head>\n<body>\n\n</body>\n</html>",
+              exercise_content:
+                'یه ``<img>`` با ``src="https://placehold.co/300"`` و ``alt="تصویر من"`` بذار. زیرش یه ``<a>`` با ``href="https://google.com"`` و متن «برو به گوگل» بساز.',
+              exercise_code:
+                '<!DOCTYPE html>\n<html>\n<head>\n    <title>عکس و لینک</title>\n</head>\n<body>\n    <img src="https://placehold.co/300" alt="تصویر من">\n    <br>\n    <a href="https://google.com">برو به گوگل</a>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+          ],
+        },
+        {
+          id: "css",
+          published: true,
+          title: "دوره CSS",
+          description:
+            "HTML اسکلت وبسایت رو می‌سازه، CSS بهش رنگ و زیبایی می‌ده. توی این دوره یاد می‌گیری چطور صفحت رو قشنگ کنی.",
+          lessons: [
+            {
+              id: "1",
+              title: "CSS چیه؟",
+              content:
+                "# CSS چیه؟\n\nفرض کن یه خونه سفیدی رو تحویل گرفتیم. دیوارها سفیدن، خیلی بی‌حاله.\n\nحالا بیا به این خونه رنگ بدیم. دیوار رو آبی کنیم، یه مبل قرمز بذاریم.\n\n**HTML** اون خونه سفیده. **CSS** هم رنگ و دکوراسیونشه.\n\n## CSS یعنی چی؟\n\n**CSS** مخفف **C**ascading **S**tyle **S**heets هست.\n\n## CSS چه شکلی نوشته می‌شه؟\n\n```css\nh1 {\n    color: blue;\n}\n```\n\n- ``h1`` : می‌گه این قانون برای کدوم تگ‌ها اجرا بشه\n- ``color`` : می‌گه چی رو تغییر بدم\n- ``blue`` : می‌گه به چی تغییر بدم\n\n## CSS رو کجا بنویسیم؟\n\nراحت‌ترین راه اینه که توی همون فایل HTML، بین دو تا تگ ``<style>`` بنویسی:\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>صفحه من</title>\n    <style>\n        h1 {\n            color: blue;\n        }\n    </style>\n</head>\n<body>\n    <h1>این عنوان آبی می‌شه</h1>\n</body>\n</html>\n```\n\n,, CSS به HTML می‌گه «هر تگی که این اسم رو داشت، این شکلی بشو».",
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: true,
+            },
+            {
+              id: "2",
+              title: "رنگ‌ها",
+              content:
+                "# کار با رنگ‌ها در CSS\n\nبیا با ساده‌ترین چیز شروع کنیم: تغییر رنگ.\n\n## تغییر رنگ متن\n\nبا ``color`` رنگ متن رو عوض می‌کنی:\n\n```css\nh1 {\n    color: blue;\n}\np {\n    color: green;\n}\n```\n\n## تغییر رنگ پس‌زمینه\n\nبا ``background-color`` رنگ پشت متن رو عوض می‌کنی:\n\n```css\nbody {\n    background-color: lightgray;\n}\n```\n\n## چند تا رنگ معروف\n\n``red``, ``blue``, ``green``, ``yellow``, ``black``, ``white``, ``gray``, ``orange``, ``purple``, ``pink``\n\n## یه مثال\n\n```html\n<style>\n    body {\n        background-color: lightblue;\n    }\n    h1 {\n        color: darkblue;\n    }\n    p {\n        color: darkgreen;\n    }\n</style>\n\n<h1>عنوان اصلی</h1>\n<p>این یه پاراگرافه.</p>\n```\n\n,, ``color`` رنگ متن رو عوض می‌کنه، ``background-color`` رنگ پشت متن رو.",
+              is_exercise: true,
+              code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین رنگ</title>\n</head>\n<body>\n    <h1>عنوان من</h1>\n    <p>این یه متن نمونه هست</p>\n</body>\n</html>",
+              exercise_content:
+                "با استفاده از تگ ``<style>``، رنگ ``<h1>`` رو به ``blue`` و رنگ ``<p>`` رو به ``green`` تغییر بده.",
+              exercise_code:
+                "<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین رنگ</title>\n    <style>\n        h1 {\n            color: blue;\n        }\n        p {\n            color: green;\n        }\n    </style>\n</head>\n<body>\n    <h1>عنوان من</h1>\n    <p>این یه متن نمونه هست</p>\n</body>\n</html>",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "3",
+              title: "فونت و اندازه",
+              content:
+                "# فونت و اندازه متن\n\nچند تا از پرکاربردترین چیزهایی که توی CSS استفاده می‌شن.\n\n## اندازه قلم\n\nبا ``font-size`` اندازه متن رو عوض می‌کنی:\n\n```css\nh1 {\n    font-size: 32px;\n}\np {\n    font-size: 18px;\n}\n```\n\n``px`` یعنی پیکسل.\n\n## ضخامت قلم\n\nبا ``font-weight`` متن رو پررنگ می‌کنی:\n\n```css\nh1 {\n    font-weight: bold;\n}\n```\n\n## تراز متن\n\nبا ``text-align`` متن رو به چپ، راست یا وسط می‌اری:\n\n```css\nh1 {\n    text-align: center;\n}\np {\n    text-align: right;\n}\n```\n\n## یه مثال\n\n```html\n<style>\n    h1 {\n        font-size: 40px;\n        text-align: center;\n        color: darkblue;\n    }\n    p {\n        font-size: 20px;\n        text-align: right;\n    }\n</style>\n\n<h1>عنوان بزرگ</h1>\n<p>این متن سمت راسته</p>\n```",
+              is_exercise: true,
+              code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین فونت</title>\n</head>\n<body>\n    <h1>عنوان من</h1>\n    <p>این یک متن است</p>\n</body>\n</html>",
+              exercise_content:
+                "به ``<h1>`` اندازه 40px و تراز وسط بده. به ``<p>`` اندازه 20px و تراز راست بده.",
+              exercise_code:
+                "<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین فونت</title>\n    <style>\n        h1 {\n            font-size: 40px;\n            text-align: center;\n        }\n        p {\n            font-size: 20px;\n            text-align: right;\n        }\n    </style>\n</head>\n<body>\n    <h1>عنوان من</h1>\n    <p>این یک متن است</p>\n</body>\n</html>",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "4",
+              title: "حاشیه و فاصله",
+              content:
+                '# حاشیه و فاصله‌ها\n\nبیا ببینیم چطور به جعبه‌ها حاشیه بدیم و بینشون فاصله بندازیم.\n\n## حاشیه\n\nبا ``border`` به هر چیزی حاشیه می‌دی:\n\n```css\ndiv {\n    border: 2px solid black;\n}\n```\n\n- ``2px`` : ضخامت\n- ``solid`` : نوع (خط ممتد)\n- ``black`` : رنگ\n\n## گوشه‌های گرد\n\nبا ``border-radius`` گوشه‌ها رو گرد می‌کنی:\n\n```css\ndiv {\n    border: 2px solid black;\n    border-radius: 10px;\n}\n```\n\n## فاصله از داخل\n\nبا ``padding`` بین محتوا و حاشیه فاصله می‌ندازی:\n\n```css\ndiv {\n    border: 2px solid black;\n    padding: 20px;\n}\n```\n\n## یه مثال\n\n```html\n<style>\n    .box {\n        border: 3px solid blue;\n        border-radius: 15px;\n        padding: 20px;\n        background-color: lightyellow;\n    }\n</style>\n\n<div class="box">\n    <p>این یه جعبه با حاشیه آبی و گوشه‌های گرد هست.</p>\n</div>\n```\n\n,, ``padding`` فاصله از داخل جعبه رو زیاد می‌کنه.',
+              is_exercise: true,
+              code: "<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین حاشیه</title>\n</head>\n<body>\n    <div>این یه جعبه است</div>\n</body>\n</html>",
+              exercise_content:
+                "به ``<div>`` یه حاشیه 2px مشکی از نوع solid، padding 20px و border-radius 10px بده.",
+              exercise_code:
+                "<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین حاشیه</title>\n    <style>\n        div {\n            border: 2px solid black;\n            padding: 20px;\n            border-radius: 10px;\n        }\n    </style>\n</head>\n<body>\n    <div>این یه جعبه است</div>\n</body>\n</html>",
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "5",
+              title: "کنار هم چیدن با Flexbox",
+              content:
+                '# کنار هم چیدن چیزها\n\nخیلی وقت‌ها می‌خوای چند تا چیز رو کنار هم بذاری. مثلاً منوی سایت.\n\n## فعال کردن Flexbox\n\nبا ``display: flex`` به مرورگر می‌گی «بچه‌های این جعبه رو کنار هم بچین»:\n\n```css\n.container {\n    display: flex;\n}\n```\n\n## وسط‌چین کردن\n\nبا ``justify-content: center`` بچه‌ها رو وسط‌چین می‌کنی:\n\n```css\n.container {\n    display: flex;\n    justify-content: center;\n}\n```\n\n## فاصله بین آیتم‌ها\n\nبا ``gap`` بین بچه‌ها فاصله می‌ندازی:\n\n```css\n.container {\n    display: flex;\n    gap: 20px;\n}\n```\n\n## یه مثال\n\n```html\n<style>\n    .menu {\n        display: flex;\n        justify-content: center;\n        gap: 30px;\n        background-color: lightgray;\n        padding: 15px;\n    }\n</style>\n\n<div class="menu">\n    <a href="#">خانه</a>\n    <a href="#">درباره</a>\n    <a href="#">تماس</a>\n</div>\n```\n\n,, ``display: flex`` رو به **پدر** می‌دی، نه به بچه‌ها.',
+              is_exercise: true,
+              code: '<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین Flexbox</title>\n</head>\n<body>\n    <div class="menu">\n        <a href="#">خانه</a>\n        <a href="#">درباره</a>\n        <a href="#">تماس</a>\n    </div>\n</body>\n</html>',
+              exercise_content:
+                "با استفاده از Flexbox، لینک‌ها رو کنار هم با فاصله 30px و وسط‌چین قرار بده.",
+              exercise_code:
+                '<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین Flexbox</title>\n    <style>\n        .menu {\n            display: flex;\n            justify-content: center;\n            gap: 30px;\n        }\n    </style>\n</head>\n<body>\n    <div class="menu">\n        <a href="#">خانه</a>\n        <a href="#">درباره</a>\n        <a href="#">تماس</a>\n    </div>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+          ],
+        },
+        {
+          id: "js",
+          published: true,
+          title: "دوره JavaScript",
+          description:
+            "HTML اسکلت وبسایت رو می‌سازه، CSS بهش رنگ می‌ده، جاوااسکریپت بهش جان می‌ده. توی این دوره یاد می‌گیری چطور به صفحت حرکت و عکس‌العمل بدی.",
+          lessons: [
+            {
+              id: "1",
+              title: "جاوااسکریپت چیه؟",
+              content:
+                "# جاوااسکریپت چیه؟\n\nخب، تا حالا یاد گرفتی با HTML اسکلت بسازی و با CSS بهش رنگ بدی. ولی صفحه هنوز **ساکن** و بدون حرکته.\n\nجاوااسکریپت میاد به صفحه **جان** می‌ده.\n\n## تفاوت این سه تا\n\n- **HTML** : اسکلت خونه\n- **CSS** : رنگ و دکوراسیون\n- **جاوااسکریپت** : لامپ‌ها و وسایل برقی که روشن و خاموش می‌شن\n\n## جاوااسکریپت چه کارهایی می‌کنه؟\n\n- وقتی روی یه دکمه کلیک می‌کنی و چیزی عوض می‌شه\n- وقتی فرم رو پر می‌کنی و بهت می‌گه «این فیلد خالی هست»\n- وقتی عکس‌ها یکی پس از دیگری عوض می‌شن\n\n## جاوااسکریپت رو کجا بنویسیم؟\n\nراحت‌ترین راه اینه که بین دو تا تگ ``<script>`` بنویسی:\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>صفحه من</title>\n</head>\n<body>\n    <script>\n        // کد جاوااسکریپت اینجا میاد\n    <\/script>\n</body>\n</html>\n```\n\n## اولین کد\n\n```html\n<button onclick=\"alert('سلام!')\">کلیک کن</button>\n```\n\nوقتی روی دکمه کلیک کنی، یه پیام «سلام!» می‌بینی.\n\n,, جاوااسکریپت **رفتار** صفحه رو مشخص می‌کنه.",
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: true,
+            },
+            {
+              id: "2",
+              title: "متغیرها",
+              content:
+                '# متغیرها در جاوااسکریپت\n\nتوی دوره آشنایی با متغیرها حرف زدیم. حالا ببینیم تو جاوااسکریپت چطور مینویسیش.\n\n## ساخت متغیر\n\nبا ``let`` یه متغیر درست می‌کنی:\n\n```javascript\nlet name = "احمد";\nlet age = 25;\n```\n\n## گرفتن مقدار از کاربر\n\n```html\n<input type="text" id="userName">\n<button onclick="showName()">نمایش</button>\n<p id="result"></p>\n\n<script>\n    function showName() {\n        let name = document.getElementById("userName").value;\n        document.getElementById("result").innerHTML = "سلام " + name;\n    }\n<\/script>\n```\n\n## خط به خط\n\n- ``document.getElementById`` : پیداکردن یه تگ با اون اسم\n- ``.value`` : مقداری که کاربر نوشته\n- ``.innerHTML`` : تغییر متن داخل اون تگ\n\n,, متغیرها مثل جعبه هستن.',
+              is_exercise: true,
+              code: '<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین متغیر</title>\n</head>\n<body>\n    <input type="text" id="nameInput" placeholder="اسمت رو بنویس">\n    <button onclick="greet()">بگو سلام</button>\n    <p id="message"></p>\n    <script>\n        function greet() {\n\n        }\n    <\/script>\n</body>\n</html>',
+              exercise_content:
+                "داخل تابع ``greet()``، اسم کاربر رو بگیر و توی ``<p>`` پیام «سلام [اسم]» نمایش بده.",
+              exercise_code:
+                '<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین متغیر</title>\n</head>\n<body>\n    <input type="text" id="nameInput" placeholder="اسمت رو بنویس">\n    <button onclick="greet()">بگو سلام</button>\n    <p id="message"></p>\n    <script>\n        function greet() {\n            let name = document.getElementById("nameInput").value;\n            document.getElementById("message").innerHTML = "سلام " + name;\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "3",
+              title: "شرط‌ها",
+              content:
+                '# شرط‌ها در جاوااسکریپت\n\nتوی دوره آشنایی با شرط‌ها حرف زدیم. حالا ببینیم تو جاوااسکریپت چطور مینویسیش.\n\n## ساختار شرط\n\n```javascript\nif (شرط) {\n    // اگه شرط درست بود\n} else {\n    // اگه شرط درست نبود\n}\n```\n\n## عملگرهای مقایسه\n\n- ``==`` : برابر هست؟\n- ``>`` : بزرگتر هست؟\n- ``<`` : کوچکتر هست؟\n- ``>=`` : بزرگتر یا مساوی؟\n\n## یه مثال\n\n```html\n<input type="number" id="age">\n<button onclick="checkAge()">بررسی</button>\n<p id="message"></p>\n\n<script>\n    function checkAge() {\n        let age = document.getElementById("age").value;\n        \n        if (age >= 18) {\n            document.getElementById("message").innerHTML = "تو بزرگسالی";\n        } else {\n            document.getElementById("message").innerHTML = "تو هنوز کوچیکی";\n        }\n    }\n<\/script>\n```\n\n,, شرط‌ها به برنامه یاد می‌دن چطور تصمیم بگیره.',
+              is_exercise: true,
+              code: '<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین شرط</title>\n</head>\n<body>\n    <input type="number" id="score" placeholder="نمره رو بنویس">\n    <button onclick="check()">بررسی</button>\n    <p id="result"></p>\n    <script>\n        function check() {\n\n        }\n    <\/script>\n</body>\n</html>',
+              exercise_content:
+                "اگه نمره >= 50 بود پیام «قبول شدی» و اگه کمتر بود پیام «مردود شدی» نمایش بده.",
+              exercise_code:
+                '<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین شرط</title>\n</head>\n<body>\n    <input type="number" id="score" placeholder="نمره رو بنویس">\n    <button onclick="check()">بررسی</button>\n    <p id="result"></p>\n    <script>\n        function check() {\n            let score = document.getElementById("score").value;\n            if (score >= 50) {\n                document.getElementById("result").innerHTML = "قبول شدی";\n            } else {\n                document.getElementById("result").innerHTML = "مردود شدی";\n            }\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "4",
+              title: "تغییر استایل با جاوااسکریپت",
+              content:
+                '# تغییر استایل با جاوااسکریپت\n\nبا جاوااسکریپت می‌تونی موقع اتفاق‌های مختلف، رنگ و شکل چیزها رو عوض کنی.\n\n## تغییر رنگ با کلیک\n\n```html\n<style>\n    .box {\n        width: 150px;\n        height: 150px;\n        background-color: blue;\n    }\n</style>\n\n<div class="box" onclick="changeColor()"></div>\n\n<script>\n    function changeColor() {\n        document.querySelector(".box").style.backgroundColor = "red";\n    }\n<\/script>\n```\n\n## تغییر رنگ با رفتن ماوس\n\n```html\n<style>\n    .box {\n        width: 150px;\n        height: 150px;\n        background-color: green;\n    }\n</style>\n\n<div class="box" onmouseover="turnYellow()" onmouseout="turnGreen()"></div>\n\n<script>\n    function turnYellow() {\n        document.querySelector(".box").style.backgroundColor = "yellow";\n    }\n    function turnGreen() {\n        document.querySelector(".box").style.backgroundColor = "green";\n    }\n<\/script>\n```\n\n- ``onmouseover`` : وقتی ماوس می‌ره روی جعبه\n- ``onmouseout`` : وقتی ماوس خارج می‌شه\n\n,, با ``.style`` می‌تونی هر خاصیت CSS رو عوض کنی.',
+              is_exercise: true,
+              code: '<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین رویدادها</title>\n    <style>\n        .box {\n            width: 150px;\n            height: 150px;\n            background-color: green;\n        }\n    </style>\n</head>\n<body>\n    <div class="box"></div>\n    <script>\n\n    <\/script>\n</body>\n</html>',
+              exercise_content:
+                "وقتی ماوس می‌ره روی جعبه سبز، رنگش به زرد تغییر کنه. وقتی خارج شد، دوباره به سبز برگرده.",
+              exercise_code:
+                '<!DOCTYPE html>\n<html>\n<head>\n    <title>تمرین رویدادها</title>\n    <style>\n        .box {\n            width: 150px;\n            height: 150px;\n            background-color: green;\n        }\n    </style>\n</head>\n<body>\n    <div class="box" onmouseover="turnYellow()" onmouseout="turnGreen()"></div>\n    <script>\n        function turnYellow() {\n            document.querySelector(".box").style.backgroundColor = "yellow";\n        }\n        function turnGreen() {\n            document.querySelector(".box").style.backgroundColor = "green";\n        }\n    <\/script>\n</body>\n</html>',
+              read: false,
+              unlocked: false,
+            },
+            {
+              id: "5",
+              title: "یک کار کوچک",
+              content:
+                '# یه کار کوچک با جاوااسکریپت\n\nحالا که چند تا چیز ساده یاد گرفتی، بیا یه کار کوچک باهاشون انجام بدیم.\n\n## چی یاد گرفتی؟\n\n- گرفتن مقدار از کاربر با ``.value``\n- تغییر متن با ``.innerHTML``\n- شرط گذاشتن با ``if`` و ``else``\n- تغییر استایل با ``.style``\n\n## بیا یه صفحه سوال درست کنیم\n\n```html\n<!DOCTYPE html>\n<html>\n<head>\n    <title>سوال و جواب</title>\n    <style>\n        .question {\n            background-color: lightgray;\n            padding: 20px;\n            border-radius: 10px;\n        }\n        button {\n            margin-top: 10px;\n        }\n    </style>\n</head>\n<body>\n\n<div class="question">\n    <h3>سوال: کدوم یکی رنگ آبی هست؟</h3>\n    <button onclick="checkAnswer(\'blue\')">آبی</button>\n    <button onclick="checkAnswer(\'red\')">قرمز</button>\n    <button onclick="checkAnswer(\'green\')">سبز</button>\n    <p id="result"></p>\n</div>\n\n<script>\n    function checkAnswer(answer) {\n        if (answer == "blue") {\n            document.getElementById("result").innerHTML = "✅ درست! آبی رنگ آبی هست.";\n            document.getElementById("result").style.color = "green";\n        } else {\n            document.getElementById("result").innerHTML = "❌ اشتباه! دوباره امتحان کن.";\n            document.getElementById("result").style.color = "red";\n        }\n    }\n<\/script>\n\n</body>\n</html>\n```\n\nاین صفحه یه سوال داره. کاربر روی دکمه‌ها کلیک می‌کنه و برنامه بهش می‌گه درست جواب داده یا نه.',
+              is_exercise: false,
+              code: "",
+              exercise_content: "",
+              exercise_code: "",
+              read: false,
+              unlocked: false,
+            },
+          ],
+        },
+      ];
+
+      let userProgress = {};
+
+      let currentCourseIndex = 0;
+      let currentLessonIndex = 0;
+
+      let useCmEditor = false;
+      let codeMirrorEditor = null;
+
+      let inExercise = false;
+      let toastTimer = null;
+
+      const messageDiv = document.querySelector(".message");
+      const messageIcon = document.querySelector(".message-icon");
+      const messageContentDiv = document.querySelector(".message-content");
+
+      const confirmMessageDiv = document.querySelector(".confirm-message");
+      const confirmMessageContentDiv = document.querySelector(
+        ".confirm-message-content",
+      );
+      const confirmMessageConfirmBtn = document.querySelector(
+        ".confirm-message-confirm-button",
+      );
+      const confirmMessageCancelBtn = document.querySelector(
+        ".confirm-message-cancel-button",
+      );
+
+      const container = document.querySelector(".container");
+      const lessonContainer = document.querySelector(".lesson-container");
+
+      const showEditorBtn = document.querySelector(".show-editor-button");
+      const hideEditorBtn = document.querySelector(".hide-editor-button");
+
+      const coursesDiv = document.querySelector(".courses");
+      const resetAllCourseBtn = document.querySelector(".reset-all-course-btn");
+
+      const lessonMenu = document.querySelector(".lesson-menu");
+      const closeLessonMenu = document.querySelector(".close-lesson-menu");
+      const returnBtn = document.querySelector(".return-btn");
+      const resetCourseBtn = document.querySelector(".reset-course-btn");
+      const lessonTitle = document.querySelector(".lesson-title");
+      const lessonsDiv = document.querySelector(".lessons");
+      const lessonDiv = document.querySelector(".lesson");
+      const lessonExDiv = document.querySelector(".lesson-exercise");
+      const lessonExContentDiv = document.querySelector(
+        ".lesson-exercise-content",
+      );
+
+      const goExerciseBtn = document.querySelector(".go-exercise-btn");
+      const prevLessonBtn = document.querySelector(".prev-lesson-btn");
+      const returnLessonBtn = document.querySelector(".return-lesson-btn");
+      const checkExerciseBtn = document.querySelector(".check-exercise-btn");
+      const nextLessonBtn = document.querySelector(".next-lesson-btn");
+
+      const codeContainer = document.querySelector(".code-container");
+      const cmEditor = document.querySelector(".cm-editor");
+      const editor = document.querySelector(".editor");
+      const runCodeButton = document.querySelector(".run-code");
+      const copyCodeButton = document.querySelector(".copy-code");
+      const viewCodeButton = document.querySelector(".view-code");
+      const codeOutputDiv = document.querySelector(".code-output");
+      const outputIframe = document.querySelector(".output");
+      const outputTitle = document.querySelector(".output-title");
+      const codeLanguage = document.querySelector(".code-language");
+      const codeEditorDiv = document.querySelector(".code-editor");
+
+      function loadProgress() {
+        const saved = localStorage.getItem("webDevProgress");
+        if (saved) {
+          userProgress = JSON.parse(saved);
+        }
+      }
+
+      function saveProgress() {
+        localStorage.setItem("webDevProgress", JSON.stringify(userProgress));
+      }
+
+      function initCourseProgress(courseId, lessons) {
+        if (userProgress[courseId]) return;
+
+        const progress = {};
+        lessons.forEach((lesson, index) => {
+          progress[lesson.id] = {
+            read: false,
+            unlocked: index === 0,
+          };
+        });
+        userProgress[courseId] = progress;
+        saveProgress();
+      }
+
+      function getCourseStatus(courseId, lessons) {
+        if (!userProgress[courseId]) return "not_started";
+
+        const allRead = lessons.every(
+          (lesson) => userProgress[courseId][lesson.id]?.read === true,
+        );
+        return allRead ? "completed" : "in_progress";
+      }
+
+      function findNextLesson(courseId, lessons) {
+        const progress = userProgress[courseId];
+        if (!progress) return null;
+
+        for (let i = 0; i < lessons.length; i++) {
+          const lesson = lessons[i];
+          const status = progress[lesson.id];
+          if (status?.unlocked && !status?.read) {
+            return { lessonIndex: i, lesson };
+          }
+        }
+        return null;
+      }
+
+      function completeLesson(courseId, lessonId, lessonIndex, lessons) {
+        userProgress[courseId][lessonId].read = true;
+
+        const nextLesson = lessons[lessonIndex + 1];
+        if (nextLesson) {
+          if (!userProgress[courseId][nextLesson.id]) {
+            userProgress[courseId][nextLesson.id] = {
+              read: false,
+              unlocked: false,
+            };
+          }
+          userProgress[courseId][nextLesson.id].unlocked = true;
+        }
+
+        saveProgress();
+      }
+
+      function showMessage(message, type) {
+        if (type === "success")
+          messageIcon.className =
+            "fa-solid fa-circle-check message-icon message-success-icon";
+        if (type === "warn")
+          messageIcon.className =
+            "fa-solid fa-triangle-exclamation message-icon message-warn-icon";
+        if (type === "error")
+          messageIcon.className =
+            "fa-solid fa-circle-xmark message-icon message-error-icon";
+        if (!type)
+          messageIcon.className =
+            "fa-solid fa-circle-info message-icon message-info-icon";
+
+        messageContentDiv.textContent = message;
+
+        messageDiv.classList.remove("hidden");
+
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          messageDiv.classList.add("hidden");
+        }, 3000);
+      }
+
+      function showConfirmMessage(message) {
+        confirmMessageContentDiv.textContent = message;
+
+        confirmMessageDiv.classList.remove("hidden");
+
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          confirmMessageDiv.classList.add("hidden");
+        }, 6000);
+      }
+
+      function renderCourses() {
+        coursesDiv.innerHTML = "";
+
+        courses.forEach((course, index) => {
+          const courseCard = document.createElement("div");
+          courseCard.className = `course course-${course.id}`;
+
+          const status = getCourseStatus(course.id, course.lessons);
+          let buttonHtml = "";
+          if (status === "not_started")
+            buttonHtml = '<i class="fas fa-rocket"></i> شروع دوره';
+          else if (status === "in_progress")
+            buttonHtml = '<i class="fas fa-book-open"></i> ادامه یادگیری';
+          else buttonHtml = '<i class="fas fa-sync-alt"></i> مرور دوره';
+
+          courseCard.innerHTML = `
+                          <div class="course-content">
+                            <h3 class="course-title course-title-${course.id}">${course.title}</h3>
+                            <p class="course-description">${course.description}</p>
+                          </div>
+                          <div class="course-actions">
+                            <div class="start-course-btn start-course-btn-${course.id}" data-course-index="${index}" ${course.published ? "" : "disabled"}>
+                              <div class="start-course-btn-background start-course-btn-background-${course.id}"></div>
+                              <div class="start-course-btn-text">${course.published ? buttonHtml : '<i class="fas fa-hourglass-half"></i> به زودی'}</div>
+                            </div>
+                            <button class="reset-course-btn" data-course-id="${course.id}">
+                              <i class="fas fa-trash-alt"></i>
+                            </button>
+                          </div>
+                        `;
+          coursesDiv.appendChild(courseCard);
+        });
+
+        lessonContainer.classList.add("hidden");
+        container.classList.remove("hidden");
+
+        updateAllCourseButtons();
+
+        document.querySelectorAll(".start-course-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const clickedBtn = e.target.closest(".start-course-btn");
+            if (!clickedBtn) return;
+            const courseIndex = parseInt(clickedBtn.dataset.courseIndex);
+            handleCourseAction(courseIndex);
+          });
+        });
+
+        document.querySelectorAll(".reset-course-btn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const clickedBtn = e.target.closest(".reset-course-btn");
+            if (!clickedBtn) return;
+            const courseId = clickedBtn.dataset.courseId;
+            resetCourse(courseId);
+          });
+        });
+      }
+
+      function handleCourseAction(courseIndex) {
+        const course = courses[courseIndex];
+        const status = getCourseStatus(course.id, course.lessons);
+
+        inExercise = false;
+
+        if (status === "not_started") {
+          initCourseProgress(course.id, course.lessons);
+        }
+
+        let targetLessonIndex;
+
+        if (status === "completed") {
+          targetLessonIndex = 0;
+        } else {
+          const next = findNextLesson(course.id, course.lessons);
+          targetLessonIndex = next?.lessonIndex ?? 0;
+        }
+
+        currentCourseIndex = courseIndex;
+        currentLessonIndex = targetLessonIndex;
+
+        renderLesson();
+      }
+
+      function resetCourse(courseId) {
+        showConfirmMessage(
+          `آیا از ریست پیشرفت "${courses.find((c) => c.id === courseId)?.title}" مطمئنی؟`,
+        );
+
+        confirmMessageConfirmBtn.addEventListener("click", () => {
+          delete userProgress[courseId];
+          saveProgress();
+
+          renderCourses();
+
+          confirmMessageDiv.classList.add("hidden");
+        });
+
+        confirmMessageCancelBtn.addEventListener("click", () => {
+          confirmMessageDiv.classList.add("hidden");
+        });
+      }
+
+      function resetAllCourses() {
+        showConfirmMessage("همه پیشرفت‌ها حذف شود؟");
+
+        confirmMessageConfirmBtn.addEventListener("click", () => {
+          localStorage.removeItem("webDevProgress");
+          location.reload();
+
+          confirmMessageDiv.classList.add("hidden");
+        });
+
+        confirmMessageCancelBtn.addEventListener("click", () => {
+          confirmMessageDiv.classList.add("hidden");
+        });
+      }
+
+      function updateAllCourseButtons() {
+        courses.forEach((course, index) => {
+          const status = getCourseStatus(course.id, course.lessons);
+          let completed = 0;
+          let percent = 0;
+
+          if (userProgress[course.id]) {
+            course.lessons.forEach((lesson) => {
+              if (userProgress[course.id][lesson.id]?.read === true) {
+                completed++;
+              }
+            });
+            percent = (completed / course.lessons.length) * 100;
+          }
+
+          const btnBackground = document.querySelector(
+            `.start-course-btn-background-${course.id}`,
+          );
+
+          if (btnBackground) {
+            if (percent === 0) {
+              btnBackground.style.animation = "fillingUp 2s linear";
+            }
+            requestAnimationFrame(() => {
+              btnBackground.style.width = `${percent}%`;
+            });
+          }
+        });
+      }
+
+      function escapeHtml(text) {
+        if (!text) return "";
+        return text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function formatMessage(text) {
+        if (!text) return "";
+
+        let message = escapeHtml(text);
+
+        message = message.replace(
+          /```(\w+)?\n([\s\S]*?)```\n?/g,
+          (match, lang = "text", code) => {
+            return `<div class="code-box"><div class="language">${lang}</div><button class="copy-code-button"><i class="fas fa-copy"></i></button><pre class="code language-${lang}"><code>${code}</code></pre></div>`;
+          },
+        );
+
+        message = message.replace(/``([^`]+)``/g, (match, content) => {
+          return `<code class="little-code">${content}</code>`;
+        });
+
+        message = message.replace(/\*\*(.*?)\*\*/g, (match, content) => {
+          return `<strong>${content}</strong>`;
+        });
+
+        message = message.replace(
+          /^(#{1,3})\s+(.+)$/gm,
+          (match, hashes, content) => {
+            const level = hashes.length;
+            return `<h${level}>${content}</h${level}>`;
+          },
+        );
+
+        message = message.replace(/^,,\s+(.+)$/gm, (match, content) => {
+          return `<div class="blockquote"><div class="blockquote-border"></div><p>${content}</p></div>`;
+        });
+
+        return message;
+      }
+
+      function renderLesson() {
+        const currentCourse = courses[currentCourseIndex];
+        const currentLesson = currentCourse.lessons[currentLessonIndex];
+
+        const progress = userProgress[currentCourse.id];
+        const lessonStatus = progress?.[currentLesson.id];
+
+        if (lessonStatus?.read) {
+          lessonTitle.innerHTML = `<i class="fas fa-check-circle"></i> ${currentLesson.title}`;
+        } else if (lessonStatus?.unlocked) {
+          lessonTitle.innerHTML = `<i class="fas fa-hourglass-half"></i> ${currentLesson.title}`;
+        }
+
+        resetCourseBtn.dataset.courseId = currentCourse.id;
+
+        if (lessonStatus?.unlocked) {
+          lessonDiv.innerHTML = formatMessage(currentLesson.content);
+
+          if (currentLesson.is_exercise) {
+            lessonExContentDiv.classList.remove("hidden");
+            codeContainer.classList.remove("hidden");
+
+            lessonExContentDiv.innerHTML = formatMessage(
+              currentLesson.exercise_content,
+            );
+
+            setEditorValue(currentLesson.exercise_code);
+          } else if (!currentLesson.is_exercise) {
+            lessonExContentDiv.innerHTML = "";
+            setEditorValue("");
+          }
+
+          if (lessonStatus.read) {
+            if (currentLesson.is_exercise) {
+              setEditorValue(currentLesson.exercise_code);
+            }
+          }
+        } else {
+          showMessage(
+            "این درس قفل است. ابتدا درس‌های قبلی را تکمیل کنید.",
+            "warn",
+          );
+        }
+
+        if (currentLesson.is_exercise) {
+          const lessonExContentDivH = lessonExContentDiv
+            ? lessonExContentDiv.scrollHeight
+            : 0;
+          codeContainer.style.height = `calc(100% - ${lessonExContentDivH}px)`;
+        }
+
+        if (!inExercise) {
+          lessonDiv.querySelectorAll("pre code").forEach((code) => {
+            if (Prism) {
+              Prism.highlightElement(code);
+            }
+          });
+        }
+
+        updateProgress();
+        updateLessonButtons();
+        updateActionButtons();
+
+        if (inExercise) {
+          lessonsDiv.classList.add("hidden");
+          lessonDiv.classList.add("hidden");
+
+          lessonExDiv.classList.remove("hidden");
+          refreshCm();
+        } else {
+          lessonsDiv.classList.add("hidden");
+          lessonExDiv.classList.add("hidden");
+
+          lessonDiv.classList.remove("hidden");
+        }
+
+        closeLessonMenu.classList.add("hidden");
+        lessonMenu.classList.remove("hidden");
+
+        container.classList.add("hidden");
+        lessonContainer.classList.remove("hidden");
+
+        lessonDiv.scrollTo(0, 0);
+      }
+
+      function updateActionButtons() {
+        const currentCourse = courses[currentCourseIndex];
+        const currentLesson = currentCourse.lessons[currentLessonIndex];
+
+        const progress = userProgress[currentCourse.id];
+        const lessonStatus = progress?.[currentLesson.id];
+
+        const isExerciseLesson = currentLesson.is_exercise;
+
+        prevLessonBtn.disabled = currentLessonIndex === 0;
+
+        if (currentLessonIndex === currentCourse.lessons.length - 1) {
+          nextLessonBtn.innerHTML = '<i class="fas fa-trophy"></i> تکمیل دوره!';
+        } else {
+          nextLessonBtn.textContent = "درس بعدی";
+        }
+
+        if (
+          currentLessonIndex === currentCourse.lessons.length - 1 &&
+          lessonStatus?.read
+        ) {
+          nextLessonBtn.disabled = true;
+        } else {
+          nextLessonBtn.disabled = false;
+        }
+
+        if (lessonStatus?.unlocked) {
+          if (isExerciseLesson) {
+            if (inExercise) {
+              if (lessonStatus?.read) {
+                prevLessonBtn.classList.add("hidden");
+                goExerciseBtn.classList.add("hidden");
+                checkExerciseBtn.classList.add("hidden");
+
+                returnLessonBtn.classList.remove("hidden");
+                nextLessonBtn.classList.remove("hidden");
+              } else {
+                prevLessonBtn.classList.add("hidden");
+                goExerciseBtn.classList.add("hidden");
+                nextLessonBtn.classList.add("hidden");
+
+                returnLessonBtn.classList.remove("hidden");
+                checkExerciseBtn.classList.remove("hidden");
+              }
+            } else {
+              returnLessonBtn.classList.add("hidden");
+              checkExerciseBtn.classList.add("hidden");
+              nextLessonBtn.classList.add("hidden");
+
+              if (lessonStatus?.read) {
+                goExerciseBtn.textContent = "دیدن تمرین";
+              } else {
+                goExerciseBtn.textContent = "حل تمرین";
+              }
+
+              prevLessonBtn.classList.remove("hidden");
+              goExerciseBtn.classList.remove("hidden");
+            }
+          } else {
+            if (inExercise) {
+              renderLesson();
+            } else {
+              goExerciseBtn.classList.add("hidden");
+              returnLessonBtn.classList.add("hidden");
+              checkExerciseBtn.classList.add("hidden");
+
+              nextLessonBtn.classList.remove("hidden");
+              prevLessonBtn.classList.remove("hidden");
+            }
+          }
+        }
+      }
+
+      function updateLessonButtons() {
+        lessonsDiv.innerHTML = "";
+        const currentCourse = courses[currentCourseIndex];
+        const courseProgress = userProgress[currentCourse.id] || {};
+
+        currentCourse.lessons.forEach((lesson, index) => {
+          const btn = document.createElement("button");
+          const lessonStatus = courseProgress[lesson.id];
+          const isUnlocked = lessonStatus?.unlocked || false;
+          const isRead = lessonStatus?.read || false;
+
+          let btnClass = "lesson-btn";
+          if (isRead) btnClass += " lesson-btn-read";
+          if (isUnlocked) btnClass += " lesson-btn-un-locked";
+          if (index === currentLessonIndex) btnClass += " lesson-btn-active";
+
+          btn.className = btnClass;
+
+          let statusIcon = "";
+          if (isRead) {
+            statusIcon = '<i class="fas fa-check-circle"></i>';
+          } else if (!isUnlocked) {
+            statusIcon = '<i class="fas fa-lock"></i>';
+          } else {
+            statusIcon = '<i class="fas fa-hourglass-half"></i>';
+          }
+
+          btn.innerHTML = `${statusIcon} ${lesson.title}`;
+
+          btn.addEventListener("click", () => {
+            if (isUnlocked) {
+              inExercise = false;
+              currentLessonIndex = index;
+              renderLesson();
+            } else {
+              showMessage(
+                "این درس قفل است. ابتدا درس‌های قبلی را تکمیل کنید.",
+                "warn",
+              );
+            }
+          });
+
+          lessonsDiv.appendChild(btn);
+        });
+      }
+
+      function updateProgress() {
+        const currentCourse = courses[currentCourseIndex];
+        const courseProgress = userProgress[currentCourse.id] || {};
+
+        let completed = 0;
+        currentCourse.lessons.forEach((lesson) => {
+          if (courseProgress[lesson.id]?.read === true) {
+            completed++;
+          }
+        });
+
+        const total = currentCourse.lessons.length;
+        const percent = total > 0 ? (completed / total) * 100 : 0;
+
+        const progressBar = document.getElementById("progressBar");
+        const progressText = document.getElementById("progressText");
+
+        progressBar.className = `progress-bar progress-bar-${currentCourse.id}`;
+
+        if (progressBar) {
+          progressBar.style.width = `${percent}%`;
+        }
+        if (progressText) {
+          progressText.textContent = `${completed} / ${total}`;
+        }
+
+        updateAllCourseButtons();
+      }
+
+      function checkExercise() {
+        const currentCourse = courses[currentCourseIndex];
+        const currentLesson = currentCourse.lessons[currentLessonIndex];
+        const courseProgress = userProgress[currentCourse.id];
+        const lessonStatus = courseProgress?.[currentLesson.id];
+
+        if (lessonStatus?.read) {
+          showMessage("قبلاً حل کردی!", "success");
+          return;
+        }
+
+        const userCode = getEditorValue();
+        const targetCode = currentLesson.exercise_code;
+
+        const getUserWords = (code) => {
+          return code
+            .replace(/<\!--[\s\S]*?-->/g, " ")
+            .replace(/\/\*[\s\S]*?\*\//g, " ")
+            .replace(/\/\/[^\n]*/g, " ")
+            .replace(/<[^>]*>/g, " ")
+            .replace(/[{}()[\]="';:<>/\\|]/g, " ")
+            .toLowerCase()
+            .split(/\s+/)
+            .filter((word) => word.length > 1);
+        };
+
+        const userWords = getUserWords(userCode);
+        const targetWords = getUserWords(targetCode);
+
+        if (userWords.length === 0) {
+          showMessage("کدت خالیه!", "warn");
+          return;
+        }
+
+        const commonWords = userWords.filter((word) =>
+          targetWords.includes(word),
+        );
+        const matchPercent = (commonWords.length / targetWords.length) * 100;
+
+        if (matchPercent >= 60) {
+          completeLesson(
+            currentCourse.id,
+            currentLesson.id,
+            currentLessonIndex,
+            currentCourse.lessons,
+          );
+          renderLesson();
+          showMessage("تمرین حل شد!", "success");
+        } else {
+          showMessage("تمرین حل نشد! دوباره تلاش کن.", "warn");
+        }
+      }
+
+      async function copyCode(btn) {
+        const code = btn.parentElement.querySelector("code").textContent;
+
+        try {
+          await navigator.clipboard.writeText(code);
+          btn.innerHTML = '<i class="fas fa-check"></i>';
+          setTimeout(() => {
+            btn.innerHTML = `<i class="fas fa-copy"></i>`;
+          }, 1000);
+        } catch (err) {
+          const textarea = document.createElement("textarea");
+          textarea.value = code;
+          textarea.style.position = "fixed";
+          textarea.style.top = "-9999px";
+          textarea.style.left = "-9999px";
+          document.body.appendChild(textarea);
+          textarea.select();
+
+          try {
+            document.execCommand("copy");
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+              btn.innerHTML = `<i class="fas fa-copy"></i>`;
+            }, 1000);
+          } catch (fallbackErr) {
+            showMessage(`Failed to copy code: ${fallbackErr}`, "error");
+            btn.innerHTML = `<i class="fas fa-times"></i>`;
+            setTimeout(() => {
+              btn.innerHTML = `<i class="fas fa-copy"></i>`;
+            }, 1000);
+          }
+
+          document.body.removeChild(textarea);
+        }
+      }
+
+      lessonDiv.addEventListener("click", (e) => {
+        const btn = e.target.closest(".copy-code-button");
+        if (btn) copyCode(btn);
+      });
+
+      function initEditor() {
+        if (typeof CodeMirror !== "undefined") {
+          editor.classList.add("hidden");
+          codeMirrorEditor = CodeMirror.fromTextArea(cmEditor, {
+            mode: "htmlmixed",
+            theme: "monokai",
+            lineNumbers: true,
+            lineWrapping: false,
+            autoCloseTags: true,
+            autoCloseBrackets: true,
+            indentUnit: 2,
+            tabSize: 2,
+          });
+          useCmEditor = true;
+        } else {
+          cmEditor.classList.add("hidden");
+          useCmEditor = false;
+        }
+      }
+
+      function getEditorValue() {
+        if (useCmEditor) {
+          return codeMirrorEditor.getValue();
+        } else {
+          return editor.value;
+        }
+      }
+
+      function setEditorValue(value) {
+        if (useCmEditor) {
+          codeMirrorEditor.setValue(value);
+        } else {
+          editor.value = value;
+        }
+      }
+
+      function refreshCm() {
+        if (typeof CodeMirror !== "undefined") {
+          codeMirrorEditor.refresh();
+        }
+      }
+
+      copyCodeButton.addEventListener("click", async () => {
+        const codeContent = getEditorValue();
+
+        try {
+          await navigator.clipboard.writeText(codeContent);
+          copyCodeButton.innerHTML = '<i class="fas fa-check"></i>';
+          setTimeout(() => {
+            copyCodeButton.innerHTML = `<i class="fas fa-copy"></i>`;
+          }, 1000);
+        } catch (err) {
+          const textarea = document.createElement("textarea");
+          textarea.value = codeContent;
+          textarea.style.position = "fixed";
+          textarea.style.top = "-9999px";
+          textarea.style.left = "-9999px";
+          document.body.appendChild(textarea);
+          textarea.select();
+
+          try {
+            document.execCommand("copy");
+            copyCodeButton.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+              copyCodeButton.innerHTML = `<i class="fas fa-copy"></i>`;
+            }, 1000);
+          } catch (fallbackErr) {
+            showMessage(`Failed to copy code: ${fallbackErr}`, "error");
+            copyCodeButton.innerHTML = `<i class="fas fa-times"></i>`;
+            setTimeout(() => {
+              copyCodeButton.innerHTML = `<i class="fas fa-copy"></i>`;
+            }, 1000);
+          }
+
+          document.body.removeChild(textarea);
+        }
+      });
+
+      function runCode() {
+        const codeContent = getEditorValue();
+        const titleMatch = codeContent.match(/<title>(.*?)<\/title>/i);
+        outputTitle.textContent = titleMatch ? titleMatch[1] : "WebPage";
+        outputIframe.srcdoc = codeContent;
+        copyCodeButton.classList.add("hidden");
+        runCodeButton.classList.add("hidden");
+        codeLanguage.classList.add("hidden");
+        codeEditorDiv.classList.add("hidden");
+
+        viewCodeButton.classList.remove("hidden");
+        outputTitle.classList.remove("hidden");
+        codeOutputDiv.classList.remove("hidden");
+      }
+
+      function viewCode() {
+        viewCodeButton.classList.add("hidden");
+        outputTitle.classList.add("hidden");
+        codeOutputDiv.classList.add("hidden");
+
+        copyCodeButton.classList.remove("hidden");
+        runCodeButton.classList.remove("hidden");
+        codeLanguage.classList.remove("hidden");
+        codeEditorDiv.classList.remove("hidden");
+      }
+
+      function showEditor() {
+        lessonExDiv.removeChild(codeContainer);
+
+        hideEditorBtn.classList.remove("hidden");
+        codeContainer.classList.add("show-editor");
+
+        container.appendChild(codeContainer);
+
+        setEditorValue(
+          '<!doctype html>\n<html lang="en">\n  <head>\n    <meta charset="UTF-8" />\n    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n    <title>Document</title>\n  </head>\n  <body>\n  </body>\n</html>',
+        );
+
+        viewCode();
+
+        refreshCm();
+        editor.scrollTo(0, 0);
+      }
+
+      function hideEditor() {
+        container.removeChild(codeContainer);
+
+        hideEditorBtn.classList.add("hidden");
+        codeContainer.classList.remove("show-editor");
+
+        lessonExDiv.appendChild(codeContainer);
+
+        setEditorValue("");
+
+        refreshCm();
+
+        renderCourses();
+      }
+
+      returnBtn.addEventListener("click", () => {
+        inExercise = false;
+
+        renderCourses();
+      });
+
+      lessonMenu.addEventListener("click", () => {
+        lessonsDiv.classList.remove("hidden");
+
+        lessonMenu.classList.add("hidden");
+        closeLessonMenu.classList.remove("hidden");
+      });
+
+      closeLessonMenu.addEventListener("click", () => {
+        lessonsDiv.classList.add("hidden");
+
+        closeLessonMenu.classList.add("hidden");
+        lessonMenu.classList.remove("hidden");
+      });
+
+      returnLessonBtn.addEventListener("click", () => {
+        inExercise = false;
+
+        renderLesson();
+      });
+
+      goExerciseBtn.addEventListener("click", () => {
+        inExercise = true;
+
+        renderLesson();
+        viewCode();
+
+        refreshCm();
+        editor.scrollTo(0, 0);
+      });
+
+      prevLessonBtn.addEventListener("click", () => {
+        if (currentLessonIndex > 0) {
+          currentLessonIndex--;
+          renderLesson();
+        }
+      });
+
+      nextLessonBtn.addEventListener("click", () => {
+        const currentCourse = courses[currentCourseIndex];
+        const currentLesson = currentCourse.lessons[currentLessonIndex];
+        const courseProgress = userProgress[currentCourse.id];
+        const currentLessonStatus =
+          courseProgress?.[currentCourse.lessons[currentLessonIndex].id];
+
+        if (!currentLesson.is_exercise) {
+          completeLesson(
+            currentCourse.id,
+            currentLesson.id,
+            currentLessonIndex,
+            currentCourse.lessons,
+          );
+        } else if (!currentLessonStatus?.read && currentLesson.is_exercise) {
+          showMessage("ابتدا باید تمرین این درس رو با موفقیت پاس کنی.", "warn");
+          return;
+        }
+
+        if (currentLessonIndex < currentCourse.lessons.length - 1) {
+          const nextLesson = currentCourse.lessons[currentLessonIndex + 1];
+          const nextLessonStatus = courseProgress?.[nextLesson.id];
+
+          if (nextLessonStatus?.unlocked) {
+            inExercise = false;
+            currentLessonIndex++;
+            renderLesson();
+          }
+        } else {
+          completeLesson(
+            currentCourse.id,
+            currentLesson.id,
+            currentLessonIndex,
+            currentCourse.lessons,
+          );
+
+          renderLesson();
+        }
+      });
+
+      resetAllCourseBtn.addEventListener("click", resetAllCourses);
+
+      runCodeButton.addEventListener("click", runCode);
+
+      viewCodeButton.addEventListener("click", viewCode);
+
+      checkExerciseBtn.addEventListener("click", checkExercise);
+
+      showEditorBtn.addEventListener("click", () => {
+        showEditor();
+      });
+
+      hideEditorBtn.addEventListener("click", () => {
+        hideEditor();
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        loadProgress();
+        renderCourses();
+        initEditor();
+      });
+    </script>
+  </body>
+</html>
